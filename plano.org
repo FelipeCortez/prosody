@@ -1,0 +1,48 @@
+* Conteúdo
+** Como funciona um TTS
+*** Front-end
+**** Pré-processamento
+**** G2P
+*** Back-end
+**** Sintetizador de fala
+** Sistemas TTS existentes
+*** MBROLA
+**** LianeTTS
+*** MaryTTS
+*** Festival / FestVox
+*** espeak
+*** kaldi
+*** Novos, baseados em DNN / Machine Learning
+**** Lyrebird
+**** Wavenet
+**** Merlin (https://github.com/CSTR-Edinburgh/merlin)
+** Tipos de prosódia
+*** Suprasegmental
+*** Afetiva
+*** O terceiro lá
+** Teorias e modelos de entoação
+*** Discretos vs contínuos
+**** Fujisaki
+**** ToBI
+**** Autosegmental-Metric (AM)
+** Desafios de prosódia?
+*** Extra-textual, natureza desambiguadora
+*** Entoação declarativa neutra
+** Modelo proposto pelo trabalho
+*** Similar ao LianeTTS
+*** Pré-processamento, G2P, etc pelo espeak-ng
+*** Back-end é o MBROLA
+* Bibliografia principal
+** TTS book (Dutoit)
+** Prosody book (Paul Taylor)
+** Martin & Jurafsky
+** Pitch analysis by synthesis! Melodic contours based on _intention_
+
+* Apresentação
+** Exemplos de prosódia
+*** Halt and Catch Fire - It speaks (sistemas TTS)
+*** Fleet Foxes - An Argument (prosódia "pura")
+*** 2001 - Odisseia no Espaço vs "Her"
+*** Prosódia e pontuação
+**** https://medium.com/@neuroecology/punctuation-in-novels-8f316d542ec4
+**** Memórias Póstumas de Brás Cubas - O velho diálogo de Adão e Eva http://memorias2em.blogspot.com.br/2008/11/capitulo-lv-o-velho-dilogo-de-ado-e-eva.html

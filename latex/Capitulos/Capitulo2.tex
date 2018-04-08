@@ -1,6 +1,56 @@
 % Capítulo 2
 \chapter{Capítulo 2}
 
+\begin{figure}[!htbp]
+\centering
+\scalebox{0.65}{
+    \begin{tikzpicture}[auto, >={Latex[inset=0pt, length=3mm, angle'=28,round]}, box/.style={draw,rounded corners,text width=3.0cm,align=center}]
+    \node[] (txt) {Texto};
+    \node[box, right=0.7cm of txt] (pre)
+        {Pré-processador};
+    \node[box, right=0.2cm of pre] (mor)
+        {Analisador morfológico};
+    \node[box, right=0.2cm of mor] (con)
+        {Analisador de contexto};
+    \node[box, right=of con] (let)
+        {Módulo letra-som};
+    \node[box, right=of let] (pro)
+        {Gerador de prosódia};
+        
+    \draw[->] (txt) -- (pre);
+        
+    \node[box, fit=(pre)(mor)(con), label={[name=morfos_l] Analisador morfossintático}] (morfos) {};
+    \node[box, fit=(let)] (letsom) {};
+    \node[box, fit=(pro)] (proger) {};
+    
+    \node[inner sep=0, fit=(morfos)(letsom)(proger)] (all) {};
+    \node[box,
+          inner sep=0,
+          yshift=-0.75cm,
+          fit=(morfos.west)(proger.east),
+          label=center:Estrutura de dados,
+          minimum height=1cm,
+          below of=all]
+        (dad) {};
+    
+    \node[box, fit=(morfos)(morfos_l)(letsom)(proger)(dad), label=Processamento de linguagem natural] (nlp) {};
+    
+    \node[right=of dad, align=left] (out) {\emph{phones}\\ prosódia};
+    
+    \draw[->] (pre) -- (pre |- dad.north);
+    \draw[<->] (mor) -- (mor |- dad.north);
+    \draw[<->] (con) -- (con |- dad.north);
+    \draw[<->] (let) -- (let |- dad.north);
+    \draw[<->] (pro) -- (pro |- dad.north);
+    
+    \draw[->] (dad) -- (out);
+        
+    \end{tikzpicture}
+}
+\caption{Diagrama}
+\label{fig:nlpdiagram}
+\end{figure}
+
 Este é o primeiro capítulo da parte central do trabalho, isto é, o desenvolvimento, a parte mais extensa de todo o trabalho. Geralmente o desenvolvimento é dividido em capítulos, cada um com subseções e subseções, cujo tamanho e número de divisões variam em função da natureza do conteúdo do trabalho.
 
 Em geral, a parte de desenvolvimento é subdividida em quatro subpartes:
