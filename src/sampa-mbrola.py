@@ -1,4 +1,7 @@
 import sys
+import re
+import subprocess
+from collections import OrderedDict
 
 
 class Converter():
@@ -10,10 +13,11 @@ class Converter():
         equivs = {}
         with open("sampa-mbrola.tbl") as f:
             for line in f:
-                v, k, _ = line.split()
+                k, v, _ = line.split()
                 equivs[k] = v
 
-        self.equivs = equivs
+        self.equivs = OrderedDict(
+            sorted(equivs.items(), key=lambda t: -len(t[0])))
 
     def load_durations(self):
         durations = {}
@@ -25,14 +29,14 @@ class Converter():
         self.durations = durations
 
     def convert_phoneme(self, phoneme: str):
-        # não é _tão_ simples assim
-        # fazer lookahead com regex
-        # regras am, em, etc etc
-        # s pode ser s (antes de vogal) ou s2 (antes de consoante)
-        if self.equivs and phoneme in self.equivs:
-            return self.equivs[phoneme]
-        else:
-            return phoneme
+        if self.equivs:
+            for equiv in self.equivs.items():
+                if re.match(re.escape(equiv[0]), phoneme):
+                    # print("match:", equiv[0], phoneme, "=", equiv[1])
+                    return (equiv[1], len(equiv[0]),)
+
+        # print("didn't match", phoneme)
+        return (phoneme[0], 1)
 
     def get_duration(self, phoneme: str) -> int:
         if self.durations and phoneme in self.durations:
@@ -40,29 +44,43 @@ class Converter():
         else:
             return 100
 
-    def convert_sentence(self, input_str):
+    def convert_sentence(self, input_str: str) -> str:
         result = ["_ 50 50 150"]
-        forbidden = ["\n", ",", "'"]
+        ignored = ["@", "\n", ",", "'", "^"]
+        # ' is a stress marker, should be important later
 
-        input_str = input_str.strip()
+        sampa = self.text_to_sampa(input_str)
+        sampa = sampa.replace("'", "")
+        # print(sampa)
 
-        for phoneme in input_str:
-            if phoneme not in forbidden:
+        while sampa:
+            if sampa[0] not in ignored:
+                converted = self.convert_phoneme(sampa)
+                sampa = sampa[converted[1]:]
+
                 mbrola_line = "{} {} {} {}".format(
-                    self.convert_phoneme(phoneme),
-                    str(self.get_duration(phoneme)),
-                    "50",
-                    "150"
-                )
+                    converted[0], str(self.get_duration(converted[0])), "50", "150")
 
                 result.append(mbrola_line)
+            else:
+                sampa = sampa[1:]
 
         result.append("_ 50 50 150")
         return "\n".join(result)
 
+    def text_to_sampa(self, sentence: str) -> str:
+        espeak_str = "espeak-ng -v pt-br '{}' -x -q".format(sentence)
+
+        p = subprocess.Popen(espeak_str, stdout=subprocess.PIPE, shell=True)
+        (output, err) = p.communicate()
+        p_status = p.wait()
+        output = output.decode("utf-8")
+        output = output.replace("\n", "").strip()
+        return output
+
 
 if __name__ == "__main__":
     converter = Converter()
+
     for line in sys.stdin:
-        # print(line)
         print(converter.convert_sentence(line))
