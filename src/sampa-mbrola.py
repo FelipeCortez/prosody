@@ -29,11 +29,13 @@ class Converter():
         self.durations = durations
 
     def convert_phoneme(self, phoneme: str):
-        if self.equivs:
+        if phoneme[0] == " ":
+            return ("_", 1)
+        elif self.equivs:
             for equiv in self.equivs.items():
                 if re.match(re.escape(equiv[0]), phoneme):
                     # print("match:", equiv[0], phoneme, "=", equiv[1])
-                    return (equiv[1], len(equiv[0]),)
+                    return (equiv[1], len(equiv[0]))
 
         # print("didn't match", phoneme)
         return (phoneme[0], 1)
@@ -46,12 +48,12 @@ class Converter():
 
     def convert_sentence(self, input_str: str) -> str:
         result = ["_ 50 50 150"]
-        ignored = ["@", "\n", ",", "'", "^"]
+        ignored = ["@", "\n", ",", "'", "^", ";"]
         # ' is a stress marker, should be important later
 
         sampa = self.text_to_sampa(input_str)
         sampa = sampa.replace("'", "")
-        # print(sampa)
+        print(";; ", sampa)
 
         while sampa:
             if sampa[0] not in ignored:
@@ -61,6 +63,7 @@ class Converter():
                 mbrola_line = "{} {} {} {}".format(
                     converted[0], str(self.get_duration(converted[0])), "50", "150")
 
+                # print(sampa)
                 result.append(mbrola_line)
             else:
                 sampa = sampa[1:]
@@ -83,4 +86,5 @@ if __name__ == "__main__":
     converter = Converter()
 
     for line in sys.stdin:
+        print(";;", line)
         print(converter.convert_sentence(line))
