@@ -1,28 +1,50 @@
 % Capítulo 2
 \chapter{Capítulo 2}
 
+Intonational phrase: sintagmas entoacionais
+Tone boundary: fronteira prosódica?
+Pitch accent: acento de pitch
+
 \section{TTS}
 \subsection{Breve história?}
-\subsection{Approaches}
+Bell Labs
+\subsection{Fonemas e fones}
+\subsection{Abordagens}
 \subsubsection{Difones}
 \subsubsection{HMM}
 \subsubsection{Unit selection}
 \subsubsection{DNN}
 Falta de controle
-\subsubsection{}
 \section{Prosódia}
 \subsection{Tipos de prosódia}
 \subsubsection{Aumentativa}
 \subsubsection{Outro tipo}
 \subsubsection{Mais outro tipo}
+\subsection{Elementos}
+Intonational tune
+Downdrift
 \subsection{Prosódia como elemento extra-textual}
 \subsection{Prosódia no português brasileiro}
+\subsection{Modelos de prosódia}
+British school, autosegmental metrical, Fujisaki, Tilt, INTSINT
+``The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic.''
+INTSINT: IPA para prosódia (o que eu quero fazer!)
+Moraes, Intonation Systems (20 languages)
+
+AM: Pierrehumbert, Moraes (pitch analysis by synthesis)
 \subsection{Trabalhos semelhantes?}
 
 \section{Implementação}
-\subsection{MBROLA}
-\subsubsection{Formato}
 \subsection{espeak-ng}
+Normalização de texto (citar o Martin Jurafsky)
+Grafema-fonema (G2P)
+\subsection{MBROLA}
+Baseado no algoritmo PSOLA (Pitch Synchronous Overlap and Add)
+Fonemas/fones simplificados, determinados pelo autor de uma voz, gerando saída
+com voz sintetizada. Síntese por dífonos.
+\subsubsection{Formato}
+Pausas (_) ou fones
+duração (ms) seguido por um ou mais pares de porcentagem e frequência (Hz)
 \subsection{Arquitetura}
 Diagrama aqui
 \subsection{Módulo de prosódia}

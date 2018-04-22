@@ -3,6 +3,23 @@ import re
 import subprocess
 from collections import OrderedDict
 
+def flatten(lst: list):
+    return [item for sublist in lst for item in sublist]
+
+
+class Phone():
+    def __init__(
+            self,
+            phone_sampa: str,
+            phone_mbrola: str,
+            duration: int,
+            pitch_changes: list
+    ) -> None:
+        self.phone_sampa = phone_sampa
+        self.phone_mbrola = phone_mbrola
+        self.duration = duration
+        self.pitch_changes
+
 
 class Converter():
     def __init__(self):
@@ -11,7 +28,7 @@ class Converter():
 
     def load_sampa_mbrola(self):
         equivs = {}
-        with open("sampa-mbrola.tbl") as f:
+        with open("sampa_mbrola.tbl") as f:
             for line in f:
                 k, v, _ = line.split()
                 equivs[k] = v
@@ -33,6 +50,7 @@ class Converter():
             return ("_", 1)
         elif self.equivs:
             for equiv in self.equivs.items():
+                # s is a special case, needs to peek next
                 if re.match(re.escape(equiv[0]), phoneme):
                     # print("match:", equiv[0], phoneme, "=", equiv[1])
                     return (equiv[1], len(equiv[0]))
@@ -60,8 +78,16 @@ class Converter():
                 converted = self.convert_phoneme(sampa)
                 sampa = sampa[converted[1]:]
 
-                mbrola_line = "{} {} {} {}".format(
-                    converted[0], str(self.get_duration(converted[0])), "50", "150")
+                duration = self.get_duration(converted[0])
+                # 50%, 150Hz
+                pitches = [[50, 150]]
+                # flatten
+                pitches_str = [str(item) for item in flatten(pitches)]
+                pitches_str = " ".join(pitches_str)
+
+                mbrola_line = "{} {} {}".format(
+                    converted[0], duration, pitches_str
+                )
 
                 # print(sampa)
                 result.append(mbrola_line)

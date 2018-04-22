@@ -46,3 +46,12 @@
 *** Prosódia e pontuação
 **** https://medium.com/@neuroecology/punctuation-in-novels-8f316d542ec4
 **** Memórias Póstumas de Brás Cubas - O velho diálogo de Adão e Eva http://memorias2em.blogspot.com.br/2008/11/capitulo-lv-o-velho-dilogo-de-ado-e-eva.html
+** Simples: os sistemas texto fala hoje têm uma deficiência perceptível na parte de prosódia
+** Além disso, não há maneira de especificar facilmente a prosódia a ser gerada
+** Mesmas frases podem ser faladas de um jeito diferente
+** "Frases iguais podem ser faladas de um jeito diferente?"
+** "Frases iguais podem ser faladas de um jeito diferente!"
+
+* Reunião Prolo
+** João Antonio Moraes pra banca?
+*** jamoraes2@br.inter.net
