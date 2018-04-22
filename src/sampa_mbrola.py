@@ -23,9 +23,9 @@ class Phone():
 
     def as_line(self):
         return "{} {} {}".format(
-            self.phone_sampa,
+            self.phone_mbrola,
             self.duration,
-            " ".join([str(item) for item in flatten(pitches)])
+            " ".join([str(item) for item in flatten(self.pitch_changes)])
         )
 
 
@@ -40,7 +40,7 @@ class Sentence():
         return [phone.phone_mbrola for phone in self.phones]
 
     def __repr__(self):
-        return "\n".join([repr(phone) for phone in self.phones])
+        return "\n".join([phone.as_line() for phone in self.phones])
 
 
 class Converter():
@@ -73,8 +73,13 @@ class Converter():
         if sentence[0] == " ":
             return ("_", 1)
         elif self.equivs:
+            # s is a special case, needs to peek next
+            if sentence[0] == "s":
+                if sentence[1] in "aeiou&":
+                    return ("s", 1)
+
             for equiv in self.equivs.items():
-                # s is a special case, needs to peek next
+
                 if re.match(re.escape(equiv[0]), sentence):
                     # print("match:", equiv[0], phoneme, "=", equiv[1])
                     return (equiv[1], len(equiv[0]))
@@ -90,7 +95,6 @@ class Converter():
 
     def convert_sentence(self, input_str: str) -> Sentence:
         sentence = Sentence()
-        print(sentence.phones)
         sentence.phones.append(Phone(" ", "_", 150, [[50, 150]]))
 
         ignored = ["@", "\n", ",", "'", "^", ";"]
@@ -103,13 +107,14 @@ class Converter():
         while sampa:
             if sampa[0] not in ignored:
                 converted = self.convert_phoneme(sampa)
+                phone_sampa = sampa[:converted[1]]
                 sampa = sampa[converted[1]:]
 
                 duration = self.get_duration(converted[0])
                 phone = Phone(
-                    phone_sampa = sampa,
+                    phone_sampa = phone_sampa,
                     phone_mbrola = converted[0],
-                    duration = 150, # ms
+                    duration = duration, # ms
                     pitch_changes = [[50, 150]] # percentage, Hz
                 )
 

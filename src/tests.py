@@ -20,7 +20,14 @@ class TestConversions(unittest.TestCase):
             self.converter.convert_sentence("sala").mbrola_phones(),
             ["_", "s", "a", "l", "a", "_"]
         )
-        # casca
+        self.assertEqual(
+            self.converter.convert_sentence("sírio").mbrola_phones(),
+            ["_", "s", "i", "r", "i", "u", "_"]
+        )
+        self.assertEqual(
+            self.converter.convert_sentence("casca").mbrola_phones(),
+            ["_", "k", "a", "s2", "k", "a", "_"]
+        )
 
 if __name__ == '__main__':
     unittest.main()
