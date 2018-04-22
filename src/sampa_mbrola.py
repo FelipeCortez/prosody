@@ -2,6 +2,7 @@ import sys
 import re
 import subprocess
 from collections import OrderedDict
+from typing import List
 
 def flatten(lst: list):
     return [item for sublist in lst for item in sublist]
@@ -14,11 +15,32 @@ class Phone():
             phone_mbrola: str,
             duration: int,
             pitch_changes: list
-    ) -> None:
+    ):
         self.phone_sampa = phone_sampa
         self.phone_mbrola = phone_mbrola
         self.duration = duration
-        self.pitch_changes
+        self.pitch_changes = pitch_changes
+
+    def as_line(self):
+        return "{} {} {}".format(
+            self.phone_sampa,
+            self.duration,
+            " ".join([str(item) for item in flatten(pitches)])
+        )
+
+
+class Sentence():
+    def __init__(self, phones: List[Phone]=None):
+        if phones is None:
+            self.phones = []
+        else:
+            self.phones = phones
+
+    def mbrola_phones(self):
+        return [phone.phone_mbrola for phone in self.phones]
+
+    def __repr__(self):
+        return "\n".join([repr(phone) for phone in self.phones])
 
 
 class Converter():
@@ -45,13 +67,15 @@ class Converter():
 
         self.durations = durations
 
-    def convert_phoneme(self, phoneme: str):
-        if phoneme[0] == " ":
+    def convert_phoneme(self, sentence: str) -> tuple:
+        """Returns first phone from the sentence"""
+
+        if sentence[0] == " ":
             return ("_", 1)
         elif self.equivs:
             for equiv in self.equivs.items():
                 # s is a special case, needs to peek next
-                if re.match(re.escape(equiv[0]), phoneme):
+                if re.match(re.escape(equiv[0]), sentence):
                     # print("match:", equiv[0], phoneme, "=", equiv[1])
                     return (equiv[1], len(equiv[0]))
 
@@ -64,8 +88,11 @@ class Converter():
         else:
             return 100
 
-    def convert_sentence(self, input_str: str) -> str:
-        result = ["_ 50 50 150"]
+    def convert_sentence(self, input_str: str) -> Sentence:
+        sentence = Sentence()
+        print(sentence.phones)
+        sentence.phones.append(Phone(" ", "_", 150, [[50, 150]]))
+
         ignored = ["@", "\n", ",", "'", "^", ";"]
         # ' is a stress marker, should be important later
 
@@ -79,23 +106,19 @@ class Converter():
                 sampa = sampa[converted[1]:]
 
                 duration = self.get_duration(converted[0])
-                # 50%, 150Hz
-                pitches = [[50, 150]]
-                # flatten
-                pitches_str = [str(item) for item in flatten(pitches)]
-                pitches_str = " ".join(pitches_str)
-
-                mbrola_line = "{} {} {}".format(
-                    converted[0], duration, pitches_str
+                phone = Phone(
+                    phone_sampa = sampa,
+                    phone_mbrola = converted[0],
+                    duration = 150, # ms
+                    pitch_changes = [[50, 150]] # percentage, Hz
                 )
 
-                # print(sampa)
-                result.append(mbrola_line)
+                sentence.phones.append(phone)
             else:
                 sampa = sampa[1:]
 
-        result.append("_ 50 50 150")
-        return "\n".join(result)
+        sentence.phones.append(Phone(" ", "_", 150, [[50, 150]]))
+        return sentence
 
     def text_to_sampa(self, sentence: str) -> str:
         espeak_str = "espeak-ng -v pt-br '{}' -x -q".format(sentence)
