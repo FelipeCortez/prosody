@@ -1,6 +1,7 @@
 import sys
 import re
 import subprocess
+import random
 from collections import OrderedDict
 from typing import List
 
@@ -114,8 +115,8 @@ class Converter():
                 phone = Phone(
                     phone_sampa = phone_sampa,
                     phone_mbrola = converted[0],
-                    duration = duration, # ms
-                    pitch_changes = [[50, 150]] # percentage, Hz
+                    duration = int(duration) + random.randint(10, 50), # ms
+                    pitch_changes = [[50, random.randint(50, 350)]] # percentage, Hz
                 )
 
                 sentence.phones.append(phone)
