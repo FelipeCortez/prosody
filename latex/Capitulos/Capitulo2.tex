@@ -7,30 +7,38 @@ Pitch accent: acento de pitch
 
 \section{TTS}
 \subsection{Breve história?}
-Bell Labs
+Modelos físicos, Bell Labs, 
 \subsection{Fonemas e fones}
 \subsection{Abordagens}
 \subsubsection{Difones}
-\subsubsection{HMM}
 \subsubsection{Unit selection}
+\subsubsection{HMM}
 \subsubsection{DNN}
-Falta de controle
+Resultados realistas, mas não há como controlar parâmetros
+\subsection{TTS em português}
+LianeTTS (MBROLA), HMM-based (Maia et al), MaryTTS (FalaBrasil)
 \section{Prosódia}
 \subsection{Tipos de prosódia}
 \subsubsection{Aumentativa}
-\subsubsection{Outro tipo}
-\subsubsection{Mais outro tipo}
+\subsubsection{Suprasegmental}
+\subsubsection{Afetiva}
 \subsection{Elementos}
 Intonational tune
 Downdrift
+Microprosódia
 \subsection{Prosódia como elemento extra-textual}
+Justifica abordagem do trabalho: considerando o texto como sequência de
+palavras, é difícil determinar prosódia afetiva. Gerar a prosódia certa é uma
+questão de Natural Language Understanding, isto é, é preciso entender o texto
+para gerar os contornos melódicos afetivos.
 \subsection{Prosódia no português brasileiro}
+Trabalhos de Moraes, Tenani, ...
 \subsection{Modelos de prosódia}
 British school, autosegmental metrical, Fujisaki, Tilt, INTSINT
 ``The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic.''
-INTSINT: IPA para prosódia (o que eu quero fazer!)
-Moraes, Intonation Systems (20 languages)
-
+INTSINT: IPA para prosódia (mais ou menos o que eu quero fazer, mas INTSINT é
+para análise)
+ref Moraes, Intonation Systems (20 languages)
 AM: Pierrehumbert, Moraes (pitch analysis by synthesis)
 \subsection{Trabalhos semelhantes?}
 
@@ -39,7 +47,7 @@ AM: Pierrehumbert, Moraes (pitch analysis by synthesis)
 Normalização de texto (citar o Martin Jurafsky)
 Grafema-fonema (G2P)
 \subsection{MBROLA}
-Baseado no algoritmo PSOLA (Pitch Synchronous Overlap and Add)
+Baseado no algoritmo PSOLA (Pitch Synchronous Overlap and Add) (descrever PSOLA)
 Fonemas/fones simplificados, determinados pelo autor de uma voz, gerando saída
 com voz sintetizada. Síntese por dífonos.
 \subsubsection{Formato}
@@ -48,12 +56,24 @@ duração (ms) seguido por um ou mais pares de porcentagem e frequência (Hz)
 \subsection{Arquitetura}
 Diagrama aqui
 \subsection{Módulo de prosódia}
-O programa foi codificado em Python em sua versão 3.6.Um editor gráfico de
-prosódia foi programado utilizando as tecnologias web HTML, CSS, JavaScript.
-\subsection{Linguagem prosódica}
-A solução para melhorar a geração prosódica foi aumentar a linguagem, anotando
-frases com marcadores de intenção.
+\subsubsection{Sintaxe}
+O programa foi codificado em Python em sua versão 3.6.
+\subsubsection{Editor gráfico}
+Editor gráfico com Qt (ou HTML, CSS e JavaScript, não decidi ainda)
+\subsection{Sintaxe prosódica}
+A solução para melhorar a geração prosódica foi adicionar marcações à linguagem
+natural, denotando o contorno de acordo com o modelo autosegmental metrical.
+Parecido com SSML (Speech Synthesis Markup Language)
 
+\section{Resultados}
+\subsection{Metodologia}
+Pesquisa feita online, arquivos de áudio, soluções comerciais, soluções open-source
+\subsection{MOS}
+Comparar MOS (Mean Opinion Score) com outras soluções
+
+\section{Trabalhos futuros}
+Usar técnicas de Natural Language Understanding para gerar prosódia utilizando notação
+desenvolvida neste trabalho
 
 \begin{figure}[!htbp]
 \centering
