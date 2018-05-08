@@ -1,0 +1,104 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}     % Encoding certo
+\usepackage[brazilian]{babel}   % Hifenização e dicionário
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\setbeamertemplate{navigation symbols}{}  % Esconde o menu tosco
+\usetheme{Madrid}
+\useinnertheme{rectangles}
+\usefonttheme{professionalfonts}
+% \usefonttheme{serif}            % A versão sem serifa é horrível
+\usepackage{times} 
+
+\setbeamertemplate{blocks}[default]
+
+\title{Prosódia em sistemas TTS}
+
+\author{Felipe Cortez de Sá}
+\date{2018}
+\institute{UFRN}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Resumo}
+  \tableofcontents
+\end{frame}
+
+\section{Introdução}
+\begin{frame}{Motivação}
+  \begin{itemize}
+    \item Sistemas TTS
+    \item \emph{Voice User Interfaces}
+    \item Acessibilidade
+  \end{itemize}
+\end{frame}
+
+\section{TTS}
+\begin{frame}{Sistemas TTS}
+  \begin{block}{Arquitetura genérica}
+    \begin{figure}
+      \includegraphics[scale=0.55]{tts-system.png}
+    \end{figure}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Sistemas TTS}
+  \begin{itemize}
+    \item Comerciais
+      \begin{itemize}
+        \item CereProc
+        \item Ivona (Amazon)
+        \item Watson (IBM)
+      \end{itemize}
+    \item Open-source
+      \begin{itemize}
+        \item MaryTTS
+        \item espeak-ng
+        \item Merlin
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Prosódia}
+\begin{frame}{Prosódia}
+  \begin{itemize}
+    \item Afetiva (pura)
+    \item Suprasegmental
+    \item Aumentativa
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Abordagens}
+  \begin{itemize}
+    \item Dífonos (MBROLA)
+    \item Unit selection (MaryTTS)
+    \item Síntese paramétrica (espeak-ng)
+    \item DNN (Merlin)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Implementação}
+  \begin{itemize}
+    \item Python 3
+    \item MBROLA
+    \item Módulo gráfico
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Trabalhos futuros}
+  \begin{itemize}
+    \item Usar \emph{Natural Language Understanding} para adivinhar prosódia
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Introdução}
+\end{frame}
+    
+\end{document}

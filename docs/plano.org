@@ -23,8 +23,7 @@
 ** Teorias e modelos de entoação
 *** Discretos vs contínuos
 **** Fujisaki
-**** ToBI
-**** Autosegmental-Metric (AM)
+**** ToBI (Autosegmental-Metrical)
 ** Desafios de prosódia?
 *** Extra-textual, natureza desambiguadora
 *** Entoação declarativa neutra
