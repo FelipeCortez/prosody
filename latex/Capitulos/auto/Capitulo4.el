@@ -1,7 +1,7 @@
 (TeX-add-style-hook
- "Capitulo2"
+ "Capitulo4"
  (lambda ()
    (LaTeX-add-labels
-    "fig:FiguraTeste"))
+    "fig:nlpdiagram"))
  :latex)
 
