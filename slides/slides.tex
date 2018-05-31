@@ -1,7 +1,12 @@
+% ideias:
+% etimologia prosodia
+% rant bret victor
+
 \documentclass{beamer}
 
 \usepackage[utf8]{inputenc}     % Encoding certo
 \usepackage[brazilian]{babel}   % Hifenização e dicionário
+
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -11,15 +16,15 @@
 \useinnertheme{rectangles}
 \usefonttheme{professionalfonts}
 % \usefonttheme{serif}            % A versão sem serifa é horrível
-\usepackage{times} 
+\usepackage{times}
 
 \setbeamertemplate{blocks}[default]
 
-\title{Prosódia em sistemas TTS}
+\title[Geração de prosódia]{Geração de prosódia para o português brasileiro em sistemas text-to-speech}
 
 \author{Felipe Cortez de Sá}
-\date{2018}
-\institute{UFRN}
+\date{Junho de 2018}
+\institute[UFRN]{Universidade Federal do Rio Grande do Norte}
 
 \begin{document}
 
@@ -34,9 +39,37 @@
 \section{Introdução}
 \begin{frame}{Motivação}
   \begin{itemize}
-    \item Sistemas TTS
     \item \emph{Voice User Interfaces}
+        \begin{itemize}
+            \item \emph{Apple - Siri}
+            \item \emph{Google Assistant}
+            \item \emph{Microsoft - Cortana}
+            \item \emph{Amazon - Alexa}
+        \end{itemize}
     \item Acessibilidade
+  \end{itemize}
+\end{frame}
+
+\section{Prosódia}
+\begin{frame}{Prosódia}
+  \begin{itemize}
+    \item O que é prosódia?
+        \begin{itemize}
+            \item pros, "verso"
+            \item odé,  "canto"
+        \end{itemize}
+  \end{itemize}
+  \pause
+    \begin{figure}
+      \includegraphics[scale=0.25]{prosody.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Prosódia}
+  \begin{itemize}
+    \item Afetiva (pura)
+    \item Suprasegmental
+    \item Aumentativa
   \end{itemize}
 \end{frame}
 
@@ -47,6 +80,14 @@
       \includegraphics[scale=0.55]{tts-system.png}
     \end{figure}
   \end{block}
+\end{frame}
+
+\begin{frame}{Prosódia em sistemas TTS}
+  \begin{itemize}
+    \item Prosódia neutra
+    \item Prosódia aprendida
+    \item SSML -- \emph{Speech Synthesis Markup Language}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Sistemas TTS}
@@ -63,15 +104,6 @@
         \item espeak-ng
         \item Merlin
       \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\section{Prosódia}
-\begin{frame}{Prosódia}
-  \begin{itemize}
-    \item Afetiva (pura)
-    \item Suprasegmental
-    \item Aumentativa
   \end{itemize}
 \end{frame}
 
@@ -94,6 +126,7 @@
     \item Pierrehumbert (modelo \emph{Autosegmental-Metrical})
     \end{itemize}
   \item INTSINT
+  \item IPO
   \end{itemize}
 \end{frame}
 
@@ -109,6 +142,7 @@
 \begin{frame}{Trabalhos futuros}
   \begin{itemize}
     \item Usar \emph{Natural Language Understanding} para adivinhar prosódia
+    \item Gerar prosódia a partir de marcação SSML
   \end{itemize}
 \end{frame}
 \end{document}
