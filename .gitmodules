@@ -1,0 +1,3 @@
+[submodule "src/editor/personal"]
+	path = src/editor/personal
+	url = /Users/felipecortez/Dev/personal/
