@@ -4,6 +4,8 @@
 
 \chapter{Capítulo 3}
 
+\simb[\% (fronteira de enunciado para ToBI)]{\%}
+
 \cite{ipo} analisa segundo o modelo IPO.
 
 O \abrv[INTSINT -- International Transcription System for Intonation]{INTSINT} é...
@@ -13,26 +15,36 @@ O \abrv[INTSINT -- International Transcription System for Intonation]{INTSINT} �
 % Pitch accent: acento de pitch
 
 \section{TTS}
-\subsection{Breve história?}
-Modelos físicos, Bell Labs.
+Um sistema \emph{text-to-speech}
+% \subsection{Breve história?}
+% Modelos físicos, Bell Labs.
 \subsection{Fonemas e fones}
 \subsection{Abordagens}
-\subsubsection{Difones}
-\subsubsection{Unit selection}
-\subsubsection{HMM}
+\subsubsection{Klaat}
+Síntese por formantes. \cite{espeakng} usa uma mistura do algoritmo de Klatt com
+sons de consoantes pré-gravados.
+\subsubsection{Unit selection e dífonos}
+Abordagem utilizada pelo programa MBROLA. Consiste em gravar fala, separar
+pedaços de dois em dois.
+\subsubsection{Hidden Markov Models}
+Algumas vozes para o MaryTTS \cite{marytts} utilizam \abrv[HMM -- \emph{Hidden Markov Model}]{HMM}, isto é, Modelo oculto de Markov.
 \subsubsection{DNN}
-Resultados realistas, mas não há como controlar parâmetros
+% Resultados realistas, mas não há como controlar parâmetros: \cite{merlin}
 \subsection{TTS em português}
 LianeTTS (MBROLA), HMM-based \cite{couto}, MaryTTS (FalaBrasil) \cite{falabrasil}.
 \section{Prosódia}
+\subsection{Componentes}
+\citeonline{taylor2009} mostra três tipos de prosódia.
+Stress (loudness and phonatory force)
+Syllabic length
+F0, intensidade, duração
+Intonational tune
+Downdrift
+Microprosódia
 \subsection{Tipos de prosódia}
 \subsubsection{Aumentativa}
 \subsubsection{Suprasegmental}
 \subsubsection{Afetiva}
-\subsection{Elementos}
-Intonational tune
-Downdrift
-Microprosódia
 \subsection{Prosódia como elemento extra-textual}
 Justifica abordagem do trabalho: considerando o texto como sequência de
 palavras, é difícil determinar prosódia afetiva. Gerar a prosódia certa é uma
@@ -41,10 +53,16 @@ para gerar os contornos melódicos afetivos.
 \subsection{Prosódia no português brasileiro}
 Trabalhos de Moraes, Tenani, ...
 \subsection{Modelos de prosódia}
-British school, autosegmental metrical, Fujisaki, Tilt, INTSINT.
-``The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''.
+\subsubsection{IPO}
+\subsubsection{Modelo autossegmental e métrico}
+Modelo autossegmental e métrico: Pierrehumbert, Moraes (pitch analysis by synthesis).
+ref Moraes, Intonation Systems (20 languages).
+\subsubsection{INTSINT}
 INTSINT: IPA para prosódia (mais ou menos o que eu quero fazer, mas INTSINT é
 para análise).
-ref Moraes, Intonation Systems (20 languages).
-AM: Pierrehumbert, Moraes (pitch analysis by synthesis).
+
+British school, Fujisaki, Tilt
+``The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''.
+\subsection{Prosódia em sistemas TTS}
+SSML \cite{SSML}, especificação mantida pela W3C.
 \subsection{Trabalhos semelhantes?}
