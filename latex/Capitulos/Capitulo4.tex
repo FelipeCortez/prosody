@@ -5,26 +5,39 @@
 \chapter{Capítulo 4}
 
 \section{Implementação}
+
 \subsection{espeak-ng}
-Normalização de texto (citar o Martin Jurafsky)
-Grafema-fonema (G2P)
+Para realizar a normalização de texto, foi utilizado o programa
+\emph{open-source} espeak-ng. Nele também é feita a conversão grafema-fonema
+(comumente representado pela sigla G2P). O resultado é passado para o programa
+desenvolvido neste trabalho.
+
 \subsection{MBROLA}
 Baseado no algoritmo PSOLA (Pitch Synchronous Overlap and Add) (descrever PSOLA)
 Fonemas/fones simplificados, determinados pelo autor de uma voz, gerando saída
 com voz sintetizada. Síntese por dífonos.
+
 \subsubsection{Formato}
 Pausas ou fones!!! e duração seguido por um ou mais pares de porcentagem e frequência (Hz)
+
 \subsection{Arquitetura}
 Diagrama aqui
+
 \subsection{Módulo de prosódia}
 \subsubsection{Sintaxe}
 O programa foi codificado em Python em sua versão 3.6.
-\subsubsection{Editor gráfico}
-Editor gráfico com Qt (ou HTML, CSS e JavaScript, não decidi ainda)
+
 \subsection{Sintaxe prosódica}
 A solução para melhorar a geração prosódica foi adicionar marcações à linguagem
-natural, denotando o contorno de acordo com o modelo autosegmental metrical.
-Parecido com SSML (Speech Synthesis Markup Language)
+natural, denotando o contorno de acordo com o modelo modelo autossegmental e métrico
+Citar SSML (Speech Synthesis Markup Language).
+
+\subsection{Editor gráfico}
+Para alterar a prosódia manualmente com maior controle, foi desenvolvido um
+editor gráfico utilizando JavaScript. A duração e altura de cada fone pode ser
+especificado arrastando barras de controle. O editor se comunica com o espeak-ng
+e MBROLA através de um servidor programado em Python utilizando o
+\emph{framework} Flask.
 
 \begin{figure}[!htbp]
 \centering
