@@ -13,12 +13,25 @@ Para realizar a normalização de texto, foi utilizado o programa
 desenvolvido neste trabalho.
 
 \subsection{MBROLA}
-Baseado no algoritmo PSOLA (Pitch Synchronous Overlap and Add) (descrever PSOLA)
-Fonemas/fones simplificados, determinados pelo autor de uma voz, gerando saída
-com voz sintetizada. Síntese por dífonos.
+Baseado no algoritmo \abrv[MBRPSOLA -- Multi-Band Resynthesis Pitch Synchronous
+Overlap and Add]{MBRPSOLA} \cite{mbrpsola}. É um \emph{back-end}. O programa recebe uma lista de
+fones. Um exemplo de entrada é:
+
+\begin{lstlisting}
+      _ 150 50 150
+      o 108 50 125
+      l 125 50 75
+      a 116 20 232 80 300
+      _ 150 50 150
+\end{lstlisting}
+
 
 \subsubsection{Formato}
-Pausas ou fones!!! e duração seguido por um ou mais pares de porcentagem e frequência (Hz)
+% Pausas ou fones!!! e duração seguido por um ou mais pares de porcentagem e frequência (Hz)
+Em cada linha, tem-se um fone ou um silêncio representado pelo \emph{underscore} seguido por uma duração em milissegundos e, por último, um ou mais pares de porcentagem e frequência em Hertz determinando alvos para a curva F0. Como exemplo, na quarta linha temos o fone \/a\/ com duração de 116 \simb[ms (milissegundos)]{ms} e dois alvos para altura, 232 \simb[Hz (Hertz)]{Hz} em 20\% e 300 Hz em 80\%.
+
+% referência?
+Cada voz gravada provê uma tabela com os fones que podem ser utilizados. Utilizamos neste trabalho a voz br3 desenvolvida por Denis R. Costa disponível no site oficial do projeto MBROLA.
 
 \subsection{Arquitetura}
 Diagrama aqui
