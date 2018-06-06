@@ -9,6 +9,8 @@
 \subsection{espeak-ng}
 Foi utilizado o programa \emph{open-source} espeak-ng \cite{espeakng} para realizar a normalização de texto e realizar a conversão grafema-fonema, ou seja, obter a partir do texto de entrada uma representação em fonemas. O resultado é passado para o programa desenvolvido neste trabalho.
 
+Apesar da existência de outras ferramentas para \emph{front-end} para o português brasileiro, optamos por esta pela facilidade de instalação, marcação de ênfase disponível, etc.
+
 \subsection{MBROLA}
 Baseado no algoritmo \abrv[MBRPSOLA -- Multi-Band Resynthesis Pitch Synchronous Overlap and Add]{MBRPSOLA} \cite{mbrpsola}. É um \emph{back-end}. O programa recebe uma lista de fones. Um exemplo de entrada é:
 
@@ -20,9 +22,7 @@ Baseado no algoritmo \abrv[MBRPSOLA -- Multi-Band Resynthesis Pitch Synchronous 
       _ 150 50 150
 \end{lstlisting}
 
-
 \subsubsection{Formato}
-% Pausas ou fones!!! e duração seguido por um ou mais pares de porcentagem e frequência (Hz)
 Em cada linha, tem-se um fone ou um silêncio representado pelo \emph{underscore} seguido por uma duração em milissegundos e, por último, um ou mais pares de porcentagem e frequência em Hertz determinando alvos para a curva F0. Como exemplo, na quarta linha temos o fone \/a\/ com duração de 116 \simb[ms (milissegundos)]{ms} e dois alvos para altura, 232 \simb[Hz (Hertz)]{Hz} em 20\% e 300 Hz em 80\%.
 
 % referência?
@@ -38,7 +38,6 @@ O programa foi codificado em Python em sua versão 3.6.
 \subsection{Sintaxe prosódica}
 A solução para melhorar a geração prosódica foi adicionar marcações à linguagem
 natural, denotando o contorno de acordo com o modelo modelo autossegmental e métrico
-Citar SSML (Speech Synthesis Markup Language).
 
 \subsection{Editor gráfico}
 Para alterar a prosódia manualmente com maior controle, foi desenvolvido um
