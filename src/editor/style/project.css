@@ -1,0 +1,75 @@
+.project {
+  position: relative;
+  display: grid;
+  border-bottom: 1px solid #D8D8D8;
+  grid-template-columns: 135px auto;
+  padding: 15px 0;
+}
+
+.project h2 {
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+.project a {
+  text-decoration: none;
+  color: var(--blu);
+}
+
+.project a:hover {
+  text-decoration: underline;
+}
+
+.project .description {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #353535;
+}
+
+.project .description a {
+  color: #3F91CC;
+}
+
+ul.tech {
+  padding: 0;
+  margin: 0;
+}
+
+.tech li {
+  display: inline-block;
+  padding: 4px;
+  font-size: 12px;
+  background-color: #F5F5F5;
+  color: #7f7f76;
+  margin-right: 3px;
+}
+
+.project .image-container {
+  height: 100%;
+  width: 105px;
+}
+
+.project .image {
+  padding: 2px;
+  border: 1px solid #7f7f76;
+  width: 106px;
+  height: 106px;
+  transition: filter 200ms;
+}
+
+.project .image:hover {
+  filter: invert(100%);
+}
+
+h3 {
+  margin: 15px 0;
+  text-align: center;
+  padding: 15px;
+  font-size: 12px !important;
+  background-color: gray;
+  text-transform: uppercase;
+}
+
+.b-sides li {
+  margin-bottom: 10px;
+}

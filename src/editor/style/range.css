@@ -1,0 +1,87 @@
+/* from http://danielstern.ca/range.css/ */
+/* consider switching to sass or less */
+
+input[type=range] {
+  -webkit-appearance: none;
+  /*width: 100%;*/
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  background: #f9f9f9;
+  border-radius: 17.4px;
+  border: 1px solid #979797;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(13, 13, 13, 0.04);
+  border: 1px solid #979797;
+  height: 15px;
+  width: 15px;
+  border-radius: 40px;
+  background: #ffffff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -6px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #fcfcfc;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  background: #f9f9f9;
+  border-radius: 17.4px;
+  border: 1px solid #979797;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(13, 13, 13, 0.04);
+  border: 1px solid #979797;
+  height: 15px;
+  width: 15px;
+  border-radius: 40px;
+  background: #ffffff;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #f6f6f6;
+  border: 1px solid #979797;
+  border-radius: 34.8px;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+}
+input[type=range]::-ms-fill-upper {
+  background: #f9f9f9;
+  border: 1px solid #979797;
+  border-radius: 34.8px;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+}
+input[type=range]::-ms-thumb {
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(13, 13, 13, 0.04);
+  border: 1px solid #979797;
+  height: 15px;
+  width: 15px;
+  border-radius: 40px;
+  background: #ffffff;
+  cursor: pointer;
+  height: 5px;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #f9f9f9;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #fcfcfc;
+}
