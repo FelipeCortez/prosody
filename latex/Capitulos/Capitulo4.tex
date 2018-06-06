@@ -7,15 +7,10 @@
 \section{Implementação}
 
 \subsection{espeak-ng}
-Para realizar a normalização de texto, foi utilizado o programa
-\emph{open-source} espeak-ng. Nele também é feita a conversão grafema-fonema
-(comumente representado pela sigla G2P). O resultado é passado para o programa
-desenvolvido neste trabalho.
+Foi utilizado o programa \emph{open-source} espeak-ng \cite{espeakng} para realizar a normalização de texto e realizar a conversão grafema-fonema, ou seja, obter a partir do texto de entrada uma representação em fonemas. O resultado é passado para o programa desenvolvido neste trabalho.
 
 \subsection{MBROLA}
-Baseado no algoritmo \abrv[MBRPSOLA -- Multi-Band Resynthesis Pitch Synchronous
-Overlap and Add]{MBRPSOLA} \cite{mbrpsola}. É um \emph{back-end}. O programa recebe uma lista de
-fones. Um exemplo de entrada é:
+Baseado no algoritmo \abrv[MBRPSOLA -- Multi-Band Resynthesis Pitch Synchronous Overlap and Add]{MBRPSOLA} \cite{mbrpsola}. É um \emph{back-end}. O programa recebe uma lista de fones. Um exemplo de entrada é:
 
 \begin{lstlisting}
       _ 150 50 150
