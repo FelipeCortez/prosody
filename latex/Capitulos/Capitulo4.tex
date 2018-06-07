@@ -2,7 +2,10 @@
 % Implementação
 % deve constar o instrumental, os métodos e as técnicas aplicados para a elaboração do trabalho;
 
-\chapter{Capítulo 4}
+\abrv[MBRPSOLA -- Multi-Band Resynthesis Pitch Synchronous Overlap and Add]
+\simb[ms (milissegundos)]
+\simb[Hz (Hertz)]
+\chapter{Editor de prosódia}
 
 \section{Implementação}
 
@@ -12,7 +15,7 @@ Foi utilizado o programa \emph{open-source} espeak-ng \cite{espeakng} para reali
 Apesar da existência de outras ferramentas para \emph{front-end} para o português brasileiro, optamos por esta pela facilidade de instalação, marcação de ênfase disponível, etc.
 
 \subsection{MBROLA}
-Baseado no algoritmo \abrv[MBRPSOLA -- Multi-Band Resynthesis Pitch Synchronous Overlap and Add]{MBRPSOLA} \cite{mbrpsola}. É um \emph{back-end}. O programa recebe uma lista de fones. Um exemplo de entrada é:
+Baseado no algoritmo {MBRPSOLA} \cite{mbrpsola}. É um \emph{back-end}. O programa recebe uma lista de fones. Um exemplo de entrada é:
 
 \begin{lstlisting}
       _ 150 50 150
@@ -23,7 +26,7 @@ Baseado no algoritmo \abrv[MBRPSOLA -- Multi-Band Resynthesis Pitch Synchronous 
 \end{lstlisting}
 
 \subsubsection{Formato}
-Em cada linha, tem-se um fone ou um silêncio representado pelo \emph{underscore} seguido por uma duração em milissegundos e, por último, um ou mais pares de porcentagem e frequência em Hertz determinando alvos para a curva F0. Como exemplo, na quarta linha temos o fone \/a\/ com duração de 116 \simb[ms (milissegundos)]{ms} e dois alvos para altura, 232 \simb[Hz (Hertz)]{Hz} em 20\% e 300 Hz em 80\%.
+Em cada linha, tem-se um fone ou um silêncio representado pelo \emph{underscore} seguido por uma duração em milissegundos e, por último, um ou mais pares de porcentagem e frequência em Hertz determinando alvos para a curva F0. Como exemplo, na quarta linha temos o fone \/a\/ com duração de 116 ms e dois alvos para altura, 232 Hz em 20\% e 300 Hz em 80\%.
 
 % referência?
 Cada voz gravada provê uma tabela com os fones que podem ser utilizados. Utilizamos neste trabalho a voz br3 desenvolvida por Denis R. Costa disponível no site oficial do projeto MBROLA.
@@ -32,66 +35,62 @@ Cada voz gravada provê uma tabela com os fones que podem ser utilizados. Utiliz
 Diagrama aqui
 
 \subsection{Módulo de prosódia}
-\subsubsection{Sintaxe}
-O programa foi codificado em Python em sua versão 3.6.
-
-\subsection{Sintaxe prosódica}
-A solução para melhorar a geração prosódica foi adicionar marcações à linguagem
-natural, denotando o contorno de acordo com o modelo modelo autossegmental e métrico
 
 \subsection{Editor gráfico}
-Para alterar a prosódia manualmente com maior controle, foi desenvolvido um
-editor gráfico utilizando JavaScript. A duração e altura de cada fone pode ser
-especificado arrastando barras de controle. O editor se comunica com o espeak-ng
-e MBROLA através de um servidor programado em Python utilizando o
-\emph{framework} Flask.
+O programa foi codificado em Python em sua versão 3.6. Pega resultado do espeak-ng, processa com editor gráfico e gera MBROLA.
 
-\begin{figure}[!htbp]
-\centering
-\scalebox{0.65}{
-    \begin{tikzpicture}[auto, >={Latex[inset=0pt, length=3mm, angle'=28,round]}, box/.style={draw,rounded corners,text width=3.0cm,align=center}]
-    \node[] (txt) {Texto};
-    \node[box, right=0.7cm of txt] (pre)
-        {Pré-processador};
-    \node[box, right=0.2cm of pre] (mor)
-        {Analisador morfológico};
-    \node[box, right=0.2cm of mor] (con)
-        {Analisador de contexto};
-    \node[box, right=of con] (let)
-        {Módulo letra-som};
-    \node[box, right=of let] (pro)
-        {Gerador de prosódia};
-        
-    \draw[->] (txt) -- (pre);
-        
-    \node[box, fit=(pre)(mor)(con), label={[name=morfos_l] Analisador morfossintático}] (morfos) {};
-    \node[box, fit=(let)] (letsom) {};
-    \node[box, fit=(pro)] (proger) {};
-    
-    \node[inner sep=0, fit=(morfos)(letsom)(proger)] (all) {};
-    \node[box,
-          inner sep=0,
-          yshift=-0.75cm,
-          fit=(morfos.west)(proger.east),
-          label=center:Estrutura de dados,
-          minimum height=1cm,
-          below of=all]
-        (dad) {};
-    
-    \node[box, fit=(morfos)(morfos_l)(letsom)(proger)(dad), label=Processamento de linguagem natural] (nlp) {};
-    
-    \node[right=of dad, align=left] (out) {\emph{phones}\\ prosódia};
-    
-    \draw[->] (pre) -- (pre |- dad.north);
-    \draw[<->] (mor) -- (mor |- dad.north);
-    \draw[<->] (con) -- (con |- dad.north);
-    \draw[<->] (let) -- (let |- dad.north);
-    \draw[<->] (pro) -- (pro |- dad.north);
-    
-    \draw[->] (dad) -- (out);
-        
-    \end{tikzpicture}
-}
-\caption{Arquitetura de um sistema de geração de prosódia}
-\label{fig:nlpdiagram}
-\end{figure}
+Para alterar a prosódia manualmente, foi desenvolvido um editor gráfico
+para \emph{web} utilizando HTML, CSS e JavaScript. A duração e altura de cada
+fone pode ser especificado arrastando barras de controle. O editor se comunica
+com o espeak-ng e MBROLA através de um servidor programado em Python utilizando
+o \emph{framework} Flask para prover \emph{endpoints} de uma API REST.
+
+% \begin{figure}[!htbp]
+% \centering
+% \scalebox{0.65}{
+%     \begin{tikzpicture}[auto, >={Latex[inset=0pt, length=3mm, angle'=28,round]}, box/.style={draw,rounded corners,text width=3.0cm,align=center}]
+%     \node[] (txt) {Texto};
+%     \node[box, right=0.7cm of txt] (pre)
+%         {Pré-processador};
+%     \node[box, right=0.2cm of pre] (mor)
+%         {Analisador morfológico};
+%     \node[box, right=0.2cm of mor] (con)
+%         {Analisador de contexto};
+%     \node[box, right=of con] (let)
+%         {Módulo letra-som};
+%     \node[box, right=of let] (pro)
+%         {Gerador de prosódia};
+%         
+%     \draw[->] (txt) -- (pre);
+%         
+%     \node[box, fit=(pre)(mor)(con), label={[name=morfos_l] Analisador morfossintático}] (morfos) {};
+%     \node[box, fit=(let)] (letsom) {};
+%     \node[box, fit=(pro)] (proger) {};
+%     
+%     \node[inner sep=0, fit=(morfos)(letsom)(proger)] (all) {};
+%     \node[box,
+%           inner sep=0,
+%           yshift=-0.75cm,
+%           fit=(morfos.west)(proger.east),
+%           label=center:Estrutura de dados,
+%           minimum height=1cm,
+%           below of=all]
+%         (dad) {};
+%     
+%     \node[box, fit=(morfos)(morfos_l)(letsom)(proger)(dad), label=Processamento de linguagem natural] (nlp) {};
+%     
+%     \node[right=of dad, align=left] (out) {\emph{phones}\\ prosódia};
+%     
+%     \draw[->] (pre) -- (pre |- dad.north);
+%     \draw[<->] (mor) -- (mor |- dad.north);
+%     \draw[<->] (con) -- (con |- dad.north);
+%     \draw[<->] (let) -- (let |- dad.north);
+%     \draw[<->] (pro) -- (pro |- dad.north);
+%     
+%     \draw[->] (dad) -- (out);
+%         
+%     \end{tikzpicture}
+% }
+% \caption{Arquitetura de um sistema de geração de prosódia}
+% \label{fig:nlpdiagram}
+% \end{figure}
