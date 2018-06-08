@@ -2,21 +2,31 @@
 
 \chapter{Fundamentação teórica}
 \section{Sistemas TTS}
-Um sistema \emph{text-to-speech}
-% \subsection{Breve história?}
-% Modelos físicos, Bell Labs.
+Um sistema \emph{text-to-speech} converte texto em fala.
 \subsection{Estrutura}
-Normalização, conversão grafema-fone, regras prosódicas (front-end).
-Síntese de voz (back-end).
+Normalização, conversão grafema-fone, regras prosódicas (front end).
+Síntese de voz (back end).
 \subsection{Normalização de texto}
-A primeira parte do processo de conversão de texto para fala é transformar a entrada em grafemas, ou seja.
+A primeira parte do processo de conversão de texto para fala é transformar símbolos
+e números em sua representação por extenso.
 \subsection{Conversão grafema-fone}
-\subsection{Fonemas e fones}
+A conversão grafema-fone (ou fonema) consiste em transformar o texto normalizado
+em fones, ou seja, uma sequência de caracteres em uma sequência de fones.
+\subsection{Geração de prosódia}
+A partir do texto e fones gerados nas etapas anteriores, deve-se estimar uma
+curva F0, ritmo e ênfase.
 \subsection{Síntese de fala}
 % martin jurasfky p275
-Abordagens concatenativa, por formantes e articulatória.
+Com o texto de entrada transformado em fonemas e informação prosódica, um
+\emph{back end} é responsável por gerar uma forma de onda com a fala.
+\citeonline{martinjurafsky} separa algoritmos de síntese em três paradigmas:
+síntese concatenativa, síntese por formantes e síntese articulatória.
+A maioria dos trabalhos (quais?) recentes trabalham com síntese concatenativa,
+já que ela garante resultados mais naturais.
+
 \section{Prosódia}
 \subsection{Componentes}
+\citeonline{taylor2009} fala que a prosódia tem:
 Stress (loudness and phonatory force)
 Syllabic length
 F0, intensidade, duração
@@ -43,8 +53,11 @@ Gerar a prosódia certa é uma questão de Natural Language Understanding, isto 
 
 \subsection{Prosódia em sistemas TTS}
 \subsubsection{SSML}
-SSML \cite{SSML}, especificação mantida pela W3C.
+SSML \cite{ssml}, especificação mantida pela W3C.
 % https://www.w3.org/TR/emotionml/
 MaryTTS usa ToBI, MBROLA, Unit selection do FreeTTS, SSML.
 Alexa, Google Assistant e Cortana têm suporte a SSML.
+SSML é apenas um modificador (insuficiente para estimar prosódia?)
 % http://mary.dfki.de/documentation/overview.html
+\subsubsection{EmotionML}
+EmotionML \cite{emotionml} foi criada para várias coisas, uma delas

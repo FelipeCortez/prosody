@@ -45,6 +45,31 @@ fone pode ser especificado arrastando barras de controle. O editor se comunica
 com o espeak-ng e MBROLA através de um servidor programado em Python utilizando
 o \emph{framework} Flask para prover \emph{endpoints} de uma API REST.
 
+\begin{figure}[!htbp]
+\centering
+\scalebox{0.65}{
+    \begin{tikzpicture}[auto, >={Latex[inset=0pt, length=3mm, angle'=28,round]}, box/.style={draw,rounded corners,text width=3.0cm,align=center}]
+    \node[] (txt) {Texto};
+    \node[box, right=of txt] (esp)
+        {espeak-ng};
+    \node[box, right=of esp] (con)
+        {espeak para MBROLA};
+    \node[box, right=of con] (mbr)
+        {MBROLA};
+
+    \node[box, below=of con] (ser)
+        {Servidor};
+        
+    \draw[->] (txt) -- (esp);
+
+    \end{tikzpicture}
+}
+\caption{Arquitetura do sistema desenvolvido}
+\label{fig:lol}
+\end{figure}
+
+
+
 % \begin{figure}[!htbp]
 % \centering
 % \scalebox{0.65}{

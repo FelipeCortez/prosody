@@ -2,6 +2,8 @@
 
 % A introdução é a parte inicial do texto e que possibilita uma visão geral de todo o trabalho, devendo constar a delimitação do assunto tratado, objetivos da pesquisa, motivação para o desenvolvimento da mesma e outros elementos necessários para situar o tema do trabalho.
 
+\abrv[TTS -- \emph{text-to-speech}]
+
 \chapter{Introdução}
 % - Este trabalho é uma tentativa de melhorar o módulo de prosódia em sistemas TTS
 % para o português brasileiro
@@ -18,9 +20,15 @@ deficientes visuais possam ouvir texto sem a necessidade de gravação prévia d
 seu conteúdo. Além disso, com o aumento da popularidade de sistemas embarcados,
 é importante investigar novas formas de interação humano-máquina, e a síntese de
 fala, juntamente com o reconhecimento, permitem comunicação de duas vias com
-esses sistemas. Sistemas \emph{text-to-speech} (doravante \abrv[TTS -- text-to-speech]{TTS}) também podem servir para pessoas que perderam a habilidade de falar, como o físico Stephen Hawking, que desde 1986 utilizou um sintetizador de voz para se comunicar, e o crítico de cinema Roger Ebert, que após perder a mandíbula passou a falar através de um sistema TTS, mais tarde usando uma solução personalizada que sintetizava uma aproximação de sua própria voz baseada em múltiplas gravações passadas. 
+esses sistemas. Sistemas \emph{text-to-speech} (doravante TTS) também podem
+auxiliar pessoas que perderam a habilidade de falar, como o físico Stephen
+Hawking, que desde 1986 utilizou um sintetizador de voz para se comunicar, e o
+crítico de cinema Roger Ebert, que após perder a mandíbula passou a falar
+através de um sistema TTS, mais tarde usando uma solução personalizada que
+sintetizava uma aproximação de sua própria voz baseada em múltiplas gravações
+passadas. % referência! 
 
-Os serviços mais populares e robustos que temos atualmente são implementações proprietárias de grandes empresas, como Siri \cite{siri}, Cortana \cite{cortana} e Alexa \cite{alexa}. Apesar da praticidade e ganho de acessibilidade providos por essas interfaces, os serviços disponíveis sintetizam voz com resultados perceptivelmente artificiais, principalmente para a língua portuguesa, se compararmos com os mesmos serviços para o inglês. Uma das causas da artificialidade é a prosódia empregada, isto é, o ritmo, entonação e acento. Mesmo com um sistema personalizado, Roger Ebert se queixava da falta de expressividade do algoritmo.
+Os serviços mais populares e robustos que temos atualmente são implementações proprietárias de grandes empresas, como Siri \cite{siri}, Cortana \cite{cortana} e Alexa \cite{alexa}. Apesar da praticidade e ganho de acessibilidade providos por essas interfaces, os serviços disponíveis sintetizam voz com resultados perceptivelmente artificiais, principalmente para a língua portuguesa. Uma das causas da artificialidade é a prosódia empregada, isto é, o ritmo, entonação e acento. Mesmo com um sistema personalizado, Roger Ebert se queixava da falta de expressividade do algoritmo.
 
 \section{Objetivos}
 Neste trabalho propõe-se investigar as causas da artificialidade de prosódia em sistemas TTS disponíveis, estudando os modelos de prosódia, algoritmos e métodos para síntese de fala para diversas línguas com foco no português, e implementar um ou mais modelos de geração de prosódia promissores para o português brasileiro baseados na estrutura sintática do texto de entrada identificada por técnicas de processamento de linguagem natural. Ao final da implementação, os resultados serão avaliados qualitativamente através de questionários, comparando-os ao estado da arte e disponibilizando o sistema publicamente.
@@ -29,7 +37,8 @@ Neste trabalho propõe-se investigar as causas da artificialidade de prosódia e
 % Nesta seção deve ser apresentado como está organizado o trabalho, sendo descrito, portanto, do que trata cada capítulo.
 
 % - Capítulo 2 - contextualização
-No capítulo 2, são apresentados os conceitos abordados neste trabalho.
+No capítulo 2, é feita uma breve explanação dos conceitos abordados neste
+trabalho, com foco em TTS e prosódia.
 
 % ferramentas para TTS em português, tipos de prosódia, dificuldades, modelos de
 % análise e síntese
@@ -57,5 +66,4 @@ No capítulo 5,
 % explicitamos os resultados, descrevendo a metodologia empregada
 % na avaliação qualitativa das amostras de áudio geradas pelo \emph{software}
 % desenvolvido comparadas ao estado da arte.
-propõem-se melhorias e trabalhos futuros que poderão ser realizados utilizando
-como base o que se desenvolveu nesta pesquisa.
+apresentamos os resultados obtidos com a implementação.

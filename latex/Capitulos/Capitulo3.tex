@@ -3,7 +3,7 @@
 % texto no qual se deve apresentar os aspectos teóricos, isto é, os conceitos utilizados e a definição dos mesmos; nesta parte faz-se a revisão de literatura sobre o assunto, resumindo-se os resultados de estudos feitos por outros autores, cujas obras citadas e consultadas devem constar nas referências;
 
 \simb[\% (fronteira de enunciado para ToBI)]
-\abrv[INTSINT -- International Transcription System for Intonation]
+\abrv[INTSINT -- \emph{International Transcription System for Intonation}]
 \abrv[HMM -- \emph{Hidden Markov Model}]
 
 \chapter{Revisão da literatura}
@@ -21,31 +21,40 @@ sons de consoantes pré-gravados.
 \subsubsection{Unit selection e dífonos}
 Abordagem utilizada pelo programa MBROLA. Consiste em gravar fala, separar
 pedaços de dois em dois.
-\subsubsection{Hidden Markov Models}
-Algumas vozes para o MaryTTS \cite{marytts} utilizam HMMs, isto é, Modelos ocultos de Markov.
+
+Algumas vozes para o MaryTTS \cite{marytts} utilizam HMMs, isto é, Modelos
+ocultos de Markov para \emph{unit selection}. Há, inclusive, uma voz brasileira
+feita a partir de HMMs: \cite{couto}.
 \subsubsection{DNN}
+
 % Resultados realistas, mas não há como controlar parâmetros: \cite{merlin}
 
-\subsection{TTS em português}
-LianeTTS (MBROLA), HMM-based \cite{couto}, MaryTTS (FalaBrasil) \cite{falabrasil}.
-% como SSML é uma tecnologia relativamente nova, sintetizadores de fala para o
-% português brasileiro ainda não têm suporte / não estilizam contornos
+\section{Sistemas TTS}
+\subsubsection{MBROLA}
+Três vozes
+
+\section{Sistemas TTS com suporte a português}
+\subsection{MaryTTS}
+Projeto FalaBrasil \cite{falabrasil}, \cite{couto}
 \subsubsection{G2P}
 Para o português brasileiro, foram encontrados os conversores
 da USP: \cite{g2pusp} do projeto falabrasil: \cite{falabrasil}.
-\subsubsection{MBROLA}
-Três vozes
-\subsubsection{Completos}
-HMM para MaryTTS
+\subsection{LianeTTS}
+Projeto da SERPRO LianeTTS (MBROLA)
+\subsection{espeak}
+Projeto do Dunn
 
 \subsection{Prosódia no português brasileiro}
 Trabalhos de Moraes, Tenani, ...
 \subsection{Modelos de prosódia}
-\subsubsection{IPO}
-\cite{ipo} analisa segundo o modelo IPO.
 \subsubsection{Modelo autossegmental e métrico}
 Modelo autossegmental e métrico: Pierrehumbert, Moraes (pitch analysis by synthesis).
 ref Moraes, Intonation Systems (20 languages).
+\subsubsection{IPO}
+% página 32
+\cite{ipo} analisa a prosódia para o português brasileiro através do modelo IPO,
+seguindo crítica de Lucente que o sistema ToBI é inapropriado.
+ % "esse sistema de notação não abarca certas características fonéticas das curvas de F0 que perceptivamente são relevantes para o reconhecimento desses contornos"
 \subsubsection{INTSINT}
 INTSINT é um sistema de anotação para prosódia.
 % The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''
