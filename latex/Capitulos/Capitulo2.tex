@@ -1,3 +1,50 @@
 % Capítulo 2 - Contextualização ou definição do problema
 
 \chapter{Fundamentação teórica}
+\section{Sistemas TTS}
+Um sistema \emph{text-to-speech}
+% \subsection{Breve história?}
+% Modelos físicos, Bell Labs.
+\subsection{Estrutura}
+Normalização, conversão grafema-fone, regras prosódicas (front-end).
+Síntese de voz (back-end).
+\subsection{Normalização de texto}
+A primeira parte do processo de conversão de texto para fala é transformar a entrada em grafemas, ou seja.
+\subsection{Conversão grafema-fone}
+\subsection{Fonemas e fones}
+\subsection{Síntese de fala}
+% martin jurasfky p275
+Abordagens concatenativa, por formantes e articulatória.
+\section{Prosódia}
+\subsection{Componentes}
+Stress (loudness and phonatory force)
+Syllabic length
+F0, intensidade, duração
+Intonational tune
+Downdrift
+Microprosódia
+\subsection{Função prosódica}
+\subsubsection{Afetiva}
+\citeonline{taylor2009} mostra três razões pelas quais utilizamos prosódia na fala.
+Prosódia pura, emoção, estado mental e atitude. 
+\subsubsection{Supra-segmental}
+Características em um discurso neutro, isto é, quando uma sentença é falada sem
+conteúdo afetivo significante. \citeonline{taylor2009} fala que em seu modelo de
+prosódia a parte supra-segmental não é conteúdo prosódico verdadeiro, mas sim
+um outro aspecto do componente verbal.
+\subsubsection{Aumentativa}
+Um elemento para assegurar a comunicação efetiva do componente verbal de uma mensagem.
+\subsection{Prosódia como elemento extra-textual}
+% From this we can conclude that in situations where the text genre is quite factual, it is usually sufficient to generate speech from the verbal message only, and so all that is required is the gen- eration of the suprasegmental part of the signal; the affective part of prosody is ignored. In other text genres the situation is significantly more difficult, and if say a dialogue from a play is read in this fashion (or more likely) responses from a computer dialogue system, the generated speech can sound somewhat dull and removed. Finally, we see that mimicking a genuinely good human reader is very difficult indeed, as they will be performing an actual comprehension of the text, and then generating their own prosody. In no way are they simply decoding the prosody from the text and then speaking it aloud, as they can do with the words. To date, no satisfactory solution has been found to this problem, and so current text-to-speech systems are, unfortunately, lacking in this regard.
+Considerando o texto como sequência de palavras, é difícil determinar prosódia
+afetiva.
+Gerar a prosódia certa é uma questão de Natural Language Understanding, isto é,
+é preciso entender o texto para gerar os contornos melódicos afetivos.
+
+\subsection{Prosódia em sistemas TTS}
+\subsubsection{SSML}
+SSML \cite{SSML}, especificação mantida pela W3C.
+% https://www.w3.org/TR/emotionml/
+MaryTTS usa ToBI, MBROLA, Unit selection do FreeTTS, SSML.
+Alexa, Google Assistant e Cortana têm suporte a SSML.
+% http://mary.dfki.de/documentation/overview.html

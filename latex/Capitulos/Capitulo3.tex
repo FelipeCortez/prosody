@@ -14,20 +14,6 @@
 
 % https://www.ime.usp.br/~cpaz/downloads/algorithm-portuguese.pdf
 
-\section{Sistemas TTS}
-Um sistema \emph{text-to-speech}
-% \subsection{Breve história?}
-% Modelos físicos, Bell Labs.
-\subsection{Estrutura}
-Normalização, conversão grafema-fone, regras prosódicas (front-end).
-Síntese de voz (back-end).
-\subsection{Normalização de texto}
-A primeira parte do processo de conversão de texto para fala é transformar a entrada em grafemas, ou seja.
-\subsection{Conversão grafema-fone}
-Para o português brasileiro, foram encontrados os conversores
-da USP: \cite{g2pusp}
-do projeto falabrasil: \cite{falabrasil}.
-\subsection{Fonemas e fones}
 \subsection{Abordagens}
 \subsubsection{Klaat}
 Síntese por formantes. \cite{espeakng} usa uma mistura do algoritmo de Klatt com
@@ -39,26 +25,19 @@ pedaços de dois em dois.
 Algumas vozes para o MaryTTS \cite{marytts} utilizam HMMs, isto é, Modelos ocultos de Markov.
 \subsubsection{DNN}
 % Resultados realistas, mas não há como controlar parâmetros: \cite{merlin}
+
 \subsection{TTS em português}
 LianeTTS (MBROLA), HMM-based \cite{couto}, MaryTTS (FalaBrasil) \cite{falabrasil}.
-\section{Prosódia}
-\subsection{Componentes}
-\citeonline{taylor2009} mostra três tipos de prosódia.
-Stress (loudness and phonatory force)
-Syllabic length
-F0, intensidade, duração
-Intonational tune
-Downdrift
-Microprosódia
-\subsection{Tipos de prosódia}
-\subsubsection{Aumentativa}
-\subsubsection{Suprasegmental}
-\subsubsection{Afetiva}
-\subsection{Prosódia como elemento extra-textual}
-Justifica abordagem do trabalho: considerando o texto como sequência de
-palavras, é difícil determinar prosódia afetiva. Gerar a prosódia certa é uma
-questão de Natural Language Understanding, isto é, é preciso entender o texto
-para gerar os contornos melódicos afetivos.
+% como SSML é uma tecnologia relativamente nova, sintetizadores de fala para o
+% português brasileiro ainda não têm suporte / não estilizam contornos
+\subsubsection{G2P}
+Para o português brasileiro, foram encontrados os conversores
+da USP: \cite{g2pusp} do projeto falabrasil: \cite{falabrasil}.
+\subsubsection{MBROLA}
+Três vozes
+\subsubsection{Completos}
+HMM para MaryTTS
+
 \subsection{Prosódia no português brasileiro}
 Trabalhos de Moraes, Tenani, ...
 \subsection{Modelos de prosódia}
@@ -70,12 +49,3 @@ ref Moraes, Intonation Systems (20 languages).
 \subsubsection{INTSINT}
 INTSINT é um sistema de anotação para prosódia.
 % The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''
-\subsection{Prosódia em sistemas TTS}
-\subsubsection{SSML}
-SSML \cite{SSML}, especificação mantida pela W3C.
-% https://www.w3.org/TR/emotionml/
-MaryTTS usa ToBI, MBROLA, Unit selection do FreeTTS, SSML.
-Alexa, Google Assistant e Cortana têm suporte a SSML.
-% http://mary.dfki.de/documentation/overview.html
-
-% \subsection{Trabalhos semelhantes?}
