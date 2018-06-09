@@ -28,26 +28,29 @@
     <div class="container">
       <h1 class="title">prosody editor</h1>
       <div id="app">
-        <!-- {{ message }} -->
+        <component v-for="phone in phones">
+          <svg :width="phone.duration + 2"
+               height="130"
+               xmlns="http://www.w3.org/2000/svg">
+            <g class="phone">
+              <rect class="phone-bg"
+                    x="1"
+                    y="1"
+                    :width="phone.duration"
+                    height="100" />
+              <circle class="handle"
+                      cx="50"
+                      cy="50"
+                      r="5" />
+              <text class="phone-text"
+                    x="50"
+                    y="120"
+                    text-anchor="middle"
+                    font-size="12">{{ phone.phone_sampa }}</text>
+            </g>
+          </svg>
+        </component>
       </div>
-      <svg xmlns="http://www.w3.org/2000/svg">
-        <g class="phone">
-          <rect class="phone-bg"
-                x="1"
-                y="1"
-                width="100"
-                height="100" />
-          <circ class="handle"
-                cx="50"
-                cy="50"
-                r="50" />
-          <text class="phone-text"
-                x="50"
-                y="120"
-                text-anchor="middle"
-                font-size="12">throw me</text>
-        </g>
-      </svg>
     </div>
 
     <script src="vue.js"></script>

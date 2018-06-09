@@ -12,6 +12,10 @@
   cursor: grab;
 }
 
+.handle {
+  fill: black;
+}
+
 .phone-text {
   fill: black;
 }
