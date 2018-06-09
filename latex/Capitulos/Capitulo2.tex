@@ -1,28 +1,66 @@
 % Capítulo 2 - Contextualização ou definição do problema
 
+
+% p. 53 paul taylor tem overview dum sistema tts
+% p. 14 dutoit tem diagrama
 \chapter{Fundamentação teórica}
 \section{Sistemas TTS}
 Um sistema \emph{text-to-speech} converte texto em fala.
 \subsection{Estrutura}
-Normalização, conversão grafema-fone, regras prosódicas (front end).
-Síntese de voz (back end).
+Na literatura, variações de diagramas. \citeonline{tts-book} propõe um
+diagrama geral para sistemas TTS:
+
+\begin{figure}[!htbp]
+\centering
+\scalebox{0.65}{
+    \begin{tikzpicture}[auto, >={Latex[inset=0pt, length=3mm, angle'=28,round]}, box/.style={draw,rounded corners,text width=4.5cm,align=center}]
+    \node[] (txt) {Texto};
+    \node[box, right=of txt] (nlp)
+        {Processamento de linguagem natural};
+    \node[box, right=of nlp] (dsp)
+        {Processamento digital de sinais};
+    \node[right=of dsp] (fal)
+        {Fala};
+
+   \node[box, fit=(nlp)(dsp), label=Sistema text-to-speech] (tts) {};
+
+    \draw[->] (txt) -- (nlp);
+    \draw[->] (nlp) -- (dsp);
+    \draw[->] (dsp) -- (fal);
+
+    \end{tikzpicture}
+}
+\caption{Arquitetura geral de sistemas TTS (adaptado de \citeonline{tts-book})}
+\label{fig:tts-arch}
+\end{figure}
+
+É comum encontrar em outros trabalhos a nomenclatura \emph{front end} para o
+bloco de processamento de linguagem natural e \emph{back end} para o bloco de
+processamento digital de sinais.
+
 \subsection{Normalização de texto}
-A primeira parte do processo de conversão de texto para fala é transformar símbolos
-e números em sua representação por extenso.
+O texto de entrada pode conter números e símbolos. A primeira parte do processo de conversão de texto para fala é transformar em sua representação por extenso.
+Sentence tokenization, isto é, descobrir as boundaries de cada sintagma. Depois,
+normalização de palavras não-padrão? abreviações, acrônimos e siglas.
+Desambiguação de homônimos heterófonos (e.g.: ``Gosto de pão'')
+
 \subsection{Conversão grafema-fone}
 A conversão grafema-fone (ou fonema) consiste em transformar o texto normalizado
 em fones, ou seja, uma sequência de caracteres em uma sequência de fones.
+
 \subsection{Geração de prosódia}
 A partir do texto e fones gerados nas etapas anteriores, deve-se estimar uma
 curva F0, ritmo e ênfase.
+
 \subsection{Síntese de fala}
 % martin jurasfky p275
-Com o texto de entrada transformado em fonemas e informação prosódica, um
-\emph{back end} é responsável por gerar uma forma de onda com a fala.
+Com o texto de entrada transformado em fones e informação prosódica, um
+\emph{back end} é responsável por gerar uma forma de onda.
 \citeonline{martinjurafsky} separa algoritmos de síntese em três paradigmas:
-síntese concatenativa, síntese por formantes e síntese articulatória.
-A maioria dos trabalhos (quais?) recentes trabalham com síntese concatenativa,
-já que ela garante resultados mais naturais.
+síntese concatenativa, síntese por formantes e síntese articulatória. A maioria
+dos trabalhos (quais?) recentes trabalham com síntese concatenativa, já que ela
+garante resultados mais naturais. Síntese concatenativa pode trabalhar com
+diferentes atomicidades: nível de palavra, dífonos e fones individuais.
 
 \section{Prosódia}
 \subsection{Componentes}
