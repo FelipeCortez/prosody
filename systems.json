@@ -1,0 +1,45 @@
+{"systems":
+ [
+   {
+     "name": "Aiuruetê",
+     "type": "concatenative",
+     "year": 1999,
+     "pt": true,
+   },
+   {
+     "name": "Seara, Maia",
+     "type": "dnn",
+     "year": 2017,
+     "pt": true,
+   },
+   {
+     "name": "Microsoft",
+     "type": "hmm",
+     "year": 2017,
+     "pt": true,
+   },
+   {
+     "name": "Merlin",
+     "type": "dnn",
+     "year": 2016,
+   },
+   {
+     "name": "espeak-ng",
+     "type": "formant",
+     "year": 2006,
+     "pt": true,
+   },
+   {
+     "name": "Um sistema texto-fala livre",
+     "type": "concatenative",
+     "year": 2005,
+     "pt": true,
+   },
+   {
+     "name": "Couto",
+     "type": "hmm",
+     "year": 2010,
+     "pt": true,
+   },
+ ]
+}

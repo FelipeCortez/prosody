@@ -38,7 +38,7 @@ F0 é uma possível melhoria.
 
 \section{Sistemas TTS}
 \subsection{MaryTTS}
-Projeto FalaBrasil \cite{falabrasil}, \cite{couto}
+\cite{couto}, MaryTTS.
 % \subsubsection{Grafema-fone}
 % Para o português brasileiro, foram encontrados os conversores
 % da USP: \cite{g2pusp} do projeto falabrasil: \cite{falabrasil}.
@@ -52,6 +52,16 @@ obter apenas até a parte de g2p como saída.
 Edinburgo. Multilingual, mas não pro português. Modular: permite configuração
 independente de subsistemas como regras letra-som, POS tagging, entonação.
 Suporte a múltiplos sintetizadores de fala. HTS, Unit selection, MBROLA.
+\subsection{Microsoft}
+\citeonline{hmmmicrosoft} descrevem sistema TTS desenvolvido pela Microsoft
+baseado em HMM. A stochastic-based LTS (Letter-to-Sound) converter to predict phonetic transcriptions for out-of-vocabulary words and the prosody models, which are data- driven using a prosody tagged corpus of 2000 sentences.
+\subsection{Aiuruetê}
+% http://manualdefoneticaacusticaexperimental.com/assets/barbosaetal1999.pdf
+% hese  assumptions  form  the  basis  of  a  two-stage model  of  segmental  duration  assignment.  In  the  first stage,  a  neural  network  automatically  generates  z-score values  characterizing  syllable  and  IPCG  lengthening  (or shortening)  from  a  rich  prosodic  phonetic  description  at the input. This input is constituted by the ortofon output enriched  by  additional  information  as  the  number  of vowels  in  the  sentence,  the  clitic  words  and  the  phrasal stresses,     whose     placement     follows     eurhythmic constraints.  In  the  next  stage,  a  statistical  procedure shares   the   syllable-size   duration   amount   among   the segments,  based  on  their  respective  statistical  mean  and standard-deviation    durations    [4].    These    segmental durations   are   used   by   both   synthesis   techniques   to generate sound
+Usa PSOLA pra recodar unidades armazenadas (ortofones)
+\subsection{LINSE-DNN}
+statistical parametric speech synthesis
+\cite{dnnpt}
 
 \subsubsection{MBROLA}
 Baseado em síntese por dífonos. Antigo mas qualidade decente. Três vozes para o
@@ -61,30 +71,43 @@ Baseado no algoritmo {MBRPSOLA} \cite{mbrpsola}. É um \emph{back-end}. O progra
 
 \begin{lstlisting}
       _ 150 50 150
-      o 108 50 125
-      l 125 50 75
-      a 116 20 232 80 300
+      t  70 50 125
+      e 125 50 75
+      c  70 50 125
+      e 125 50 75
+      c  70 50 125
+      e 116 20 232 80 300
       _ 150 50 150
 \end{lstlisting}
 
 \subsubsection{Formato}
-Em cada linha, tem-se um fone ou um silêncio representado pelo \emph{underscore} seguido por uma duração em milissegundos e, por último, um ou mais pares de porcentagem e frequência em Hertz determinando alvos para a curva F0. Como exemplo, na quarta linha temos o fone \/a\/ com duração de 116 ms e dois alvos para altura, 232 Hz em 20\% e 300 Hz em 80\%.
+Em cada linha, tem-se um fone ou um silêncio representado pelo \emph{underscore} seguido por uma duração em milissegundos e, por último, um ou mais pares de porcentagem e frequência em Hertz determinando alvos para a curva F0. Como exemplo, na penúltima linha temos o fone \/e\/ com duração de 116 ms e dois alvos para altura, 232 Hz em 20\% e 300 Hz em 80\%.
 
-% referência?
 Cada voz gravada provê uma tabela com os fones que podem ser utilizados. Utilizamos neste trabalho a voz br3 desenvolvida por Denis R. Costa disponível no site oficial do projeto MBROLA.
-
+% referência?
 
 \subsection{Prosódia em sistemas TTS}
 \subsubsection{SSML}
 SSML foi criado para padronizar anotações em sintetizadores de fala, permitindo
-desambiguação de pronúncia, mudança de linguagem, etc. Phrasing, emphasis, pronunciation. É baseado em XML.
+desambiguação de pronúncia, mudança de linguagem, etc. Phrasing, emphasis,
+pronunciation. É baseado em XML.
 \cite{ssml}, A especificação é mantida pela W3C.
 % https://www.w3.org/TR/emotionml/
-MaryTTS usa ToBI, MBROLA, Unit selection do FreeTTS, SSML.
-Alexa, Google Assistant e Cortana têm suporte a SSML.
-SSML é apenas um modificador (insuficiente para estimar prosódia?)
 Anotações em SSML são úteis para estender o texto original e dar dicas para
-sintetizadores de fala.
+sintetizadores de fala. A especificação cita os elementos \emph{emphasis},
+\emph{break} e \emph{prosody} como marcadores que podem auxiliar o processador
+de linguagem natural a gerar parâmetros prosódicos apropriados.
+MaryTTS usa ToBI, MBROLA, Unit selection do FreeTTS, SSML.
+Suportado (?) pelo MaryTTS e sistemas proprietários da Alexa, Google Assistant e Cortana.
+
+\begin{lstlisting}
+<speak>
+    Eu quero
+    <emphasis level="strong">aquele</emphasis> 
+    carro.
+</speak> 
+\end{lstlisting}
+
 % http://mary.dfki.de/documentation/overview.html
 \subsubsection{EmotionML}
 EmotionML \cite{emotionml} foi criada para várias coisas, uma delas é ajudar
@@ -119,5 +142,3 @@ seguindo crítica de Lucente que o sistema ToBI é inapropriado.
 \subsubsection{INTSINT}
 INTSINT é um sistema de anotação para prosódia.
 % The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''
-\subsubsection{Prosódia no português brasileiro}
-Trabalhos de Moraes, Tenani, ...

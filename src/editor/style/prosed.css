@@ -1,0 +1,17 @@
+.phone-bg {
+  fill: white;
+  stroke: black;
+  stroke-width: 1;
+}
+
+.phone-control {
+  padding: 5px;
+}
+
+.phone-control:hover {
+  cursor: grab;
+}
+
+.phone-text {
+  fill: black;
+}

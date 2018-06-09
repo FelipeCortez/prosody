@@ -1,14 +1,45 @@
 % Capítulo 2 - Contextualização ou definição do problema
 
-
 % p. 53 paul taylor tem overview dum sistema tts
 % p. 14 dutoit tem diagrama
 \chapter{Fundamentação teórica}
+
+\section{Prosódia}
+\subsection{Componentes}
+\citeonline{taylor2009} fala que a prosódia tem:
+Stress (loudness and phonatory force)
+Syllabic length
+F0, intensidade, duração
+Intonational tune
+Downdrift
+Microprosódia
+\subsection{Função prosódica}
+\citeonline{taylor2009} mostra três razões pelas quais utilizamos prosódia na fala.
+\subsubsection{Afetiva}
+Prosódia pura, emoção, estado mental e atitude. 
+\subsubsection{Suprassegmental}
+Características em um discurso neutro, isto é, quando uma sentença é falada sem
+conteúdo afetivo significante. \citeonline{taylor2009} fala que em seu modelo de
+prosódia a parte supra-segmental não é conteúdo prosódico verdadeiro, mas sim
+um outro aspecto do componente verbal.
+\subsubsection{Aumentativa}
+Um elemento para assegurar a comunicação efetiva do componente verbal de uma mensagem.
+\subsection{Prosódia como elemento extra-textual}
+\citeonline{taylor2009} argumenta que a geração de prosódia afetiva é árdua e
+depende de uma compreensão do texto. Ainda fala que, até a data de publicação do
+livro, nenhuma solução satisfatória foi encontrada e os sistemas TTS atuais
+pecam nesse aspecto.
+% Considerando o texto como sequência de palavras, é difícil determinar prosódia
+% afetiva.
+% Gerar a prosódia certa é uma questão de Natural Language Understanding, isto é,
+% é preciso entender o texto para gerar os contornos melódicos afetivos.
+% From this we can conclude that in situations where the text genre is quite factual, it is usually sufficient to generate speech from the verbal message only, and so all that is required is the gen- eration of the suprasegmental part of the signal; the affective part of prosody is ignored. In other text genres the situation is significantly more difficult, and if say a dialogue from a play is read in this fashion (or more likely) responses from a computer dialogue system, the generated speech can sound somewhat dull and removed. Finally, we see that mimicking a genuinely good human reader is very difficult indeed, as they will be performing an actual comprehension of the text, and then generating their own prosody. In no way are they simply decoding the prosody from the text and then speaking it aloud, as they can do with the words. To date, no satisfactory solution has been found to this problem, and so current text-to-speech systems are, unfortunately, lacking in this regard.
+
 \section{Sistemas TTS}
 Um sistema \emph{text-to-speech} converte texto em fala.
 \subsection{Estrutura}
-Na literatura, variações de diagramas. \citeonline{tts-book} propõe um
-diagrama geral para sistemas TTS:
+Na literatura, encontramos diversas arquiteturas específicas de um sistema TTS.
+\citeonline{tts-book} propõe um diagrama geral, dividindo sistemas em duas partes principais:
 
 \begin{figure}[!htbp]
 \centering
@@ -33,25 +64,27 @@ diagrama geral para sistemas TTS:
 \label{fig:tts-arch}
 \end{figure}
 
-É comum encontrar em outros trabalhos a nomenclatura \emph{front end} para o
+É comum encontrar em outros trabalhos o termo \emph{front end} para o
 bloco de processamento de linguagem natural e \emph{back end} para o bloco de
-processamento digital de sinais.
+processamento digital de sinais. Doravante utilizaremos essa nomenclatura.
 
-\subsection{Normalização de texto}
+\subsection{\emph{Front end}}
+
+\subsubsection{Normalização de texto}
 O texto de entrada pode conter números e símbolos. A primeira parte do processo de conversão de texto para fala é transformar em sua representação por extenso.
 Sentence tokenization, isto é, descobrir as boundaries de cada sintagma. Depois,
 normalização de palavras não-padrão? abreviações, acrônimos e siglas.
 Desambiguação de homônimos heterófonos (e.g.: ``Gosto de pão''). Análise
 fonética (normalized word strings para pronúncia).
 
-\subsection{Conversão grafema-fone}
+\subsubsection{Conversão grafema-fone}
 Palavras não-padrão são colocadas num dicionário de pronúncia. O resto é
 calculado de acordo com regras letra-som.
 Context-dependent e independent. Abordagens por machine learning ou regras.
 A conversão grafema-fone (ou fonema) consiste em transformar o texto normalizado
 em fones, ou seja, uma sequência de caracteres em uma sequência de fones.
 
-\subsection{Geração de prosódia}
+\subsubsection{Geração de prosódia}
 % More technically, prosody has been defined by Ladd (1996) as the ‘use of suprasegmental features to convey sentence-level pragmatic mean- ings’.
 % The term suprasegmental means above and beyond the level of the segment or phone, and refers especially to the uses of acoustic features like F0 duration
 A partir do texto e fones gerados nas etapas anteriores, deve-se estimar uma
@@ -62,39 +95,15 @@ curva F0, ritmo e ênfase.
 %  there is often a slight drop in F0 from the beginning of an intonation phrase to its end, which resets at the beginning of a new intonation phrase
 % A very high-precision rule is the one we saw for sentence segmentation: insert a boundary after punctuation. Another commonly used rule inserts a phrase boundary before a function word following a content word.
 
-\subsection{Síntese de fala}
+\subsection{Back end}
 % martin jurasfky p275
 Com o texto de entrada transformado em fones e informação prosódica, um
 \emph{back end} é responsável por gerar uma forma de onda.
-\citeonline{martinjurafsky} separa algoritmos de síntese em três paradigmas:
-síntese concatenativa, síntese por formantes e síntese articulatória. A maioria
-dos trabalhos (quais?) recentes trabalham com síntese concatenativa, já que ela
-garante resultados mais naturais. Síntese concatenativa pode trabalhar com
-diferentes atomicidades: nível de palavra, dífonos e fones individuais.
+\citeonline{martinjurafsky} separam algoritmos de síntese em três paradigmas:
+síntese concatenativa, síntese por formantes e síntese articulatória. 
+\subsubsection{Síntese articulatória}
+\subsubsection{Síntese por formantes}
+\subsubsection{Síntese concatenativa}
+Síntese concatenativa pode trabalhar com diferentes atomicidades: nível de palavra,
+dífonos e fones individuais.
 
-\section{Prosódia}
-\subsection{Componentes}
-\citeonline{taylor2009} fala que a prosódia tem:
-Stress (loudness and phonatory force)
-Syllabic length
-F0, intensidade, duração
-Intonational tune
-Downdrift
-Microprosódia
-\subsection{Função prosódica}
-\citeonline{taylor2009} mostra três razões pelas quais utilizamos prosódia na fala.
-\subsubsection{Afetiva}
-Prosódia pura, emoção, estado mental e atitude. 
-\subsubsection{Suprassegmental}
-Características em um discurso neutro, isto é, quando uma sentença é falada sem
-conteúdo afetivo significante. \citeonline{taylor2009} fala que em seu modelo de
-prosódia a parte supra-segmental não é conteúdo prosódico verdadeiro, mas sim
-um outro aspecto do componente verbal.
-\subsubsection{Aumentativa}
-Um elemento para assegurar a comunicação efetiva do componente verbal de uma mensagem.
-\subsection{Prosódia como elemento extra-textual}
-% From this we can conclude that in situations where the text genre is quite factual, it is usually sufficient to generate speech from the verbal message only, and so all that is required is the gen- eration of the suprasegmental part of the signal; the affective part of prosody is ignored. In other text genres the situation is significantly more difficult, and if say a dialogue from a play is read in this fashion (or more likely) responses from a computer dialogue system, the generated speech can sound somewhat dull and removed. Finally, we see that mimicking a genuinely good human reader is very difficult indeed, as they will be performing an actual comprehension of the text, and then generating their own prosody. In no way are they simply decoding the prosody from the text and then speaking it aloud, as they can do with the words. To date, no satisfactory solution has been found to this problem, and so current text-to-speech systems are, unfortunately, lacking in this regard.
-Considerando o texto como sequência de palavras, é difícil determinar prosódia
-afetiva.
-Gerar a prosódia certa é uma questão de Natural Language Understanding, isto é,
-é preciso entender o texto para gerar os contornos melódicos afetivos.

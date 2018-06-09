@@ -2,6 +2,7 @@ import sys
 import re
 import subprocess
 import random
+import json
 from collections import OrderedDict
 from typing import List
 
@@ -29,7 +30,6 @@ class Phone():
             " ".join([str(item) for item in flatten(self.pitch_changes)])
         )
 
-
 class Sentence():
     def __init__(self, phones: List[Phone]=None):
         if phones is None:
@@ -40,11 +40,8 @@ class Sentence():
     def mbrola_phones(self):
         return [phone.phone_mbrola for phone in self.phones]
 
-    def to_json(self):
-        json = []
-        for phone in phones:
-            print(phone)
-        return True
+    def dictify(self):
+        return [vars(phone) for phone in self.phones]
 
     def __repr__(self):
         return "\n".join([phone.as_line() for phone in self.phones])
@@ -121,8 +118,8 @@ class Converter():
                 phone = Phone(
                     phone_sampa = phone_sampa,
                     phone_mbrola = converted[0],
-                    duration = int(duration) + random.randint(10, 50), # ms
-                    pitch_changes = [[50, random.randint(50, 350)]] # percentage, Hz
+                    duration = int(duration),
+                    pitch_changes = [[50, 150]] # percentage, Hz
                 )
 
                 sentence.phones.append(phone)
