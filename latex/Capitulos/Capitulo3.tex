@@ -5,6 +5,9 @@
 \simb[\% (fronteira de enunciado para ToBI)]
 \abrv[INTSINT -- \emph{International Transcription System for Intonation}]
 \abrv[HMM -- \emph{Hidden Markov Model}]
+\abrv[SSML -- \emph{Speech Synthesis Markup Language}]
+\abrv[XML -- \emph{eXtensible Markup Language}]
+\abrv[W3C -- \emph{World Wide Web Consortium}]
 
 \chapter{Revisão da literatura}
 
@@ -34,38 +37,64 @@ F0 é uma possível melhoria.
 % Resultados realistas, mas não há como controlar parâmetros: \cite{merlin}
 
 \section{Sistemas TTS}
+\subsection{MaryTTS}
+Projeto FalaBrasil \cite{falabrasil}, \cite{couto}
+% \subsubsection{Grafema-fone}
+% Para o português brasileiro, foram encontrados os conversores
+% da USP: \cite{g2pusp} do projeto falabrasil: \cite{falabrasil}.
+\subsection{LianeTTS}
+Projeto da SERPRO LianeTTS. Utiliza MBROLA como \emph{back end}. A geração de
+prosódia é simples, baseada em tabela.
+\subsection{espeak}
+Projeto do Dunn. Síntese por formantes (com consoantes gravadas). É possível
+obter apenas até a parte de g2p como saída.
+\subsection{Festival}
+Edinburgo. Multilingual, mas não pro português. Modular: permite configuração
+independente de subsistemas como regras letra-som, POS tagging, entonação.
+Suporte a múltiplos sintetizadores de fala. HTS, Unit selection, MBROLA.
+
 \subsubsection{MBROLA}
 Baseado em síntese por dífonos. Antigo mas qualidade decente. Três vozes para o
 português brasileiro. \cite{mbrola} % \cite{mbrola} The ultimate goal is to boost up academic research on speech synthesis, and particularly on prosody generation, known as one of the biggest challenges taken up by Text-to-Speech synthesizers for the years to come.
 
+Baseado no algoritmo {MBRPSOLA} \cite{mbrpsola}. É um \emph{back-end}. O programa recebe uma lista de fones. Um exemplo de entrada é:
+
+\begin{lstlisting}
+      _ 150 50 150
+      o 108 50 125
+      l 125 50 75
+      a 116 20 232 80 300
+      _ 150 50 150
+\end{lstlisting}
+
+\subsubsection{Formato}
+Em cada linha, tem-se um fone ou um silêncio representado pelo \emph{underscore} seguido por uma duração em milissegundos e, por último, um ou mais pares de porcentagem e frequência em Hertz determinando alvos para a curva F0. Como exemplo, na quarta linha temos o fone \/a\/ com duração de 116 ms e dois alvos para altura, 232 Hz em 20\% e 300 Hz em 80\%.
+
+% referência?
+Cada voz gravada provê uma tabela com os fones que podem ser utilizados. Utilizamos neste trabalho a voz br3 desenvolvida por Denis R. Costa disponível no site oficial do projeto MBROLA.
+
+
 \subsection{Prosódia em sistemas TTS}
 \subsubsection{SSML}
-SSML \cite{ssml}, especificação mantida pela W3C.
+SSML foi criado para padronizar anotações em sintetizadores de fala, permitindo
+desambiguação de pronúncia, mudança de linguagem, etc. Phrasing, emphasis, pronunciation. É baseado em XML.
+\cite{ssml}, A especificação é mantida pela W3C.
 % https://www.w3.org/TR/emotionml/
 MaryTTS usa ToBI, MBROLA, Unit selection do FreeTTS, SSML.
 Alexa, Google Assistant e Cortana têm suporte a SSML.
 SSML é apenas um modificador (insuficiente para estimar prosódia?)
+Anotações em SSML são úteis para estender o texto original e dar dicas para
+sintetizadores de fala.
 % http://mary.dfki.de/documentation/overview.html
 \subsubsection{EmotionML}
-EmotionML \cite{emotionml} foi criada para várias coisas, uma delas
+EmotionML \cite{emotionml} foi criada para várias coisas, uma delas é ajudar
+algoritmos a determinarem prosódia. \cite{emotionmary} descreve um
+\emph{framework} para implementação de determinação de prosódia a partir de
+anotações em emotionml.
 
-\section{Sistemas TTS com suporte a português}
-\subsection{MaryTTS}
-Projeto FalaBrasil \cite{falabrasil}, \cite{couto}
-\subsubsection{Grafema-fone}
-Para o português brasileiro, foram encontrados os conversores
-da USP: \cite{g2pusp} do projeto falabrasil: \cite{falabrasil}.
-\subsection{LianeTTS}
-Projeto da SERPRO LianeTTS (MBROLA)
-\subsection{espeak}
-Projeto do Dunn.
-
-\subsection{Prosódia no português brasileiro}
-Trabalhos de Moraes, Tenani, ...
 \subsection{Modelos de prosódia}
 \subsubsection{Teoria métrica-autossegmental}
-Modelo autossegmental e métrico: Pierrehumbert, Moraes (pitch analysis by synthesis).
-ref Moraes, Intonation Systems (20 languages).
+Pierrehumbert, Moraes (pitch analysis by synthesis). ref Moraes, Intonation Systems (20 languages).
 \subsubsection{DaTo}
 % Enquanto a teoria MA, representada pelo sistema ToBI, se baseia em aspectos 
 % lineares da estrutura tonal, na identifi cação dos 
@@ -90,3 +119,5 @@ seguindo crítica de Lucente que o sistema ToBI é inapropriado.
 \subsubsection{INTSINT}
 INTSINT é um sistema de anotação para prosódia.
 % The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''
+\subsubsection{Prosódia no português brasileiro}
+Trabalhos de Moraes, Tenani, ...
