@@ -27,7 +27,6 @@ diagrama geral para sistemas TTS:
     \draw[->] (txt) -- (nlp);
     \draw[->] (nlp) -- (dsp);
     \draw[->] (dsp) -- (fal);
-
     \end{tikzpicture}
 }
 \caption{Arquitetura geral de sistemas TTS (adaptado de \citeonline{tts-book})}
@@ -42,15 +41,26 @@ processamento digital de sinais.
 O texto de entrada pode conter números e símbolos. A primeira parte do processo de conversão de texto para fala é transformar em sua representação por extenso.
 Sentence tokenization, isto é, descobrir as boundaries de cada sintagma. Depois,
 normalização de palavras não-padrão? abreviações, acrônimos e siglas.
-Desambiguação de homônimos heterófonos (e.g.: ``Gosto de pão'')
+Desambiguação de homônimos heterófonos (e.g.: ``Gosto de pão''). Análise
+fonética (normalized word strings para pronúncia).
 
 \subsection{Conversão grafema-fone}
+Palavras não-padrão são colocadas num dicionário de pronúncia. O resto é
+calculado de acordo com regras letra-som.
+Context-dependent e independent. Abordagens por machine learning ou regras.
 A conversão grafema-fone (ou fonema) consiste em transformar o texto normalizado
 em fones, ou seja, uma sequência de caracteres em uma sequência de fones.
 
 \subsection{Geração de prosódia}
+% More technically, prosody has been defined by Ladd (1996) as the ‘use of suprasegmental features to convey sentence-level pragmatic mean- ings’.
+% The term suprasegmental means above and beyond the level of the segment or phone, and refers especially to the uses of acoustic features like F0 duration
 A partir do texto e fones gerados nas etapas anteriores, deve-se estimar uma
 curva F0, ritmo e ênfase.
+
+% sintagmas entoacionais
+%  I wanted to go to London, but could only get tickets for France there seems to be two main intonation phrases, their boundary occurring at the comma
+%  there is often a slight drop in F0 from the beginning of an intonation phrase to its end, which resets at the beginning of a new intonation phrase
+% A very high-precision rule is the one we saw for sentence segmentation: insert a boundary after punctuation. Another commonly used rule inserts a phrase boundary before a function word following a content word.
 
 \subsection{Síntese de fala}
 % martin jurasfky p275
@@ -72,8 +82,8 @@ Intonational tune
 Downdrift
 Microprosódia
 \subsection{Função prosódica}
-\subsubsection{Afetiva}
 \citeonline{taylor2009} mostra três razões pelas quais utilizamos prosódia na fala.
+\subsubsection{Afetiva}
 Prosódia pura, emoção, estado mental e atitude. 
 \subsubsection{Supra-segmental}
 Características em um discurso neutro, isto é, quando uma sentença é falada sem
@@ -88,14 +98,3 @@ Considerando o texto como sequência de palavras, é difícil determinar prosód
 afetiva.
 Gerar a prosódia certa é uma questão de Natural Language Understanding, isto é,
 é preciso entender o texto para gerar os contornos melódicos afetivos.
-
-\subsection{Prosódia em sistemas TTS}
-\subsubsection{SSML}
-SSML \cite{ssml}, especificação mantida pela W3C.
-% https://www.w3.org/TR/emotionml/
-MaryTTS usa ToBI, MBROLA, Unit selection do FreeTTS, SSML.
-Alexa, Google Assistant e Cortana têm suporte a SSML.
-SSML é apenas um modificador (insuficiente para estimar prosódia?)
-% http://mary.dfki.de/documentation/overview.html
-\subsubsection{EmotionML}
-EmotionML \cite{emotionml} foi criada para várias coisas, uma delas

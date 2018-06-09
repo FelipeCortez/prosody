@@ -18,22 +18,36 @@
 \subsubsection{Klaat}
 Síntese por formantes. \cite{espeakng} usa uma mistura do algoritmo de Klatt com
 sons de consoantes pré-gravados.
-\subsubsection{Unit selection e dífonos}
+\subsubsection{\emph{Unit selection} e dífonos}
 Abordagem utilizada pelo programa MBROLA. Consiste em gravar fala, separar
 pedaços de dois em dois.
 
+\subsubsection{HTS}
+% http://hts.sp.nitech.ac.jp/
 Algumas vozes para o MaryTTS \cite{marytts} utilizam HMMs, isto é, Modelos
 ocultos de Markov para \emph{unit selection}. Há, inclusive, uma voz brasileira
 feita a partir de HMMs: \cite{couto}.
-\subsubsection{\emph{Deep Neural Networks}}
-Projetos mais recentes como \cite{merlin} utilizam redes neurais para estimação de
-parâmetros no \emph{back-end}.
+Projetos mais recentes como \cite{merlin,dnngoogle} utilizam redes neurais para
+estimação de parâmetros. O trabalho da Google informa? que a estimação da curva
+F0 é uma possível melhoria.
 
 % Resultados realistas, mas não há como controlar parâmetros: \cite{merlin}
 
 \section{Sistemas TTS}
 \subsubsection{MBROLA}
-Baseado em síntese por dífonos. Antigo mas qualidade decente. Três vozes para o português brasileiro.
+Baseado em síntese por dífonos. Antigo mas qualidade decente. Três vozes para o
+português brasileiro. \cite{mbrola} % \cite{mbrola} The ultimate goal is to boost up academic research on speech synthesis, and particularly on prosody generation, known as one of the biggest challenges taken up by Text-to-Speech synthesizers for the years to come.
+
+\subsection{Prosódia em sistemas TTS}
+\subsubsection{SSML}
+SSML \cite{ssml}, especificação mantida pela W3C.
+% https://www.w3.org/TR/emotionml/
+MaryTTS usa ToBI, MBROLA, Unit selection do FreeTTS, SSML.
+Alexa, Google Assistant e Cortana têm suporte a SSML.
+SSML é apenas um modificador (insuficiente para estimar prosódia?)
+% http://mary.dfki.de/documentation/overview.html
+\subsubsection{EmotionML}
+EmotionML \cite{emotionml} foi criada para várias coisas, uma delas
 
 \section{Sistemas TTS com suporte a português}
 \subsection{MaryTTS}
@@ -49,9 +63,25 @@ Projeto do Dunn.
 \subsection{Prosódia no português brasileiro}
 Trabalhos de Moraes, Tenani, ...
 \subsection{Modelos de prosódia}
-\subsubsection{Modelo autossegmental e métrico}
+\subsubsection{Teoria métrica-autossegmental}
 Modelo autossegmental e métrico: Pierrehumbert, Moraes (pitch analysis by synthesis).
 ref Moraes, Intonation Systems (20 languages).
+\subsubsection{DaTo}
+% Enquanto a teoria MA, representada pelo sistema ToBI, se baseia em aspectos 
+% lineares da estrutura tonal, na identifi cação dos 
+% pitch accents
+%  e no alinhamento abs-
+% trato dessa estrutura com o material linguístico, o sistema DaTo de notação entoa-
+% cional (LUCENTE, 2008; 2012) se concentra na convergência de aspectos fonéticos 
+% – velocidade, intensidade, altura, duração – da curva entoacional a fi m de atingir um 
+% alvo ou desempenhar uma tarefa linguística por meio dos contornos entoacionais, da 
+% gama de variação tonal e do alinhamento específi co com o material linguístico
+
+% O sistema DaTo foi desenvolvido com base na entoação do português bra-
+% sileiro (PB) e trabalha com o conceito de contorno dinâmico, que é defi nido em 
+% Lucente (2012, p. 99) como “uma unidade tonal que contém elementos comuni-
+% cativos expressos em uma trajetória ideal da curva entoacional, especifi cada por 
+% um alvo a ser atingido e associada a uma unidade segmental linguística”
 \subsubsection{IPO}
 % página 32
 \cite{ipo} analisa a prosódia para o português brasileiro através do modelo IPO,
