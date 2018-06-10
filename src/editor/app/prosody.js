@@ -6,20 +6,29 @@ var app = new Vue({
   mounted: function() {
     var self = this;
     const requestURL = "http://127.0.0.1:5000/api/espeak";
-    httpRequest = new XMLHttpRequest();
-    httpRequest.open("GET", requestURL);
-    httpRequest.send();
+    let XHR = new XMLHttpRequest();
+    let FD  = new FormData();
 
-    httpRequest.onreadystatechange = function() {
-      if (httpRequest.readyState === XMLHttpRequest.DONE) {
-        if (httpRequest.status === 200) {
-          const results = JSON.parse(httpRequest.responseText);
+    FD.append("text", "Bom dia, comunidade");
+
+    XHR.open("POST", requestURL);
+    XHR.send(FD);
+
+    XHR.onreadystatechange = function() {
+      if (XHR.readyState === XMLHttpRequest.DONE) {
+        if (XHR.status === 200) {
+          const results = JSON.parse(XHR.responseText);
           console.log(results);
           self.phones = results;
         }
       }
     };
   }
+  // computed: {
+  //   firstPhone: function () {
+  //     return this..pitch_changes[0][0];
+  //   }
+  // }
 });
 
 
