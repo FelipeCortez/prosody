@@ -15,25 +15,25 @@ Interfaces humano-computador que utilizam a voz, denominadas \emph{voice user
   interfaces}, antigamente vistas apenas na ficção científica, hoje são uma
 realidade e estão disponíveis em \emph{smartphones} e ambientes \emph{desktop}.
 De acordo com \cite{tts-book, martinjurafsky}, há uma grande área de aplicação
-para essas interfaces, destacando-se a acessibilidade, permitindo que
+para essas interfaces, como a acessibilidade, permitindo que
 deficientes visuais possam ouvir texto sem a necessidade de gravação prévia de
-seu conteúdo. Além disso, com o aumento da popularidade de sistemas embarcados,
+seu conteúdo, ferramenta de ensino de linguagens e auxílio à pesquisa na linguística. Além disso, com o aumento da popularidade de sistemas embarcados,
 é importante investigar novas formas de interação humano-máquina, e a síntese de
 fala, juntamente com o reconhecimento, permitem comunicação de duas vias com
-esses sistemas. Sistemas \emph{text-to-speech} (doravante TTS) também podem
-auxiliar pessoas que perderam a habilidade de falar, como o físico Stephen
-Hawking, que desde 1986 utilizou um sintetizador de voz para se comunicar, e o
-crítico de cinema Roger Ebert, que após perder a mandíbula passou a falar
-através de um sistema TTS, mais tarde usando uma solução personalizada que
-sintetizava uma aproximação de sua própria voz baseada em múltiplas gravações
-passadas. % referência! 
+esses sistemas.
 
-Os serviços mais populares e robustos que temos atualmente são implementações proprietárias de grandes empresas, como Siri \cite{siri}, Cortana \cite{cortana} e Alexa \cite{alexa}. Apesar da praticidade e ganho de acessibilidade providos por essas interfaces, os serviços disponíveis sintetizam voz com resultados perceptivelmente artificiais, principalmente para a língua portuguesa. Uma das causas da artificialidade é a prosódia empregada, isto é, o ritmo, entonação e acento. Mesmo com um sistema personalizado, Roger Ebert se queixava da falta de expressividade do algoritmo.
+% Sistemas \emph{text-to-speech} (doravante TTS) também podem
+% auxiliar pessoas que perderam a habilidade de falar, como o físico Stephen
+% Hawking, que desde 1986 utilizou um sintetizador de voz para se comunicar, e o
+% crítico de cinema Roger Ebert, que após perder a mandíbula passou a falar
+% através de um sistema TTS, mais tarde usando uma solução personalizada que
+% sintetizava uma aproximação de sua própria voz baseada em múltiplas gravações
+% passadas. % referência! 
+
+Os serviços mais populares e robustos que temos atualmente são implementações proprietárias de grandes empresas, como Siri \cite{siri}, Cortana \cite{cortana} e Alexa \cite{alexa}. Apesar da praticidade e ganho de acessibilidade providos por essas interfaces, os serviços disponíveis sintetizam voz com resultados perceptivelmente artificiais, principalmente para a língua portuguesa. Uma das causas da artificialidade é a prosódia empregada, isto é, o ritmo, entonação e acento.
 
 \section{Objetivos}
-Este tem o objetivo de fazer um levantamento do estado da arte de algoritmos
-para TTS, com atenção especial a como a prosódia é abordada em cada um deles, e
-propor melhorias possíveis para módulos de prosódia para o português brasileiro.
+Este trabalho tem como objetivo geral propor melhorias para o módulo de prosódia afetiva para sistemas TTS com suporte ao português brasileiro através de uma revisão da área da fonologia e estudo de estado da arte de sistemas TTS, com atenção especial a como a prosódia é abordada.
 
 \section{Organização do trabalho}
 % Nesta seção deve ser apresentado como está organizado o trabalho, sendo descrito, portanto, do que trata cada capítulo.
@@ -55,12 +55,9 @@ trabalhos existentes em análise de prosódia em um contexto não necessariament
 computacional.
 
 % - Capítulo 4 - metodologia:
-% justificativa para abordagem escolhida, implementação, ferramentas,
-% arquitetura do software desenvolvido
 No capítulo 4, é descrito o sistema desenvolvido, justificando a abordagem com
-base na revisão da literatura e explica-se a implementação do software,
-incluindo sua arquitetura, as linguagens de programações utilizadas e o
-funcionamento.
+base na revisão da literatura. Explica-se a implementação do software,
+descrevendo sua arquitetura, as linguagens de programações utilizadas e o funcionamento.
 
 % - Capítulo 5 - resultados:
 % $testes MOS, metodologia do teste, trabalhos futuros, mapeamento automático

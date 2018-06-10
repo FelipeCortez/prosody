@@ -2,7 +2,7 @@
 % Revisão da literatura
 % texto no qual se deve apresentar os aspectos teóricos, isto é, os conceitos utilizados e a definição dos mesmos; nesta parte faz-se a revisão de literatura sobre o assunto, resumindo-se os resultados de estudos feitos por outros autores, cujas obras citadas e consultadas devem constar nas referências;
 
-\simb[\% (fronteira de enunciado para ToBI)]
+% \simb[\% (fronteira de enunciado para ToBI)]
 \abrv[INTSINT -- \emph{International Transcription System for Intonation}]
 \abrv[HMM -- \emph{Hidden Markov Model}]
 \abrv[SSML -- \emph{Speech Synthesis Markup Language}]
@@ -10,29 +10,6 @@
 \abrv[W3C -- \emph{World Wide Web Consortium}]
 
 \chapter{Revisão da literatura}
-
-% Intonational phrase: sintagmas entoacionais
-% Tone boundary: fronteira prosódica?
-% Pitch accent: acento de pitch
-
-% https://www.ime.usp.br/~cpaz/downloads/algorithm-portuguese.pdf
-
-\subsection{Abordagens}
-\subsubsection{Klaat}
-Síntese por formantes. \cite{espeakng} usa uma mistura do algoritmo de Klatt com
-sons de consoantes pré-gravados.
-\subsubsection{\emph{Unit selection} e dífonos}
-Abordagem utilizada pelo programa MBROLA. Consiste em gravar fala, separar
-pedaços de dois em dois.
-
-\subsubsection{HTS}
-% http://hts.sp.nitech.ac.jp/
-Algumas vozes para o MaryTTS \cite{marytts} utilizam HMMs, isto é, Modelos
-ocultos de Markov para \emph{unit selection}. Há, inclusive, uma voz brasileira
-feita a partir de HMMs: \cite{couto}.
-Projetos mais recentes como \cite{merlin,dnngoogle} utilizam redes neurais para
-estimação de parâmetros. O trabalho da Google informa? que a estimação da curva
-F0 é uma possível melhoria.
 
 % Resultados realistas, mas não há como controlar parâmetros: \cite{merlin}
 
@@ -48,10 +25,6 @@ prosódia é simples, baseada em tabela.
 \subsection{espeak}
 Projeto do Dunn. Síntese por formantes (com consoantes gravadas). É possível
 obter apenas até a parte de g2p como saída.
-\subsection{Festival}
-Edinburgo. Multilingual, mas não pro português. Modular: permite configuração
-independente de subsistemas como regras letra-som, POS tagging, entonação.
-Suporte a múltiplos sintetizadores de fala. HTS, Unit selection, MBROLA.
 \subsection{Microsoft}
 \citeonline{hmmmicrosoft} descrevem sistema TTS desenvolvido pela Microsoft
 baseado em HMM. A stochastic-based LTS (Letter-to-Sound) converter to predict phonetic transcriptions for out-of-vocabulary words and the prosody models, which are data- driven using a prosody tagged corpus of 2000 sentences.
@@ -67,12 +40,13 @@ Redes neurais utilizadas no back end.
 Trabalho pro português: \cite{dnnpt}
 
 \subsubsection{MBROLA}
-Baseado em síntese por dífonos. Antigo mas qualidade decente. Três vozes para o
-português brasileiro. \cite{mbrola} % \cite{mbrola} The ultimate goal is to boost up academic research on speech synthesis, and particularly on prosody generation, known as one of the biggest challenges taken up by Text-to-Speech synthesizers for the years to come.
+\label{sec:mbrola}
+MBROLA é uma ferramenta para geração de voz baseada em síntese por dífonos
+desenvolvida com o objetivo de fomentar pesquisas acadêmicas em geração de
+prosódia \cite{mbrola}. É utilizada como \emph{back-end} para diversos sistemas
+TTS, como MaryTTS, e possui três vozes disponíveis para o português brasileiro. % \cite{mbrola} The ultimate goal is to boost up academic research on speech synthesis, and particularly on prosody generation, known as one of the biggest challenges taken up by Text-to-Speech synthesizers for the years to come.
 
-Baseado no algoritmo {MBRPSOLA} \cite{mbrpsola}. É um \emph{back-end}. O programa recebe uma lista de fones. Um exemplo de entrada é:
-
-\begin{lstlisting}
+\begin{lstlisting}[caption=Exemplo de arquivo de entrada para MBROLA]
       _ 150 50 150
       t  70 50 125
       e 125 50 75
@@ -91,27 +65,27 @@ Cada voz gravada provê uma tabela com os fones que podem ser utilizados. Utiliz
 
 \subsection{Prosódia em sistemas TTS}
 \subsubsection{SSML}
-SSML foi criado para padronizar anotações em sintetizadores de fala, permitindo
-desambiguação de pronúncia, mudança de linguagem, etc. Phrasing, emphasis,
-pronunciation. É baseado em XML.
-\cite{ssml}, A especificação é mantida pela W3C.
-% https://www.w3.org/TR/emotionml/
-Anotações em SSML são úteis para estender o texto original e dar dicas para
-sintetizadores de fala. A especificação cita os elementos \emph{emphasis},
+A linguagem de marcação \emph{Speech Synthesis Markup Language} foi criada
+motivada pela dificuldade de predição computacional de pronúncia
+\cite{ssmlpaper}. Quando originalmente proposta, diferentes sistemas TTS
+permitiam anotações extra-textuais para auxiliar a estimação de parâmetros, mas
+usuários tinham que aprender um sistema de anotação para cada programa
+diferente. A proposta da SSML é que os sistemas TTS recebam o texto anotado numa
+linguagem unificada. A linguagem foi adotada pelo MaryTTS, além dos sistemas proprietários Alexa, Google Assistant e Cortana. A especificação é mantida pela W3C \cite{ssml}.
+A especificação cita os elementos \emph{emphasis},
 \emph{break} e \emph{prosody} como marcadores que podem auxiliar o processador
 de linguagem natural a gerar parâmetros prosódicos apropriados.
-MaryTTS usa ToBI, MBROLA, Unit selection do FreeTTS, SSML.
-Suportado (?) pelo MaryTTS e sistemas proprietários da Alexa, Google Assistant e Cortana.
 
-\begin{lstlisting}
+\begin{lstlisting}[caption=Exemplo de texto anotado com SSML]
 <speak>
-    Eu quero
+    Siga
     <emphasis level="strong">aquele</emphasis> 
     carro.
 </speak> 
 \end{lstlisting}
 
 % http://mary.dfki.de/documentation/overview.html
+% https://www.w3.org/TR/emotionml/
 \subsubsection{EmotionML}
 EmotionML \cite{emotionml} foi criada para várias coisas, uma delas é ajudar
 algoritmos a determinarem prosódia. \cite{emotionmary} descreve um
@@ -120,8 +94,6 @@ anotações em emotionml.
 
 \subsection{Modelos de prosódia}
 \subsubsection{Teoria métrica-autossegmental}
-Pierrehumbert, Moraes (pitch analysis by synthesis). ref Moraes, Intonation Systems (20 languages).
-\subsubsection{DaTo}
 % Enquanto a teoria MA, representada pelo sistema ToBI, se baseia em aspectos 
 % lineares da estrutura tonal, na identifi cação dos 
 % pitch accents
@@ -145,3 +117,8 @@ seguindo crítica de Lucente que o sistema ToBI é inapropriado.
 \subsubsection{INTSINT}
 INTSINT é um sistema de anotação para prosódia.
 % The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''
+\subsubsection{DaTo}
+Apesar de o modelo ToBI para anotação entoacional ter sido utilizado para analisar o
+português brasileiro em diversos trabalhos, \citeonline{lucente} argumenta que
+há características perceptíveis que a notação não consegue expressar, propondo o
+modelo DaTo com base na entonação do português brasileiro.

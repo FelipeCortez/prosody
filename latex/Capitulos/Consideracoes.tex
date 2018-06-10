@@ -2,19 +2,30 @@
 % As considerações finais formam a parte final (fechamento) do texto, sendo dito de forma resumida (1) o que foi desenvolvido no presente trabalho e quais os resultados do mesmo, (2) o que se pôde concluir após o desenvolvimento bem como as principais contribuições do trabalho, e (3) perspectivas para o desenvolvimento de trabalhos futuros. O texto referente às considerações finais do autor deve salientar a extensão e os resultados da contribuição do trabalho e os argumentos utilizados estar baseados em dados comprovados e fundamentados nos resultados e na discussão do texto, contendo deduções lógicas correspondentes aos objetivos do trabalho, propostos inicialmente.
 
 \chapter{Considerações finais}
-Neste trabalho apresentamos a definição de TTS,
-fizemos uma busca dos sistemas open-source existentes
-investigamos como a prosódia funciona nos sistemas encontrados
-especialmente para o português brasileiro
-investigamos como melhorar
-passos para o futuro
-implementação básica de uma provável melhoria
+Neste trabalho foi apresentada a definição de um sistema TTS, bem como a descrição
+de seus componentes principais e possíveis implementações para cada módulo.
+Também foi realizada uma busca dos sistemas TTS \emph{open-source} e comerciais
+existentes. Com o objetivo de melhorar a geração de prosódia, foi feita uma
+revisão de prosódia na linguística, descrevendo os principais sistemas de
+anotação usados na fonologia entoacional, principalmente aplicados ao português
+brasileiro. Investigamos como a prosódia funciona nos sistemas encontrados e
+identificamos que, enquanto a geração de prosódia suprassegmental em trabalhos
+recentes já produz resultados satisfatórios, ainda há desafios quando à síntese
+de fala expressiva relacionada à prosódia afetiva e aumentativa.
 
 \section{Trabalhos futuros}
-Usar técnicas de Natural Language Understanding para gerar notação EmotionML
-automaticamente.
-Desenvolvimento de corpus anotados com prosódia para o
-português brasileiro.
+Foi identificado que ainda há um significante desafio para a geração de prosódia
+afetiva automática a partir de um texto não anotado. Possíveis soluções para
+avanço nesta área incluem:
+\begin{itemize}
+\item Expansão do sistema desenvolvido neste trabalho para adicionar suporte a
+  mais modelos notação entoacional.
+\item Adicionar suporte a SSML e EmotionML ao sistema desenvolvido, gerando
+  curvas F0 a partir de linguagens de marcação
+\item Uso técnicas de técnicas de \emph{Natural Language Understanding} para gerar notação EmotionML automaticamente.
+\item Desenvolvimento de corpus anotados com prosódia para o português brasileiro.
+\end{itemize}
+
 % Usar técnicas de Natural Language Understanding para gerar prosódia utilizando notação desenvolvida neste trabalho
 % corpus anotados para o português
 % https://corplinguistics.wordpress.com/2012/03/08/prosodically-annotated-corpora/

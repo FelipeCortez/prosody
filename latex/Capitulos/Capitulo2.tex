@@ -6,24 +6,26 @@
 
 \section{Prosódia}
 \subsection{Componentes}
-\citeonline{taylor2009} fala que a prosódia tem:
+\cite[p.~150]{cagliari} cita.
 Stress (loudness and phonatory force)
 Syllabic length
 F0, intensidade, duração
 Intonational tune
-Downdrift
-Microprosódia
+Sintagma entoacional
+Além desses componentes principais, \citeonline{taylor2009} descreve downdrift e microprosódia.
 \subsection{Função prosódica}
-\citeonline{taylor2009} mostra três razões pelas quais utilizamos prosódia na fala.
-\subsubsection{Afetiva}
-Prosódia pura, emoção, estado mental e atitude. 
-\subsubsection{Suprassegmental}
-Características em um discurso neutro, isto é, quando uma sentença é falada sem
-conteúdo afetivo significante. \citeonline{taylor2009} fala que em seu modelo de
-prosódia a parte supra-segmental não é conteúdo prosódico verdadeiro, mas sim
-um outro aspecto do componente verbal.
-\subsubsection{Aumentativa}
-Um elemento para assegurar a comunicação efetiva do componente verbal de uma mensagem.
+\citeonline{taylor2009} divide a prosódia em três tipos distintos:
+
+\begin{itemize}
+\item Afetiva: prosódia pura, emoção, estado mental e atitude. 
+\item Suprassegmental: quando uma mensagem é dita de maneira declarativa, sem conteúdo
+afetivo significante, dá o nome de \emph{discourse neutral}. utiliza um modelo
+de prosódia em que parte supra-segmental não é conteúdo prosódico verdadeiro,
+mas sim um outro aspecto do componente verbal.
+\item Aumentativa: assegura a comunicação efetiva de uma
+mensagem.
+\end{itemize}
+
 \subsection{Prosódia como elemento extra-textual}
 \citeonline{taylor2009} argumenta que a geração de prosódia afetiva é árdua e
 depende de uma compreensão do texto. Ainda fala que, até a data de publicação do
@@ -36,7 +38,10 @@ pecam nesse aspecto.
 % From this we can conclude that in situations where the text genre is quite factual, it is usually sufficient to generate speech from the verbal message only, and so all that is required is the gen- eration of the suprasegmental part of the signal; the affective part of prosody is ignored. In other text genres the situation is significantly more difficult, and if say a dialogue from a play is read in this fashion (or more likely) responses from a computer dialogue system, the generated speech can sound somewhat dull and removed. Finally, we see that mimicking a genuinely good human reader is very difficult indeed, as they will be performing an actual comprehension of the text, and then generating their own prosody. In no way are they simply decoding the prosody from the text and then speaking it aloud, as they can do with the words. To date, no satisfactory solution has been found to this problem, and so current text-to-speech systems are, unfortunately, lacking in this regard.
 
 \section{Sistemas TTS}
-Um sistema \emph{text-to-speech} converte texto em fala.
+\citeonline{ssml} define \emph{text-to-speech} como ``o processo de geração
+automática de fala a partir de texto ou texto anotado'' (tradução nossa).
+Sistemas TTS são compostos por múltiplos subsistemas, como mostramos a seguir.
+
 \subsection{Estrutura}
 Na literatura, encontramos diversas arquiteturas específicas de um sistema TTS.
 \citeonline{tts-book} propõe um diagrama geral, dividindo sistemas em duas partes principais:
@@ -63,7 +68,6 @@ Na literatura, encontramos diversas arquiteturas específicas de um sistema TTS.
 \caption{Arquitetura geral de sistemas TTS (adaptado de \citeonline{tts-book})}
 \label{fig:tts-arch}
 \end{figure}
-
 É comum encontrar em outros trabalhos o termo \emph{front end} para o
 bloco de processamento de linguagem natural e \emph{back end} para o bloco de
 processamento digital de sinais. Doravante utilizaremos essa nomenclatura.
@@ -85,10 +89,16 @@ A conversão grafema-fone (ou fonema) consiste em transformar o texto normalizad
 em fones, ou seja, uma sequência de caracteres em uma sequência de fones.
 
 \subsubsection{Geração de prosódia}
-% More technically, prosody has been defined by Ladd (1996) as the ‘use of suprasegmental features to convey sentence-level pragmatic mean- ings’.
-% The term suprasegmental means above and beyond the level of the segment or phone, and refers especially to the uses of acoustic features like F0 duration
 A partir do texto e fones gerados nas etapas anteriores, deve-se estimar uma
 curva F0, ritmo e ênfase.
+
+% decide to use neutral prosody, and the suprasegmental effects that need to be
+% synthesised can be found from the verbal part of the message. For more emotive
+% messages, or in cases where we think we need significant use of augmentative
+% prosody, we have a fairly serious problem. This is because we have no means of
+% knowing what prosody the speech should be encoded with; the message that we
+% found from the text has no explicit clues as to what the prosody should be.
+% (taylor p 37)
 
 % sintagmas entoacionais
 %  I wanted to go to London, but could only get tickets for France there seems to be two main intonation phrases, their boundary occurring at the comma
@@ -106,7 +116,23 @@ síntese concatenativa, síntese por formantes e síntese articulatória.
 \item Síntese articulatória
 \item Síntese por formantes
 \item Síntese concatenativa
-\end{itemize}
-
 Síntese concatenativa pode trabalhar com diferentes atomicidades: nível de palavra,
 dífonos e fones individuais.
+\end{itemize}
+
+% Intonational phrase: sintagmas entoacionais
+% Tone boundary: fronteira prosódica?
+% Pitch accent: acento de pitch
+
+% https://www.ime.usp.br/~cpaz/downloads/algorithm-portuguese.pdf
+
+Abordagem utilizada pelo programa MBROLA. Consiste em gravar fala, separar
+pedaços de dois em dois.
+
+% http://hts.sp.nitech.ac.jp/
+Algumas vozes para o MaryTTS \cite{marytts} utilizam HMMs, isto é, Modelos
+ocultos de Markov para \emph{unit selection}. Há, inclusive, uma voz brasileira
+feita a partir de HMMs: \cite{couto}.
+Projetos mais recentes como \cite{merlin,dnngoogle} utilizam redes neurais para
+estimação de parâmetros. O trabalho da Google informa? que a estimação da curva
+F0 é uma possível melhoria.

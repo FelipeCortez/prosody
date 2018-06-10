@@ -5,28 +5,55 @@
 \abrv[MBRPSOLA -- \emph{Multi-Band Resynthesis Pitch Synchronous Overlap and Add}]
 \simb[ms (milissegundos)]
 \simb[Hz (Hertz)]
+\abrv[API -- \emph{Application programming interface}]
+\abrv[JSON -- \emph{JavaScript Object Notation}]
+\abrv[REST -- \emph{Representational State Transfer}]
+
 \chapter{Editor de prosódia}
 
 \section{Implementação}
 
 \subsection{espeak-ng}
-Foi utilizado o programa \emph{open-source} espeak-ng \cite{espeakng} para realizar a normalização de texto e realizar a conversão grafema-fonema, ou seja, obter a partir do texto de entrada uma representação em fonemas. O resultado é passado para o programa desenvolvido neste trabalho.
+Foi utilizado o programa \emph{open-source} espeak-ng \cite{espeakng} para
+realizar a normalização de texto e realizar a conversão grafema-fone, ou seja,
+obter a partir do texto de entrada uma representação em fones. A saída gerada
+é passada para o programa desenvolvido neste trabalho através da biblioteca
+\code{subprocess} da linguagem Python. O comando utilizado para obter os grafemas pode ser visto no código \ref{lst:espeak}.
+
+\begin{itemize}
+\item A \emph{flag} \code{-v} seleciona uma voz. Neste caso, \code{pt-br}
+\item \code{-x} e \code{-q} escrevem fones na saída em vez da fala sintetizada
+\item \code{-sep=/} separa fones utilizando o caractere \code{/}
+\end{itemize}
+
+\begin{lstlisting}[caption=Utilização do programa espeak e saída correspondente,
+  label=lst:espeak]
+  $ espeak-ng -v pt-br 'Bom dia' -x -q --sep=/
+  $ b/'o/N dZ/'i/;/&
+\end{lstlisting}
 
 Apesar da existência de outras ferramentas para \emph{front-end} para o português brasileiro, optamos por esta pela facilidade de instalação, marcação de ênfase disponível, etc.
 
+\subsection{MBROLA}
+Cada voz do MBROLA tem suporte a um conjunto específico de dífonos. O programa
+\code{sampa_mbrola.py} foi desenvolvido para converter a saída gerada em fones
+suportados pela voz do MBROLA utilizada. O equivalente ao fone \code{&} gerado
+pelo espeak é \code{a} na voz do MBROLA, por exemplo. A ferramenta de conversão
+lê a tabela do arquivo \code{sampa_mbrola.tbl}, e substitui cada fone pelo
+equivalente corrigido. A tabela possui três colunas: o fone que o espeak
+produz, o fone equivalente para o MBROLA e um exemplo numa palavra do português.
+Em \ref{sampambrola} é possível ver algumas linhas do arquivo.
+
+\begin{lstlisting}[caption=Linhas da tabela de conversão, label=sampambrola]
+  &  |  a  |  v_a_le
+  6  |  @  |  tam_a_nho
+  n  |  n  |  _n_unca
+\end{lstlisting}
+
 \subsection{Arquitetura}
-Diagrama aqui
-
-\subsection{Módulo de prosódia}
-
-\subsection{Editor gráfico}
-O programa foi codificado em Python em sua versão 3.6. Pega resultado do espeak-ng, processa com editor gráfico e gera MBROLA.
-
-Para alterar a prosódia manualmente, foi desenvolvido um editor gráfico
-para \emph{web} utilizando HTML, CSS e JavaScript. A duração e altura de cada
-fone pode ser especificado arrastando barras de controle. O editor se comunica
-com o espeak-ng e MBROLA através de um servidor programado em Python utilizando
-o \emph{framework} Flask para prover \emph{endpoints} de uma API REST.
+Foi utilizada uma arquitetura cliente-servidor utilizada por aplicações web
+contemporâneas. A interface gráfica consome uma API REST. A maneira como os
+módulos se comunicam pode ser vista na figura \ref{fig:arch}.
 
 \begin{figure}[!htbp]
 \centering
@@ -48,9 +75,29 @@ o \emph{framework} Flask para prover \emph{endpoints} de uma API REST.
     \end{tikzpicture}
 }
 \caption{Arquitetura do sistema desenvolvido}
-\label{fig:lol}
+\label{fig:arch}
 \end{figure}
 
+\subsection{Módulo de prosódia}
+
+\subsection{Editor gráfico}
+O programa foi codificado em Python em sua versão 3.6. Pega resultado do espeak-ng, processa com editor gráfico e gera MBROLA.
+
+Para alterar a prosódia manualmente, foi desenvolvido um editor gráfico
+para \emph{web} utilizando HTML, CSS e JavaScript. A duração e altura de cada
+fone pode ser especificado arrastando barras de controle. O editor se comunica
+com o espeak-ng e MBROLA através de um servidor programado em Python utilizando
+o \emph{framework} Flask para prover \emph{endpoints} de uma API REST.
+
+\subsection{Endpoints}
+Foram criados dois endpoints para a API, tornando possível a comunicação entre
+interface gráfica e servidor.
+
+\paragraph{[POST] api/espeak} Recebe um texto como entrada e gera uma resposta
+JSON com lista de fones
+\paragraph{[POST] api/mbrola} Recebe uma lista de fones no formato MBROLA
+descrito na seção \ref{sec:mbrola} e gera uma resposta com o nome do arquivo de
+áudio contendo a fala sintetizada
 
 
 % \begin{figure}[!htbp]

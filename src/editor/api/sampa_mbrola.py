@@ -9,7 +9,6 @@ from typing import List
 def flatten(lst: list):
     return [item for sublist in lst for item in sublist]
 
-
 class Phone():
     def __init__(
             self,
