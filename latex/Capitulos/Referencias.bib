@@ -1,15 +1,35 @@
+% Talvez seja interessante ------------------------
+
 % http://www.pee.ufrj.br/index.php/pt/producao-academica/teses-de-doutorado/2011/2011062801-2011062801/file
 % http://www.sje.ifmg.edu.br/portal/images/artigos/biblioteca/TCCs/Sistemas_de_informacao/2013/ALLAN_RIBEIRO_DOS_SANTOS_DANIELA_COUTO_DE_OLIVEIRA.pdf
 % https://www.ime.usp.br/~cpaz/downloads/algorithm-portuguese.pdf
 % https://saxenauts.github.io/deep-learning-based-speech-synthesis-a-survey.html
 % https://arxiv.org/pdf/1803.09047.pdf
 
-% http://manualdefoneticaacusticaexperimental.com/assets/barbosaetal1999.pdf
+% TTS em português --------------------------------
+
 @InProceedings{aiuruete,
   title={Aiuruete: A high-quality concatenative text-to-speech system for Brazilian portuguese with demisyllabic analysis-based units and a hierarchical model of rhythm production},
   author={Barbosa, Pl{\'\i}nio A and Violaro, F{\'a}bio and Albano, Eleonora C and Simoes, Fl{\'a}vio and Aquino, Patr{\'\i}cia and Madureira, Sandra and Francozo, Edson},
   booktitle={Sixth European Conference on Speech Communication and Technology},
   year={1999}
+  % http://manualdefoneticaacusticaexperimental.com/assets/barbosaetal1999.pdf
+}
+
+@InProceedings{couto,
+  title={An open source {HMM}-based text-to-speech system for {Brazilian} {Portuguese}},
+  author={Couto, Igor and Neto, Nelson and Tadaiesky, Vincent and Klautau, Aldebaro and Maia, Ranniery},
+  booktitle={7th international telecommunications symposium},
+  year={2010}
+}
+
+@InProceedings{korting2005,
+  title={Um sistema texto-fala livre},
+  author={Körting, Thales Sehn and Costa, Rodrigo Mendes and da Silva, Felipe Castro},
+  booktitle={WSL’05: Workshop sobre Software Livre},
+  year={2005},
+  url={http://people.softwarelivre.org/wsl/2005/0017/17.pdf},
+  urldate = {2017-10-29}
 }
 
 @Article{dnnpt,
@@ -28,23 +48,6 @@
   year={2008}
 }
 
-@InProceedings{dnngoogle,
-  title={Statistical parametric speech synthesis using deep neural networks},
-  author={Ze, Heiga and Senior, Andrew and Schuster, Mike},
-  booktitle={Acoustics, Speech and Signal Processing (ICASSP), 2013 IEEE International Conference on},
-  pages={7962--7966},
-  year={2013},
-  organization={IEEE}
-}
-
-@InProceedings{emotionmary,
-  title={Expressive speech synthesis in {MARY} {TTS} using audiobook data and {emotionML}.},
-  author={Charfuelan, Marcela and Steiner, Ingmar},
-  booktitle={INTERSPEECH},
-  pages={1564--1568},
-  year={2013}
-}
-
 @InProceedings{g2pusp,
   title={Grapheme-phone transcription algorithm for a {Brazilian} {Portuguese} {TTS}},
   author={Barbosa, Filipe and Pinto, Guilherme and Resende, Fernando Gil and Gon{\c{c}}alves, Carlos Alexandre and Monserrat, Ruth and Rosa, Maria Carlota},
@@ -53,6 +56,8 @@
   year={2003},
   organization={Springer}
 }
+
+% TTS em geral  ----------------------------------
 
 @Book{taylor2009,
   title={Text-to-speech synthesis},
@@ -76,6 +81,104 @@
  publisher = {Prentice-Hall, Inc.},
  address = {Upper Saddle River, NJ, USA},
 }
+
+@InProceedings{mbrola,
+  title={The {MBROLA} project: Towards a set of high quality speech synthesizers free of use for non commercial purposes},
+  author={Dutoit, Thierry and Pagel, Vincent and Pierret, Nicolas and Bataille, Fran{\c{c}}ois and Van der Vrecken, Olivier},
+  booktitle={Spoken Language, 1996. ICSLP 96. Proceedings., Fourth International Conference on},
+  volume={3},
+  pages={1393--1396},
+  year={1996},
+  organization={IEEE},
+}
+
+@Article{merlin,
+  title={Merlin: An open source neural network speech synthesis system},
+  author={Wu, Zhizheng and Watts, Oliver and King, Simon},
+  journal={Proc. SSW, Sunnyvale, USA},
+  year={2016}
+}
+
+@Article{marytts,
+  title={The German text-to-speech synthesis system MARY: A tool for research, development and teaching},
+  author={Schröder, Marc and Trouvain, Jürgen},
+  journal={International Journal of Speech Technology},
+  volume={6},
+  number={4},
+  pages={365--377},
+  year={2003},
+  publisher={Springer}
+}
+
+@InProceedings{dnngoogle,
+  title={Statistical parametric speech synthesis using deep neural networks},
+  author={Ze, Heiga and Senior, Andrew and Schuster, Mike},
+  booktitle={Acoustics, Speech and Signal Processing (ICASSP), 2013 IEEE International Conference on},
+  pages={7962--7966},
+  year={2013},
+  organization={IEEE}
+}
+
+@InProceedings{emotionmary,
+  title={Expressive speech synthesis in {MARY} {TTS} using audiobook data and {emotionML}.},
+  author={Charfuelan, Marcela and Steiner, Ingmar},
+  booktitle={INTERSPEECH},
+  pages={1564--1568},
+  year={2013}
+}
+
+@Misc{espeakng,
+  author = {Reece H. Dunn},
+  title = {espeak-ng},
+  year = 2006,
+  note = {
+  Disponível em: <\url{https://github.com/espeak-ng/espeak-ng}>.
+  Acesso em 29 de outubro de 2017.
+  }
+}
+
+@Article{klatt1980software,
+  title={Software for a cascade/parallel formant synthesizer},
+  author={Klatt, Dennis H},
+  journal={the Journal of the Acoustical Society of America},
+  volume={67},
+  number={3},
+  pages={971--995},
+  year={1980},
+  publisher={ASA}
+}
+
+@Article{mbrpsola,
+  title={{MBR-PSOLA}: Text-to-speech synthesis based on an {MBE} re-synthesis of the segments database},
+  author={Dutoit, Thierry and Leich, Henri},
+  journal={Speech Communication},
+  volume={13},
+  number={3-4},
+  pages={435--440},
+  year={1993},
+  publisher={Elsevier}
+}
+
+% Prosódia em TTS ---------------------------------
+
+@InProceedings{mertens2004,
+  title={The prosogram: Semi-automatic transcription of prosody based on a tonal perception model},
+  author={Mertens, Piet},
+  booktitle={Speech Prosody 2004, International Conference},
+  year={2004}
+}
+
+@InProceedings{malfrere1998,
+  title={Automatic prosody generation using suprasegmental unit selection},
+  author={Malfrère, Fabrice and Dutoit, Thierry and Mertens, Piet},
+  booktitle={The Third ESCA/COCOSDA Workshop (ETRW) on Speech Synthesis},
+  year={1998},
+  url = {https://lirias.kuleuven.be/bitstream/123456789/149043/1/Malfrere_ea_1998_ESCA.pdf},
+  urldate = {2017-10-25}
+}
+
+
+% TTS comercial -----------------------------------
 
 @Misc{siri,
   author = {{Apple Inc.}},
@@ -107,215 +210,7 @@
   }
 }
 
-@Article{merlin,
-  title={Merlin: An open source neural network speech synthesis system},
-  author={Wu, Zhizheng and Watts, Oliver and King, Simon},
-  journal={Proc. SSW, Sunnyvale, USA},
-  year={2016}
-}
-
-
-@Misc{linse,
-  author = {{LINSE - Laboratório de Circuitos e Processamento de Sinais}},
-  url = {http://www.linse.ufsc.br/},
-  urldate={2017-11-05}
-}
-
-% Paul Boersma & David Weenink (2013):
-% Praat: doing phonetics by computer [Computer program].
-% Version 5.3.51, retrieved 2 June 2013 from http://www.praat.org/
-  % urldate = {2017-09-25}
-
-@Misc{praat,
-  author={Boersma, Paul and Weenink, David},
-  title={Praat: doing phonetics by computer},
-  url={http://www.praat.org/},
-  urldate = {2017-10-29},
-  year={2017}
-}
-
-@Article{marytts,
-  title={The German text-to-speech synthesis system MARY: A tool for research, development and teaching},
-  author={Schröder, Marc and Trouvain, Jürgen},
-  journal={International Journal of Speech Technology},
-  volume={6},
-  number={4},
-  pages={365--377},
-  year={2003},
-  publisher={Springer}
-}
-
-@Article{klatt1980software,
-  title={Software for a cascade/parallel formant synthesizer},
-  author={Klatt, Dennis H},
-  journal={the Journal of the Acoustical Society of America},
-  volume={67},
-  number={3},
-  pages={971--995},
-  year={1980},
-  publisher={ASA}
-}
-
-@Misc{espeakng,
-  author = {Reece H. Dunn},
-  title = {espeak-ng},
-  year = 2006,
-  note = {
-  Disponível em: <\url{https://github.com/espeak-ng/espeak-ng}>.
-  Acesso em 29 de outubro de 2017.
-  }
-}
-
-@Article{seara2004,
-  title={Parâmetros linguísticos utilizados para a geração automática de prosódia em sistemas de síntese de fala},
-  author={Seara Jr, Rui and Kafka, S and Seara, I and Pacheco, F and Klein, S and Seara, R},
-  journal={XXI Simpósio Brasileiro de Telecomunicações},
-  pages={1--6},
-  year={2004},
-  url={http://www.linse.ufsc.br/~fernando/DocWeb/Seara2004Param.pdf},
-  urldate = {2017-10-29}
-}
-
-@InProceedings{korting2005,
-  title={Um sistema texto-fala livre},
-  author={Körting, Thales Sehn and Costa, Rodrigo Mendes and da Silva, Felipe Castro},
-  booktitle={WSL’05: Workshop sobre Software Livre},
-  year={2005},
-  url={http://people.softwarelivre.org/wsl/2005/0017/17.pdf},
-  urldate = {2017-10-29}
-}
-
-@InProceedings{couto,
-  title={An open source {HMM}-based text-to-speech system for {Brazilian} {Portuguese}},
-  author={Couto, Igor and Neto, Nelson and Tadaiesky, Vincent and Klautau, Aldebaro and Maia, Ranniery},
-  booktitle={7th international telecommunications symposium},
-  year={2010}
-}
-
-@InProceedings{malfrere1998,
-  title={Automatic prosody generation using suprasegmental unit selection},
-  author={Malfrère, Fabrice and Dutoit, Thierry and Mertens, Piet},
-  booktitle={The Third ESCA/COCOSDA Workshop (ETRW) on Speech Synthesis},
-  year={1998},
-  url = {https://lirias.kuleuven.be/bitstream/123456789/149043/1/Malfrere_ea_1998_ESCA.pdf},
-  urldate = {2017-10-25}
-}
-
-@InProceedings{mbrola,
-  title={The {MBROLA} project: Towards a set of high quality speech synthesizers free of use for non commercial purposes},
-  author={Dutoit, Thierry and Pagel, Vincent and Pierret, Nicolas and Bataille, Fran{\c{c}}ois and Van der Vrecken, Olivier},
-  booktitle={Spoken Language, 1996. ICSLP 96. Proceedings., Fourth International Conference on},
-  volume={3},
-  pages={1393--1396},
-  year={1996},
-  organization={IEEE},
-}
-
-@Article{mbrpsola,
-  title={{MBR-PSOLA}: Text-to-speech synthesis based on an {MBE} re-synthesis of the segments database},
-  author={Dutoit, Thierry and Leich, Henri},
-  journal={Speech Communication},
-  volume={13},
-  number={3-4},
-  pages={435--440},
-  year={1993},
-  publisher={Elsevier}
-}
-
-@InProceedings{moraes2008,
-  title={The pitch accents in Brazilian Portuguese: analysis by synthesis},
-  author={de Moraes, João Antônio},
-  year={2008}
-}
-
-@Article{moraes1998,
-  title={Brazilian Portuguese},
-  author={de Moraes, João Antônio},
-  journal={Intonation systems: A survey of twenty languages},
-  pages={179},
-  year={1998},
-  publisher={Cambridge University Press}
-}
-
-@Article{major1985,
-  title={Stress and rhythm in Brazilian Portuguese},
-  author={Major, Roy C},
-  journal={Language},
-  pages={259--28},
-  year={1985},
-  volume={62},
-  publisher={Linguistic Society of America}
-}
-
-@Article{tilt,
-  title={The Tilt intonation model},
-  author={Taylor, Paul},
-  year={1998},
-  publisher={International Speech Communication Association}
-}
-
-@Article{fujisaki,
-  title={Analysis of voice fundamental frequency contours for declarative sentences of Japanese},
-  author={Fujisaki, Hiroya and Hirose, Keikichi},
-  journal={Journal of the Acoustical Society of Japan (E)},
-  volume={5},
-  number={4},
-  pages={233--242},
-  year={1984},
-  publisher={Acoustical Society of Japan}
-}
-
-@book{speech-prosody,
-    editor = {Hirose, Keikichi and Tao, Jianhua},
-    publisher = {Springer-Verlag Berlin Heidelberg},
-    title = {Speech Prosody in Speech Synthesis: Modeling and generation of prosody for high quality and flexible speech synthesis},
-    year = {2015}
-}
-
-@Article{dominios-prosodicos,
-  title={Domínios prosódicos no Português do Brasil: implicações para a prosódia e para a aplicação de processos fonológicos},
-  author={Tenani, Luciani Ester and others},
-  year={2002}
-}
-
-@Article{tonal-association,
-  title={Tonal association in neutral and subject-narrow-focus sentences in Brazilian Portuguese: a comparison with European Portuguese},
-  author={Fernandes, Flaviane Romani},
-  journal={Journal of Portuguese Linguistics},
-  volume={6},
-  number={1},
-  year={2007},
-  publisher={Ubiquity Press}
-}
-
-@InProceedings{ivie,
-  title={IVie - a comparative transcription system for intonational variation in English.},
-  author={Grabe, Esther and Nolan, Francis and Farrar, Kimberley J},
-  booktitle={ICSLP},
-  year={1998}
-}
-
-@InProceedings{mertens2004,
-  title={The prosogram: Semi-automatic transcription of prosody based on a tonal perception model},
-  author={Mertens, Piet},
-  booktitle={Speech Prosody 2004, International Conference},
-  year={2004}
-}
-
-@Article{bick,
-    author = {BICK, Eckhard},
-    title = {The Parsing System Palavras, Automatic Grammatical Analysis of
-             Portuguese in a Constraint Grammar Framework},
-    publisher = {Aarhus University Press},
-    date = {2000}
-}
-
-@PHDTHESIS{ipo,
-  title={An{\'a}lise da entoa{\c{c}}{\~a}o do portugu{\^e}s do Brasil segundo o modelo IPO},
-  author={Miranda, LS},
-  year={2015},
-  school={Disserta{\c{c}}{\~a}o de mestrado em L{\'\i}ngua Portuguesa. Rio de Janeiro: UFRJ}
-}
+% Prosódia afetiva / português ------------------------------
 
 @TechReport{ssml,
   author      = {Daniel Burnett and Zhi Wei Shuang},
@@ -340,4 +235,93 @@
   Disponível em: <\url{http://www.w3.org/TR/2014/REC-emotionml-20140522/}>.
   Acesso em 8 de junho de 2018.
   }
+}
+
+@InProceedings{moraes2008,
+  title={The pitch accents in Brazilian Portuguese: analysis by synthesis},
+  author={de Moraes, João Antônio},
+  year={2008}
+}
+
+@PHDTHESIS{ipo,
+  title={An{\'a}lise da entoa{\c{c}}{\~a}o do portugu{\^e}s do Brasil segundo o modelo IPO},
+  author={Miranda, LS},
+  year={2015},
+  school={Disserta{\c{c}}{\~a}o de mestrado em L{\'\i}ngua Portuguesa. Rio de Janeiro: UFRJ}
+}
+
+@Article{seara2004,
+  title={Parâmetros linguísticos utilizados para a geração automática de prosódia em sistemas de síntese de fala},
+  author={Seara Jr, Rui and Kafka, S and Seara, I and Pacheco, F and Klein, S and Seara, R},
+  journal={XXI Simpósio Brasileiro de Telecomunicações},
+  pages={1--6},
+  year={2004},
+  url={http://www.linse.ufsc.br/~fernando/DocWeb/Seara2004Param.pdf},
+  urldate = {2017-10-29}
+}
+
+@Article{dominios-prosodicos,
+  title={Domínios prosódicos no Português do Brasil: implicações para a prosódia e para a aplicação de processos fonológicos},
+  author={Tenani, Luciani Ester and others},
+  year={2002}
+}
+
+@Article{moraes1998,
+  title={Brazilian Portuguese},
+  author={de Moraes, João Antônio},
+  journal={Intonation systems: A survey of twenty languages},
+  pages={179},
+  year={1998},
+  publisher={Cambridge University Press}
+}
+
+@Article{major1985,
+  title={Stress and rhythm in Brazilian Portuguese},
+  author={Major, Roy C},
+  journal={Language},
+  pages={259--28},
+  year={1985},
+  volume={62},
+  publisher={Linguistic Society of America}
+}
+
+@book{speech-prosody,
+  editor = {Hirose, Keikichi and Tao, Jianhua},
+  publisher = {Springer-Verlag Berlin Heidelberg},
+  title = {Speech Prosody in Speech Synthesis: Modeling and generation of prosody for high quality and flexible speech synthesis},
+  year = {2015}
+}
+
+@Article{tonal-association,
+  title={Tonal association in neutral and subject-narrow-focus sentences in Brazilian Portuguese: a comparison with European Portuguese},
+  author={Fernandes, Flaviane Romani},
+  journal={Journal of Portuguese Linguistics},
+  volume={6},
+  number={1},
+  year={2007},
+  publisher={Ubiquity Press}
+}
+
+@Article{tilt,
+  title={The Tilt intonation model},
+  author={Taylor, Paul},
+  year={1998},
+  publisher={International Speech Communication Association}
+}
+
+@Article{fujisaki,
+  title={Analysis of voice fundamental frequency contours for declarative sentences of Japanese},
+  author={Fujisaki, Hiroya and Hirose, Keikichi},
+  journal={Journal of the Acoustical Society of Japan (E)},
+  volume={5},
+  number={4},
+  pages={233--242},
+  year={1984},
+  publisher={Acoustical Society of Japan}
+}
+@InProceedings{ivie,
+  title={IVie - a comparative transcription system for intonational variation in English.},
+  author={Grabe, Esther and Nolan, Francis and Farrar, Kimberley J},
+  booktitle={ICSLP},
+  year={1998}
 }
