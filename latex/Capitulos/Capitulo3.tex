@@ -13,33 +13,33 @@
 
 % Resultados realistas, mas não há como controlar parâmetros: \cite{merlin}
 
-\section{Sistemas TTS}
-\subsection{MaryTTS}
-\cite{couto}, MaryTTS.
-% \subsubsection{Grafema-fone}
+\section{Sistemas TTS para o português brasileiro}
+Destacamos aqui sistemas TTS desenvolvidos por ordem cronológica a fim de
+evidenciar a evolução das tecnologias utilizadas e as tendências para trabalhos futuros.
+\paragraph{Aiuruetê \cite{aiuruete}}
+Usa PSOLA pra recodar unidades armazenadas (ortofones)
+
+\paragraph{\cite{couto}}
+Apesar de não ter sido oficialmente integrado à ferramenta, foi desenvolvido com
+base no \emph{framework} MaryTTS um sistema completo para português brasileiro
+baseado em HMMs.
+O projeto também acarretou no desenvolvimento do programa de conversão
+grafema-fone LaPS-G2P \cite{g2pusp}.
 % Para o português brasileiro, foram encontrados os conversores
 % da USP: \cite{g2pusp} do projeto falabrasil: \cite{falabrasil}.
-\subsection{LianeTTS}
+\paragraph{LianeTTS \cite{lianetts}}
 Projeto da SERPRO LianeTTS. Utiliza MBROLA como \emph{back end}. A geração de
 prosódia é simples, baseada em tabela.
-\subsection{espeak}
-Projeto do Dunn. Síntese por formantes (com consoantes gravadas). É possível
+\paragraph{espeak \cite{espeakng}}
+Projeto do Dunn. Síntese por formantes (com consoantes gravadas) ou por MBROLA. É possível
 obter apenas até a parte de g2p como saída.
-\subsection{Microsoft}
-\citeonline{hmmmicrosoft} descrevem sistema TTS desenvolvido pela Microsoft
-baseado em HMM. A stochastic-based LTS (Letter-to-Sound) converter to predict phonetic transcriptions for out-of-vocabulary words and the prosody models, which are data- driven using a prosody tagged corpus of 2000 sentences.
-\subsection{Aiuruetê}
-% http://manualdefoneticaacusticaexperimental.com/assets/barbosaetal1999.pdf
+\paragraph{Microsoft \cite{hmmmicrosoft}}
+Baseado em HMM. A stochastic-based LTS (Letter-to-Sound) converter to predict phonetic transcriptions for out-of-vocabulary words and the prosody models, which are data- driven using a prosody tagged corpus of 2000 sentences.
 % hese  assumptions  form  the  basis  of  a  two-stage model  of  segmental  duration  assignment.  In  the  first stage,  a  neural  network  automatically  generates  z-score values  characterizing  syllable  and  IPCG  lengthening  (or shortening)  from  a  rich  prosodic  phonetic  description  at the input. This input is constituted by the ortofon output enriched  by  additional  information  as  the  number  of vowels  in  the  sentence,  the  clitic  words  and  the  phrasal stresses,     whose     placement     follows     eurhythmic constraints.  In  the  next  stage,  a  statistical  procedure shares   the   syllable-size   duration   amount   among   the segments,  based  on  their  respective  statistical  mean  and standard-deviation    durations    [4].    These    segmental durations   are   used   by   both   synthesis   techniques   to generate sound
-Usa PSOLA pra recodar unidades armazenadas (ortofones)
-\subsection{LINSE-DNN}
-statistical parametric speech synthesis
+\paragraph{LINSE-DNN \cite{dnnpt}}
+Descreve melhorias para o \emph{back-end} baseado em redes neurais profundas.
 
-Popularização de redes neurais.
-Redes neurais utilizadas no back end.
-Trabalho pro português: \cite{dnnpt}
-
-\subsubsection{MBROLA}
+\paragraph{MBROLA}
 \label{sec:mbrola}
 MBROLA é uma ferramenta para geração de voz baseada em síntese por dífonos
 desenvolvida com o objetivo de fomentar pesquisas acadêmicas em geração de
@@ -71,10 +71,12 @@ motivada pela dificuldade de predição computacional de pronúncia
 permitiam anotações extra-textuais para auxiliar a estimação de parâmetros, mas
 usuários tinham que aprender um sistema de anotação para cada programa
 diferente. A proposta da SSML é que os sistemas TTS recebam o texto anotado numa
-linguagem unificada. A linguagem foi adotada pelo MaryTTS, além dos sistemas proprietários Alexa, Google Assistant e Cortana. A especificação é mantida pela W3C \cite{ssml}.
-A especificação cita os elementos \emph{emphasis},
-\emph{break} e \emph{prosody} como marcadores que podem auxiliar o processador
-de linguagem natural a gerar parâmetros prosódicos apropriados.
+linguagem unificada. A linguagem foi adotada por soluções \emph{open-source}
+como MaryTTS e espeak-ng, além dos sistemas proprietários encontrados em Alexa,
+Google Assistant e Cortana. A especificação é mantida pela W3C \cite{ssml}.
+A especificação cita os elementos \emph{emphasis}, \emph{break} e \emph{prosody}
+como marcadores que podem auxiliar o processador de linguagem natural a gerar
+parâmetros prosódicos apropriados.
 
 \begin{lstlisting}[caption=Exemplo de texto anotado com SSML]
 <speak>
@@ -111,14 +113,13 @@ anotações em emotionml.
 % um alvo a ser atingido e associada a uma unidade segmental linguística”
 \subsubsection{IPO}
 % página 32
-\cite{ipo} analisa a prosódia para o português brasileiro através do modelo IPO,
-seguindo crítica de Lucente que o sistema ToBI é inapropriado.
- % "esse sistema de notação não abarca certas características fonéticas das curvas de F0 que perceptivamente são relevantes para o reconhecimento desses contornos"
+Sistema proposto pela Escola Holandesa. Utilizada por \cite{ipo} para analisar a
+prosódia no português brasileiro.
 \subsubsection{INTSINT}
 INTSINT é um sistema de anotação para prosódia.
 % The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''
-\subsubsection{DaTo}
+\subsubsection{DaTo (\emph{Dynamic Tones})}
 Apesar de o modelo ToBI para anotação entoacional ter sido utilizado para analisar o
-português brasileiro em diversos trabalhos, \citeonline{lucente} argumenta que
+português brasileiro em diversos trabalhos, \citeonline{lucentetobi} argumenta que
 há características perceptíveis que a notação não consegue expressar, propondo o
 modelo DaTo com base na entonação do português brasileiro.

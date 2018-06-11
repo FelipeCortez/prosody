@@ -38,7 +38,7 @@ pecam nesse aspecto.
 % From this we can conclude that in situations where the text genre is quite factual, it is usually sufficient to generate speech from the verbal message only, and so all that is required is the gen- eration of the suprasegmental part of the signal; the affective part of prosody is ignored. In other text genres the situation is significantly more difficult, and if say a dialogue from a play is read in this fashion (or more likely) responses from a computer dialogue system, the generated speech can sound somewhat dull and removed. Finally, we see that mimicking a genuinely good human reader is very difficult indeed, as they will be performing an actual comprehension of the text, and then generating their own prosody. In no way are they simply decoding the prosody from the text and then speaking it aloud, as they can do with the words. To date, no satisfactory solution has been found to this problem, and so current text-to-speech systems are, unfortunately, lacking in this regard.
 
 \section{Sistemas TTS}
-\citeonline{ssml} define \emph{text-to-speech} como ``o processo de geração
+\citeonline{ssml} definem \emph{text-to-speech} como ``o processo de geração
 automática de fala a partir de texto ou texto anotado'' (tradução nossa).
 Sistemas TTS são compostos por múltiplos subsistemas, como mostramos a seguir.
 
@@ -48,7 +48,7 @@ Na literatura, encontramos diversas arquiteturas específicas de um sistema TTS.
 
 \begin{figure}[!htbp]
 \centering
-\scalebox{0.65}{
+\scalebox{0.80}{
     \begin{tikzpicture}[auto, >={Latex[inset=0pt, length=3mm, angle'=28,round]}, box/.style={draw,rounded corners,text width=4.5cm,align=center}]
     \node[] (txt) {Texto};
     \node[box, right=of txt] (nlp)
@@ -73,13 +73,21 @@ bloco de processamento de linguagem natural e \emph{back end} para o bloco de
 processamento digital de sinais. Doravante utilizaremos essa nomenclatura.
 
 \subsection{\emph{Front end}}
+As definições a seguir são adaptadas de \cite{martinjurafsky}:
 
 \subsubsection{Normalização de texto}
-O texto de entrada pode conter números e símbolos. A primeira parte do processo de conversão de texto para fala é transformar em sua representação por extenso.
-Sentence tokenization, isto é, descobrir as boundaries de cada sintagma. Depois,
-normalização de palavras não-padrão? abreviações, acrônimos e siglas.
-Desambiguação de homônimos heterófonos (e.g.: ``Gosto de pão''). Análise
-fonética (normalized word strings para pronúncia).
+O processo de conversão de texto para fala começa com o processamento do texto a
+fim de gerar uma representação grafêmica.
+
+A primeira etapa da normalização é a separação em sintagmas, isto é, encontrar os
+limites de cada frase do texto. 
+
+Em seguida, devem-se transformar símbolos, abreviações, siglas e outras
+\emph{non-standard words} em suas representações pronunciáveis. Como exemplo, ``R\$
+50'' deve ser lido como ``cinquenta reais''.
+
+Por último, deve ser realizada a desambiguação de homônimos heterófonos: em
+``Gosto de pão'', ``gosto'' pode ser pronunciada como ``gôsto'' ou ``gósto''.
 
 \subsubsection{Conversão grafema-fone}
 Palavras não-padrão são colocadas num dicionário de pronúncia. O resto é
