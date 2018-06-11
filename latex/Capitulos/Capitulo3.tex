@@ -70,6 +70,7 @@ Cada voz gravada provê uma tabela com os fones que podem ser utilizados. Utiliz
 
 \subsection{Modelos de análise entoacional}
 \subsubsection{Teoria métrica-autossegmental}
+Utilizada por \citeonline{moraes2008} para analisar uma mesma frase com diferentes intenções.
 % Enquanto a teoria MA, representada pelo sistema ToBI, se baseia em aspectos 
 % lineares da estrutura tonal, na identifi cação dos 
 % pitch accents
@@ -94,6 +95,8 @@ Key (frequência base)
 Range (intervalo entre ponto mais alto e mais baixo do f0).
 INTSINT é um sistema de anotação para prosódia. Top (T), Mid(M), Bottom (B).
 Higher (H), Same (S), Lower(L). Acentos: Upstepped (S), Downstepped (D).
+
+Utilizado por \cite{intsintpt} para analisar entoação para o português brasileiro.
 
 Algoritmo MOMEL: MOdelisation de MELodie.
 % The INTSINT model of Hirst et al [212], [213], [211], was deve loped in an attempt to provide a comprehensive  and multi-lingual  transcription  system fo r intonation.   The model can be seen as “theory-neutral” in that it was designed to transcribe th e intonation of utterances as a way of annotating databases and thereby providing the raw data upo n which intonational theories could be developed. Hirst has described the development of INTSINT a s an attempt to design an equivalent of IPA for intonation. As stated in Section 6.10, there is no s uch thing as completely theory neutral model as all models make some assumptions.  Nevertheless, IN TSINT certainly fulfills its main goals of allowing a phonetic transcription of an utterance t o be made without necessarily deciding which theory or model of intonation will be subsequently use d. INTSINT describes an utterance’s intonation by a sequence o f labels each of which repre- sents a target point. These target points are defined either b y reference to the speaker’s pitch range, 242 Chapter 9. Synthesis of Prosody in which case they are marked Top (T), Mid (M) or Bottom (B), or by reference to the previous tar- get point, in which case they are marked Higher (H), Same (S) o r Lower (L). In addition, accents can be marked as Upstepped (S) or Downstepped (D). Hirst [212] describes this system in detail and shows how it c an be applied to all the major languages.  Several algorithms have also been developed for extracting the labels automatically from the acoustics and for synthesizing F0 contours from the labels 2 .  Applications of this model to synthesis include Veronis et al [475]
@@ -135,8 +138,21 @@ algoritmos a determinarem prosódia. \cite{emotionmary} descreve um
 \emph{framework} para implementação de determinação de prosódia a partir de
 anotações em EmotionML utilizando o \emph{framework} MaryTTS.
 
+Como explicitado por \cite{taylor2009}, não há um acordo quanto ao sistema mais
+apropriado para representar emoções. A linguagem de marcação tem suporte a
+múltiplos sistemas descritivos, como categorias, dimensões, appraisals e action
+tendencies. As categorias podem receber valores discretos (como pode ser visto
+no código \ref{lst:discreto}), determinando se uma emoção está presente ou valores
+contínuos, determinando a intensidade de uma emoção específica (como pode ser
+visto na figura \ref{lst:ssmlemotion}), permitindo
+múltiplas categorias simultaneamente.
+
+% Emotions can be represented in terms of four types of de-
+% scriptions  taken  from  the  scientific  literature:  categories,
+% dimensions, appraisals, and action tendencie
+
 \begin{lstlisting}[caption=Exemplo de texto anotado com EmotionML com parâmetros
-  discretos]
+  discretos, label=lst:discreto]
 <emotionml version="1.0" xmlns="http://www.w3.org/2009/10/emotionml">
   <emotion category-set="http://www.w3.org/TR/emotion-voc/xml#everyday-categories">
   <emotion>
@@ -144,6 +160,20 @@ anotações em EmotionML utilizando o \emph{framework} MaryTTS.
     Que bom te ver!
   </emotion>
 </emotionml>
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Exemplo de texto anotado com SSML e EmotionML
+  (adaptado de \cite{emotionml}), label=lst:ssmlemotion]
+<speak version="1.1" xmlns="http://www.w3.org/2001/10/synthesis"
+         xmlns:emo="http://www.w3.org/2009/10/emotionml"
+         xml:lang="en-US">
+    <s>
+        <emo:emotion category-set="http://www.w3.org/TR/emotion-voc/xml#everyday-categories">
+            <emo:category name="worried" value="0.4"/>
+        </emo:emotion>
+        Precisa de ajuda?
+    </s>
+</speak>
 \end{lstlisting}
 
 % Expressive speech synthesis, generating synthetic speech with different emotions, such as happy or sad, friendly or apologetic; expressive synthetic speech would for example make more information available to blind and partially sighted people, and enrich their experience of the content;

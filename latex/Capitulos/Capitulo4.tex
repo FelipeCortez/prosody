@@ -67,18 +67,18 @@ módulos se comunicam pode ser vista na figura \ref{fig:arch}.
         {eSpeakNG};
     \node[box, right=of esp] (con)
         {eSpeakNG para MBROLA};
-    \node[box, right=of con] (mbr)
-        {MBROLA};
 
     \node[box, below=of con] (ser)
         {Servidor};
+
+    \node[box, left=of ser] (mbr)
+        {MBROLA};
         
     \node[box, below=of ser] (int)
         {Interface gráfica};
 
     \draw[->] (txt) -- (esp);
     \draw[->] (esp) -- (con);
-    \draw[->] (con) -- (mbr);
 
     \draw[->] (con) -- (ser);
     \draw[->] (mbr) -- (ser);
