@@ -1,3 +1,7 @@
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
 var app = new Vue({
   el: '#app',
   data: {
@@ -23,12 +27,12 @@ var app = new Vue({
         }
       }
     };
+  },
+  computed: {
+    firstPhone: function () {
+      return `${getRandomInt(99)}%`;
+    }
   }
-  // computed: {
-  //   firstPhone: function () {
-  //     return this..pitch_changes[0][0];
-  //   }
-  // }
 });
 
 
