@@ -74,6 +74,8 @@
 \renewcommand{\algorithmiccomment}[1]{\% #1}
 
 \newcommand{\code}[1]{{\lstinline{#1}}}
+\renewcommand{\lstlistingname}{Código}% Listing -> Algorithm
+\renewcommand{\lstlistlistingname}{Lista de \lstlistingname s}
 
 % Definicao da lista de simbolos
 % \simb[entrada na lista de simbolos]{simbolo}:
@@ -165,6 +167,9 @@
 
 	% Lista de tabelas
 	\listoftables
+
+    % Lista de códigos
+    \lstlistoflistings
 	
 	% Lista de abreviaturas e siglas
 	\listadeabreviaturas
@@ -195,7 +200,7 @@
 	\bibliographystyle{abnt-alf}
 	
 	% % Apêndice A (arquivo Includes/ApendiceA)
-	% \include{Capitulos/ApendiceA}
+	\include{Capitulos/ApendiceA}
 	% 
 	% % Anexo A (arquivo Includes/AnexoA)
 	% \include{Capitulos/AnexoA}

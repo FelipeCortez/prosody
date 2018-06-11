@@ -5,10 +5,10 @@
 \abrv[MBRPSOLA -- \emph{Multi-Band Resynthesis Pitch Synchronous Overlap and Add}]
 \simb[ms (milissegundos)]
 \simb[Hz (Hertz)]
-\abrv[API -- \emph{Application programming interface}]
+\abrv[API -- \emph{Application Programming Interface}]
 \abrv[JSON -- \emph{JavaScript Object Notation}]
 \abrv[REST -- \emph{Representational State Transfer}]
-
+\abrv[AJAX -- \emph{Asynchronous JavaScript And XML}]
 \chapter{Editor de prosódia}
 
 \section{Implementação}
@@ -50,26 +50,40 @@ Em \ref{sampambrola} é possível ver algumas linhas do arquivo.
   n  |  n  |  _n_unca
 \end{lstlisting}
 
+As durações padrão para cada fone estão contidas na tabela do arquivo
+\code{durations.tbl}, adaptado da tabela utilizada pelo LianeTTS \cite{lianetts}. Cada
+linha contém o fone e uma duração em milissegundos.
+
 \subsection{Arquitetura}
 Foi utilizada uma arquitetura cliente-servidor REST \cite{rest} comumente vista em aplicações web contemporâneas. A interface gráfica consome uma API REST. A maneira como os
 módulos se comunicam pode ser vista na figura \ref{fig:arch}.
 
 \begin{figure}[!htbp]
 \centering
-\scalebox{0.65}{
+\scalebox{0.80}{
     \begin{tikzpicture}[auto, >={Latex[inset=0pt, length=3mm, angle'=28,round]}, box/.style={draw,rounded corners,text width=3.0cm,align=center}]
     \node[] (txt) {Texto};
     \node[box, right=of txt] (esp)
-        {espeak-ng};
+        {eSpeakNG};
     \node[box, right=of esp] (con)
-        {espeak para MBROLA};
+        {eSpeakNG para MBROLA};
     \node[box, right=of con] (mbr)
         {MBROLA};
 
     \node[box, below=of con] (ser)
         {Servidor};
         
+    \node[box, below=of ser] (int)
+        {Interface gráfica};
+
     \draw[->] (txt) -- (esp);
+    \draw[->] (esp) -- (con);
+    \draw[->] (con) -- (mbr);
+
+    \draw[->] (con) -- (ser);
+    \draw[->] (mbr) -- (ser);
+
+    \draw[<->] (ser) -- (int);
 
     \end{tikzpicture}
 }
@@ -79,7 +93,6 @@ módulos se comunicam pode ser vista na figura \ref{fig:arch}.
 
 \subsection{Módulo de prosódia}
 
-\subsection{Editor gráfico}
 O programa foi codificado em Python em sua versão 3.6. Pega resultado do espeak-ng, processa com editor gráfico e gera MBROLA.
 
 Para alterar a prosódia manualmente, foi desenvolvido um editor gráfico
@@ -92,12 +105,15 @@ o \emph{framework} Flask para prover \emph{endpoints} de uma API REST.
 Foram criados dois endpoints para a API, tornando possível a comunicação entre
 interface gráfica e servidor.
 
-\paragraph{[POST] api/espeak} Recebe um texto como entrada e gera uma resposta
+\paragraph{[POST] /api/espeak} Recebe um texto como entrada e gera uma resposta
 JSON com lista de fones
-\paragraph{[POST] api/mbrola} Recebe uma lista de fones no formato MBROLA
+\paragraph{[POST] /api/mbrola} Recebe uma lista de fones no formato MBROLA
 descrito na seção \ref{sec:mbrola} e gera uma resposta com o nome do arquivo de
 áudio contendo a fala sintetizada
 
+\subsection{Editor gráfico}
+Editor gráfico utilizando o \emph{framework} Vue.js. Comunica-se com o servidor
+através de \emph{AJAX}
 
 % \begin{figure}[!htbp]
 % \centering

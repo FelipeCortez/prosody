@@ -17,27 +17,32 @@
 Destacamos aqui sistemas TTS desenvolvidos por ordem cronológica a fim de
 evidenciar a evolução das tecnologias utilizadas e as tendências para trabalhos futuros.
 \paragraph{Aiuruetê \cite{aiuruete}}
-Usa PSOLA pra recodar unidades armazenadas (ortofones)
-
+Usa PSOLA pra recodar unidades armazenadas (ortofones). Síntese concatenativa.
+\paragraph{eSpeakNG \cite{espeakng}}
+Síntese por formantes (com consoantes gravadas) ou concatenativa utilizando o
+\emph{back end} MBROLA. É possível utilizar apenas o \emph{front end} passando
+\emph{flags} para a execução do programa.
+\paragraph{Microsoft \cite{hmmmicrosoft}}
+Baseado em HMM. A stochastic-based LTS (Letter-to-Sound) converter to predict
+phonetic transcriptions for out-of-vocabulary words and the prosody models,
+which are data- driven using a prosody tagged corpus of 2000 sentences. Síntese concatenativa.
+% hese  assumptions  form  the  basis  of  a  two-stage model  of  segmental  duration  assignment.  In  the  first stage,  a  neural  network  automatically  generates  z-score values  characterizing  syllable  and  IPCG  lengthening  (or shortening)  from  a  rich  prosodic  phonetic  description  at the input. This input is constituted by the ortofon output enriched  by  additional  information  as  the  number  of vowels  in  the  sentence,  the  clitic  words  and  the  phrasal stresses,     whose     placement     follows     eurhythmic constraints.  In  the  next  stage,  a  statistical  procedure shares   the   syllable-size   duration   amount   among   the segments,  based  on  their  respective  statistical  mean  and standard-deviation    durations    [4].    These    segmental durations   are   used   by   both   synthesis   techniques   to generate sound
 \paragraph{\cite{couto}}
 Apesar de não ter sido oficialmente integrado à ferramenta, foi desenvolvido com
 base no \emph{framework} MaryTTS um sistema completo para português brasileiro
 baseado em HMMs.
 O projeto também acarretou no desenvolvimento do programa de conversão
 grafema-fone LaPS-G2P \cite{g2pusp}.
+Foi estendido por \cite{costa} para funcionar de maneira \emph{stand-alone},
+isto é, ser utilizado sem necessidade de instalação do \emph{framework} MaryTTS.
 % Para o português brasileiro, foram encontrados os conversores
 % da USP: \cite{g2pusp} do projeto falabrasil: \cite{falabrasil}.
 \paragraph{LianeTTS \cite{lianetts}}
 Projeto da SERPRO LianeTTS. Utiliza MBROLA como \emph{back end}. A geração de
-prosódia é simples, baseada em tabela.
-\paragraph{espeak \cite{espeakng}}
-Projeto do Dunn. Síntese por formantes (com consoantes gravadas) ou por MBROLA. É possível
-obter apenas até a parte de g2p como saída.
-\paragraph{Microsoft \cite{hmmmicrosoft}}
-Baseado em HMM. A stochastic-based LTS (Letter-to-Sound) converter to predict phonetic transcriptions for out-of-vocabulary words and the prosody models, which are data- driven using a prosody tagged corpus of 2000 sentences.
-% hese  assumptions  form  the  basis  of  a  two-stage model  of  segmental  duration  assignment.  In  the  first stage,  a  neural  network  automatically  generates  z-score values  characterizing  syllable  and  IPCG  lengthening  (or shortening)  from  a  rich  prosodic  phonetic  description  at the input. This input is constituted by the ortofon output enriched  by  additional  information  as  the  number  of vowels  in  the  sentence,  the  clitic  words  and  the  phrasal stresses,     whose     placement     follows     eurhythmic constraints.  In  the  next  stage,  a  statistical  procedure shares   the   syllable-size   duration   amount   among   the segments,  based  on  their  respective  statistical  mean  and standard-deviation    durations    [4].    These    segmental durations   are   used   by   both   synthesis   techniques   to generate sound
+prosódia é simples, baseada em tabela. Síntese concatenativa.
 \paragraph{LINSE-DNN \cite{dnnpt}}
 Descreve melhorias para o \emph{back-end} baseado em redes neurais profundas.
+Síntese concatenativa? Ou por formantes?
 
 \paragraph{MBROLA}
 \label{sec:mbrola}
@@ -63,7 +68,43 @@ Em cada linha, tem-se um fone ou um silêncio representado pelo \emph{underscore
 Cada voz gravada provê uma tabela com os fones que podem ser utilizados. Utilizamos neste trabalho a voz br3 desenvolvida por Denis R. Costa disponível no site oficial do projeto MBROLA.
 % referência?
 
-\subsection{Prosódia em sistemas TTS}
+\subsection{Modelos de análise entoacional}
+\subsubsection{Teoria métrica-autossegmental}
+% Enquanto a teoria MA, representada pelo sistema ToBI, se baseia em aspectos 
+% lineares da estrutura tonal, na identifi cação dos 
+% pitch accents
+%  e no alinhamento abs-
+% trato dessa estrutura com o material linguístico, o sistema DaTo de notação entoa-
+% cional (LUCENTE, 2008; 2012) se concentra na convergência de aspectos fonéticos 
+% – velocidade, intensidade, altura, duração – da curva entoacional a fi m de atingir um 
+% alvo ou desempenhar uma tarefa linguística por meio dos contornos entoacionais, da 
+% gama de variação tonal e do alinhamento específi co com o material linguístico
+
+% O sistema DaTo foi desenvolvido com base na entoação do português bra-
+% sileiro (PB) e trabalha com o conceito de contorno dinâmico, que é defi nido em 
+% Lucente (2012, p. 99) como “uma unidade tonal que contém elementos comuni-
+% cativos expressos em uma trajetória ideal da curva entoacional, especifi cada por 
+% um alvo a ser atingido e associada a uma unidade segmental linguística”
+\subsubsection{IPO}
+% página 32
+Sistema proposto pela Escola Holandesa. Utilizada por \cite{ipo} para analisar a
+prosódia no português brasileiro.
+\subsubsection{INTSINT}
+Key (frequência base)
+Range (intervalo entre ponto mais alto e mais baixo do f0).
+INTSINT é um sistema de anotação para prosódia. Top (T), Mid(M), Bottom (B).
+Higher (H), Same (S), Lower(L). Acentos: Upstepped (S), Downstepped (D).
+
+Algoritmo MOMEL: MOdelisation de MELodie.
+% The INTSINT model of Hirst et al [212], [213], [211], was deve loped in an attempt to provide a comprehensive  and multi-lingual  transcription  system fo r intonation.   The model can be seen as “theory-neutral” in that it was designed to transcribe th e intonation of utterances as a way of annotating databases and thereby providing the raw data upo n which intonational theories could be developed. Hirst has described the development of INTSINT a s an attempt to design an equivalent of IPA for intonation. As stated in Section 6.10, there is no s uch thing as completely theory neutral model as all models make some assumptions.  Nevertheless, IN TSINT certainly fulfills its main goals of allowing a phonetic transcription of an utterance t o be made without necessarily deciding which theory or model of intonation will be subsequently use d. INTSINT describes an utterance’s intonation by a sequence o f labels each of which repre- sents a target point. These target points are defined either b y reference to the speaker’s pitch range, 242 Chapter 9. Synthesis of Prosody in which case they are marked Top (T), Mid (M) or Bottom (B), or by reference to the previous tar- get point, in which case they are marked Higher (H), Same (S) o r Lower (L). In addition, accents can be marked as Upstepped (S) or Downstepped (D). Hirst [212] describes this system in detail and shows how it c an be applied to all the major languages.  Several algorithms have also been developed for extracting the labels automatically from the acoustics and for synthesizing F0 contours from the labels 2 .  Applications of this model to synthesis include Veronis et al [475]
+% The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''
+\subsubsection{DaTo (\emph{Dynamic Tones})}
+Apesar de o modelo ToBI para anotação entoacional ter sido utilizado para analisar o
+português brasileiro em diversos trabalhos, \citeonline{lucentetobi} argumenta que
+há características perceptíveis que a notação não consegue expressar, propondo o
+modelo DaTo com base na entonação do português brasileiro.
+
+\subsection{Prosódia afetiva em sistemas TTS}
 \subsubsection{SSML}
 A linguagem de marcação \emph{Speech Synthesis Markup Language} foi criada
 motivada pela dificuldade de predição computacional de pronúncia
@@ -92,34 +133,32 @@ parâmetros prosódicos apropriados.
 EmotionML \cite{emotionml} foi criada para várias coisas, uma delas é ajudar
 algoritmos a determinarem prosódia. \cite{emotionmary} descreve um
 \emph{framework} para implementação de determinação de prosódia a partir de
-anotações em emotionml.
+anotações em EmotionML utilizando o \emph{framework} MaryTTS.
 
-\subsection{Modelos de prosódia}
-\subsubsection{Teoria métrica-autossegmental}
-% Enquanto a teoria MA, representada pelo sistema ToBI, se baseia em aspectos 
-% lineares da estrutura tonal, na identifi cação dos 
-% pitch accents
-%  e no alinhamento abs-
-% trato dessa estrutura com o material linguístico, o sistema DaTo de notação entoa-
-% cional (LUCENTE, 2008; 2012) se concentra na convergência de aspectos fonéticos 
-% – velocidade, intensidade, altura, duração – da curva entoacional a fi m de atingir um 
-% alvo ou desempenhar uma tarefa linguística por meio dos contornos entoacionais, da 
-% gama de variação tonal e do alinhamento específi co com o material linguístico
+\begin{lstlisting}[caption=Exemplo de texto anotado com EmotionML]
+<emotionml version="1.0" xmlns="http://www.w3.org/2009/10/emotionml">
+  <emotion category-set="http://www.w3.org/TR/emotion-voc/xml#everyday-categories">
+  <emotion>
+    <category name="happy" />
+    Que bom te ver!
+  </emotion>
+</emotionml>
+\end{lstlisting}
 
-% O sistema DaTo foi desenvolvido com base na entoação do português bra-
-% sileiro (PB) e trabalha com o conceito de contorno dinâmico, que é defi nido em 
-% Lucente (2012, p. 99) como “uma unidade tonal que contém elementos comuni-
-% cativos expressos em uma trajetória ideal da curva entoacional, especifi cada por 
-% um alvo a ser atingido e associada a uma unidade segmental linguística”
-\subsubsection{IPO}
-% página 32
-Sistema proposto pela Escola Holandesa. Utilizada por \cite{ipo} para analisar a
-prosódia no português brasileiro.
-\subsubsection{INTSINT}
-INTSINT é um sistema de anotação para prosódia.
-% The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''
-\subsubsection{DaTo (\emph{Dynamic Tones})}
-Apesar de o modelo ToBI para anotação entoacional ter sido utilizado para analisar o
-português brasileiro em diversos trabalhos, \citeonline{lucentetobi} argumenta que
-há características perceptíveis que a notação não consegue expressar, propondo o
-modelo DaTo com base na entonação do português brasileiro.
+% Expressive speech synthesis, generating synthetic speech with different emotions, such as happy or sad, friendly or apologetic; expressive synthetic speech would for example make more information available to blind and partially sighted people, and enrich their experience of the content;
+
+\subsubsection{Festival}
+O sistema TTS festival disponibiliza uma maneira de especificar entoação
+seguindo o modelo ToBI.
+
+\begin{lstlisting}[caption=Anotações no modelo ToBI para o sistema TTS Festival]
+(Utterance Words 
+ (The
+  (boy ((accent L*)))
+  saw
+  the
+  (girl ((accent H*) (tone L-)))
+  with 
+  the
+  (telescope ((accent H*) (tone H-H%))))))
+\end{lstlisting}

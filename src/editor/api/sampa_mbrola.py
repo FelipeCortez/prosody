@@ -87,7 +87,6 @@ class Converter():
                     # print("match:", equiv[0], phoneme, "=", equiv[1])
                     return (equiv[1], len(equiv[0]))
 
-        # print("didn't match", phoneme)
         return (phoneme[0], 1)
 
     def get_duration(self, phoneme: str) -> int:
@@ -101,7 +100,6 @@ class Converter():
         sentence.phones.append(Phone(" ", "_", 150, [[50, 150]]))
 
         ignored = ["@", "\n", ",", "'", "^", ";"]
-        # ' is a stress marker, should be important later
 
         sampa = self.text_to_sampa(input_str)
         sampa = sampa.replace("'", "")
