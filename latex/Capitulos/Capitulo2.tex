@@ -98,14 +98,17 @@ bloco de processamento de linguagem natural e \emph{back end} para o bloco de
 processamento digital de sinais. Doravante utilizaremos essa nomenclatura.
 
 \subsection{\emph{Front end}}
-As definições a seguir são adaptadas de \cite{martinjurafsky}:
+O \emph{front end} de um sistema TTS é responsável pela conversão do texto em
+sua representação em fones juntamente com parâmetros prosódicos. Em outras
+palavras, o bloco é responsável por determinar a pronúncia de cada palavra do
+texto, incluindo o contorno melódico e ritmo da fala. As definições a seguir são adaptadas de \cite{martinjurafsky}:
 
 \subsubsection{Normalização de texto}
 O processo de conversão de texto para fala começa com o processamento do texto a
 fim de gerar uma representação grafêmica.
 
 A primeira etapa da normalização é a separação em sintagmas, isto é, encontrar os
-limites de cada frase do texto. 
+limites de cada frase do texto. Frases que terminam com siglas ou abreviações podem dificultar o processo. Em ``Encaminhamos o caso à deliberação de V. Exas. O prazo para resposta é de dez dias.'', por exemplo, o ponto em ``Exas.'' é final, não da abreviação.
 
 Em seguida, devem-se transformar símbolos, abreviações, siglas e outras
 \emph{non-standard words} em suas representações pronunciáveis. Como exemplo, ``R\$
@@ -115,15 +118,28 @@ Por último, deve ser realizada a desambiguação de homônimos heterófonos: em
 ``Gosto de pão'', ``gosto'' pode ser pronunciada como ``gôsto'' ou ``gósto''.
 
 \subsubsection{Conversão grafema-fone}
-Palavras não-padrão são colocadas num dicionário de pronúncia. O resto é
-calculado de acordo com regras letra-som.
-Context-dependent e independent. Abordagens por machine learning ou regras.
-A conversão grafema-fone (ou fonema) consiste em transformar o texto normalizado
-em fones, ou seja, uma sequência de caracteres em uma sequência de fones.
+Com o texto normalizado, é preciso converter letras, isto é, grafemas, em uma
+representação pronunciável, ou seja, fones. Para isso, normalmente é composto um
+conjunto de regras \emph{letter-to-sound} ou letra-som, contendo as pronúncias
+comuns para sequências de letras, juntamente a um dicionário de pronúncia com
+palavras que fogem das regras. Para cada palavra, é feita uma busca no
+dicionário, e caso não seja encontrada, utilizam-se as regras.
+% Palavras não-padrão são colocadas num dicionário de pronúncia. O resto é
+% calculado de acordo com regras letra-som.
+% Context-dependent e independent. Abordagens por machine learning ou regras.
+% A conversão grafema-fone (ou fonema) consiste em transformar o texto normalizado
+% em fones, ou seja, uma sequência de caracteres em uma sequência de fones.
 
 \subsubsection{Geração de prosódia}
-A partir do texto e fones gerados nas etapas anteriores, deve-se estimar uma
-curva F0, ritmo e ênfase.
+\label{gerpros}
+A partir do texto e fones gerados nas etapas anteriores, deve-se estimar
+\emph{pitch}, intensidade e duração. \citeonline {taylor2009} explica que o
+desafio para implementação deste componente é que o texto praticamente não
+possui informação prosódica.
+
+Possíveis soluções para este problema são discutidas na seção \ref{prosafe}.
+
+% In text-to-speech, our interest is of course to generate prosody from text. This is problematic in that text mostly encodes the verbal component of language; prosody is by and large ignored. Given that prosody is such a vital part of spoken language, how then is it possible that written communication can even work
 
 % decide to use neutral prosody, and the suprasegmental effects that need to be
 % synthesised can be found from the verbal part of the message. For more emotive
@@ -132,8 +148,6 @@ curva F0, ritmo e ênfase.
 % knowing what prosody the speech should be encoded with; the message that we
 % found from the text has no explicit clues as to what the prosody should be.
 % (taylor p 37)
-
-% sintagmas entoacionais
 %  I wanted to go to London, but could only get tickets for France there seems to be two main intonation phrases, their boundary occurring at the comma
 %  there is often a slight drop in F0 from the beginning of an intonation phrase to its end, which resets at the beginning of a new intonation phrase
 % A very high-precision rule is the one we saw for sentence segmentation: insert a boundary after punctuation. Another commonly used rule inserts a phrase boundary before a function word following a content word.
@@ -145,10 +159,11 @@ Com o texto de entrada transformado em fones e informação prosódica, um
 \citeonline{martinjurafsky} separam algoritmos de síntese em três paradigmas:
 síntese concatenativa, síntese por formantes e síntese articulatória. 
 
-\begin{itemize}
-\item Síntese articulatória
-\item Síntese por formantes
-\item Síntese concatenativa
+\paragraph{Síntese articulatória}
+
+\paragraph{Síntese por formantes}
+
+\paragraph{Síntese concatenativa}
 Síntese concatenativa pode trabalhar com diferentes atomicidades: nível de palavra,
 dífonos e fones individuais.
 \end{itemize}

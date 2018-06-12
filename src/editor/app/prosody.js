@@ -5,7 +5,8 @@ function getRandomInt(max) {
 var app = new Vue({
   el: '#app',
   data: {
-    phones: []
+    phones: [],
+    height: 300
   },
   mounted: function() {
     var self = this;
@@ -22,15 +23,16 @@ var app = new Vue({
       if (XHR.readyState === XMLHttpRequest.DONE) {
         if (XHR.status === 200) {
           const results = JSON.parse(XHR.responseText);
-          console.log(results);
           self.phones = results;
         }
       }
     };
   },
   computed: {
-    firstPhone: function () {
-      return `${getRandomInt(99)}%`;
+    totalDuration: function() {
+      let durations = this.phones.map((phone) => phone.duration);
+      console.log(durations.reduce((acc, val) => acc + val, 0));
+      return durations.reduce((acc, val) => acc + val, 0);
     }
   }
 });

@@ -29,28 +29,17 @@
       <h1 class="title">prosody editor</h1>
       <div id="app">
         <textarea name="text" type="text" style="margin-bottom: 30px;"></textarea>
-        <component v-for="phone in phones">
-          <svg :width="phone.duration + 2"
-               height="130"
+          <svg :width="totalDuration"
+               :height="height"
                xmlns="http://www.w3.org/2000/svg">
             <g class="phone">
               <rect class="phone-bg"
                     x="1"
                     y="1"
-                    :width="phone.duration"
-                    height="100" />
-              <circle class="handle"
-                      :cx="firstPhone"
-                      cy="50"
-                      r="5" />
-              <text class="phone-text"
-                    x="50"
-                    y="120"
-                    text-anchor="middle"
-                    font-size="12">{{ phone.phone_sampa }}</text>
+                    :width="totalDuration - 2"
+                    :height="height - 2" />
             </g>
-          </svg>
-        </component>
+        </svg>
       </div>
     </div>
 
