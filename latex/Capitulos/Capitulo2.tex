@@ -9,24 +9,34 @@
 \citeonline{tts-book} descreve como parâmetros principais da prosódia \emph{pitch},
 intensidade e duração. Outros nomes para os mesmos fenômenos também são
 utilizados. \citeonline{moraes1998} separa as características principais da
-prosódia em \emph{stress}, \emph{accent} e \emph{rhythm}.
+prosódia em \emph{stress}, \emph{accent} e \emph{rhythm}. Como eventos prosódicos estão alinhados a sílabas ou grupos de sílabas, a prosódia é dita um fenômeno suprassegmental. Além desses componentes principais, \citeonline{taylor2009} destaca
+\emph{downdrift} (declinação), isto é, a queda gradual do valor de f0 durante um
+sintagma como aspecto relevante para a análise entoacional.
 
-Como eventos prosódicos estão alinhados a sílabas ou
-grupos de sílabas, a prosódia é dita um fenômeno suprassegmental.
-
-Além desses componentes principais, \citeonline{taylor2009} descreve downdrift e microprosódia.
 \subsection{Função prosódica}
-\citeonline{taylor2009} divide a prosódia em três tipos distintos:
+\citeonline{taylor2009} argumenta que uma das dificuldades do desenvolvimento de
+um bom modelo de prosódia se deve à falta de consideração da função
+comunicativa da fala, isto é, comumente análises são feitas ignorando o contexto
+da intenção do locutor. Apresenta, então, três principais funções comunicativas
+para prosódia:
 
-\begin{itemize}
-\item Afetiva: prosódia pura, emoção, estado mental e atitude. 
-\item Suprassegmental: quando uma mensagem é dita de maneira declarativa, sem conteúdo
-afetivo significante, dá o nome de \emph{discourse neutral}. utiliza um modelo
-de prosódia em que parte supra-segmental não é conteúdo prosódico verdadeiro,
-mas sim um outro aspecto do componente verbal.
-\item Aumentativa: assegura a comunicação efetiva de uma
-mensagem.
-\end{itemize}
+\paragraph{Afetiva} Prosódia referente à emoção, estado mental e atitude do
+locutor.
+% n general, affective prosody has a fairly direct meaning-to-form relationship and hence the more extreme the form the more extreme the emotion. This implies that, unlike verbal language, the affective prosody system is not arbitrary with regard to meaning/form. A number of emotion categorisation systems have been proposed. One common theory holds that there are six basic emotions (anger, happiness, sadness, disgust, fear and surprise) from which follow a number of secondary emotions such as puzzlement or intrigue [110], [113], [153]. Some however argue that there is no fixed set of emotions and rather emotion is best expressed in a multi-dimensional system. One such proposal advocates three independent axes of emotion called activation, evalu- ation and power [393], [126].
+% In addition to emotion, affective prosody includes speaker attitude. The difference between emotion and attitude is that only emotion can exist independent of communication. As an illustra- tion; you can be happy on your own, but you need someone else to be sarcastic with. Apart from this distinction, attitude functions similarly to emotion in that it is fairly direct, has a significant degree of universality and does not have a arbitrary or dual nature.
+\paragraph{Suprassegmental} Quando uma mensagem é dita de maneira declarativa,
+sem conteúdo afetivo significante -- descrita como \emph{discourse neutral} --,
+ainda é possível observar variação de \emph{pitch}, intensidade e duração. Na
+abordagem de \citeonline{taylor2009}, essa parte da prosódia, dita
+suprassegmental, não é considerada conteúdo prosódico verdadeiro, mas sim um
+aspecto da fonética verbal. É possível ainda pensar em prosódia ``real'' como
+desvios dos parâmetros suprassegmentais.
+% If a sentence is spoke with little or no affective content, ie. in a discourse neutral manner, we still see characteristic patterns in the phrasing, rhythm, pitch, voice quality and timing. Typical effects include phones at the ends of sentences or phrases being lengthened, syntactically salient words (e.g. heads) having more emphasis, F0 levels being higher at the starts of sentences and so on.
+\paragraph{Aumentativa} Além da prosódia afetiva, é possível desviar da prosódia
+padrão para assegurar a comunicação efetiva de uma mensagem sem adicionar
+informação ao conteúdo do que está sendo dito. É usada, por exemplo, para
+enfatizar palavras, desambiguando uma mensagem que poderia ser interpretada de
+diferentes formas.
 
 \subsection{Prosódia como elemento extra-textual}
 \citeonline{taylor2009} argumenta que a geração de prosódia afetiva é árdua e
@@ -39,19 +49,26 @@ pecam nesse aspecto.
 % é preciso entender o texto para gerar os contornos melódicos afetivos.
 % From this we can conclude that in situations where the text genre is quite factual, it is usually sufficient to generate speech from the verbal message only, and so all that is required is the gen- eration of the suprasegmental part of the signal; the affective part of prosody is ignored. In other text genres the situation is significantly more difficult, and if say a dialogue from a play is read in this fashion (or more likely) responses from a computer dialogue system, the generated speech can sound somewhat dull and removed. Finally, we see that mimicking a genuinely good human reader is very difficult indeed, as they will be performing an actual comprehension of the text, and then generating their own prosody. In no way are they simply decoding the prosody from the text and then speaking it aloud, as they can do with the words. To date, no satisfactory solution has been found to this problem, and so current text-to-speech systems are, unfortunately, lacking in this regard.
 
-\subsection{Contornos melódicos}
-\citeonline{moraes2008} analisa para a mesma frase ``Renata jogava'' utilizando
-o modelo ToBI uma mesma frase falada com intenções diferentes analisando como a
-entoação afeta a intenção percebida.
+% \subsection{Contornos melódicos}
+% \citeonline{moraes2008} analisa para a mesma frase ``Renata jogava'' utilizando
+% o modelo ToBI uma mesma frase falada com intenções diferentes analisando como a
+% entoação afeta a intenção percebida.
 
 \section{Sistemas TTS}
 \citeonline{ssml} definem \emph{text-to-speech} como ``o processo de geração
-automática de fala a partir de texto ou texto anotado'' (tradução nossa).
-Sistemas TTS são compostos por múltiplos subsistemas, como mostramos a seguir.
+automática de fala a partir de texto ou texto anotado'' (tradução nossa). São
+utilizados em leitores digitais, assistentes pessoais para \emph{smartphones} e
+\emph{smartphones}, aprendizagem de linguagens, entre outros.
+
+Sistemas TTS são compostos por múltiplos subsistemas. Como veremos na seção
+\ref{sistemas}, algumas implementações de TTS são modulares, permitindo
+desenvolvimento paralelo de cada componente individual. Isso possibilita que
+pesquisas possam investigar uma parte específica do sistema, como este trabalho,
+que foca no módulo de prosódia.
 
 \subsection{Estrutura}
-Na literatura, encontramos diversas arquiteturas específicas de um sistema TTS.
-\citeonline{tts-book} propõe um diagrama geral, dividindo sistemas em duas partes principais:
+Na literatura, encontramos diversas arquiteturas específicas para um sistema TTS.
+\citeonline{tts-book} propõe uma arquitetura geral, dividindo sistemas em duas partes principais:
 
 \begin{figure}[!htbp]
 \centering
@@ -75,6 +92,7 @@ Na literatura, encontramos diversas arquiteturas específicas de um sistema TTS.
 \caption{Arquitetura geral de sistemas TTS (adaptado de \citeonline{tts-book})}
 \label{fig:tts-arch}
 \end{figure}
+
 É comum encontrar em outros trabalhos o termo \emph{front end} para o
 bloco de processamento de linguagem natural e \emph{back end} para o bloco de
 processamento digital de sinais. Doravante utilizaremos essa nomenclatura.
