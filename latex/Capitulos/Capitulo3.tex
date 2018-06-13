@@ -110,16 +110,25 @@ Utilizada por \citeonline{moraes2008} para analisar uma mesma frase com diferent
 Sistema proposto pela Escola Holandesa. Utilizada por \citeonline{ipo} para analisar a
 prosódia no português brasileiro.
 \subsubsection{INTSINT}
-Key (frequência base)
-Range (intervalo entre ponto mais alto e mais baixo do f0).
-INTSINT é um sistema de anotação para prosódia. Top (T), Mid(M), Bottom (B).
-Higher (H), Same (S), Lower(L). Acentos: Upstepped (S), Downstepped (D).
+Proposto por \citeonline{intsintorig} como um sistema de transcrição para
+entoação capaz de ser utilizado para analisar múltiplas línguas, com objetivo de criar uma representação equivalente ao IPA (\emph{International Phonetic Alphabet}) para prosódia. 
+% Utilizado em sistemas de anotação automática.
+
+A entoação é anotada por três símbolos que definem frequências-alvo absolutas,
+Top (T), Mid (M) e Bottom (B), indicando respectivamente o limite superior, a
+base e o limite inferior para a frequência fundamental, três símbolos relativos
+à marcação anterior, Higher (H), Same (S) e Lower (L), e dois símbolos ditos
+iterativos, Upstepped (U) e Downstepped (D).
+
+Além das anotações, utilizam-se dois parâmetros fixos \emph{key}, definido em
+Hertz, e \emph{span}, definido em oitavas.
+
+% [ (initial), < (early), : (medial), > (late), ] (final)
 
 A tabela \ref{tab:intsint} detalha como cada marcação é convertida para uma
 frequência em Hertz para determinação de curva f0.
 
-Utilizado por \citeonline{intsintpt} e \citeonline{moraes1998} para analisar entoação para o
-português brasileiro.
+Utilizada por \citeonline{intsintpt} e \citeonline{moraes1998} para analisar entoação para o português brasileiro.
 
 % The INTSINT model of Hirst et al [212], [213], [211], was deve loped in an attempt to provide a comprehensive  and multi-lingual  transcription  system fo r intonation.   The model can be seen as “theory-neutral” in that it was designed to transcribe th e intonation of utterances as a way of annotating databases and thereby providing the raw data upo n which intonational theories could be developed. Hirst has described the development of INTSINT a s an attempt to design an equivalent of IPA for intonation. As stated in Section 6.10, there is no s uch thing as completely theory neutral model as all models make some assumptions.  Nevertheless, IN TSINT certainly fulfills its main goals of allowing a phonetic transcription of an utterance t o be made without necessarily deciding which theory or model of intonation will be subsequently use d. INTSINT describes an utterance’s intonation by a sequence o f labels each of which repre- sents a target point. These target points are defined either b y reference to the speaker’s pitch range, 242 Chapter 9. Synthesis of Prosody in which case they are marked Top (T), Mid (M) or Bottom (B), or by reference to the previous tar- get point, in which case they are marked Higher (H), Same (S) o r Lower (L). In addition, accents can be marked as Upstepped (S) or Downstepped (D). Hirst [212] describes this system in detail and shows how it c an be applied to all the major languages.  Several algorithms have also been developed for extracting the labels automatically from the acoustics and for synthesizing F0 contours from the labels 2 .  Applications of this model to synthesis include Veronis et al [475]
 % The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''
@@ -141,15 +150,13 @@ diferente. A proposta da SSML é que os sistemas TTS recebam o texto anotado num
 linguagem unificada. A linguagem foi adotada por soluções \emph{open-source}
 como MaryTTS e espeak-ng, além dos sistemas proprietários encontrados em Alexa,
 Google Assistant e Cortana. A especificação é mantida pela W3C \cite{ssml}.
-A especificação cita os elementos \emph{emphasis}, \emph{break} e \emph{prosody}
+e cita os elementos \emph{emphasis}, \emph{break} e \emph{prosody}
 como marcadores que podem auxiliar o processador de linguagem natural a gerar
 parâmetros prosódicos apropriados.
 
 \begin{lstlisting}[caption=Exemplo de texto anotado com SSML]
 <speak>
-    Siga
-    <emphasis level="strong">aquele</emphasis> 
-    carro.
+    Siga <emphasis level="strong">aquele</emphasis> carro.
 </speak> 
 \end{lstlisting}
 
@@ -207,8 +214,9 @@ permitir que o usuário especifique na entrada do programa TTS marcações
 prosódicas utilizando um dos modelos de análise entoacional vistos
 anteriormente. Apesar de requerer conhecimento de fonologia, é uma opção 
 viável enquanto não são desenvolvidos algoritmos para determinação de prosódia a
-partir de marcação emocional. O sistema Festival \cite{festival} disponibiliza uma maneira de
-especificar entoação seguindo o modelo ToBI, como pode ser visto na tabela
+partir de marcação emocional. O sistema Festival \cite{festival} disponibiliza
+uma maneira de especificar entoação seguindo o modelo ToBI, como pode ser visto
+na tabela
 \ref{tobifest}.
 
 \begin{lstlisting}[caption=Anotações no modelo ToBI para o sistema TTS Festival,

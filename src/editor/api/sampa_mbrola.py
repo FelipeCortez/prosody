@@ -3,6 +3,7 @@ import re
 import subprocess
 import random
 import json
+import uuid
 from collections import OrderedDict
 from typing import List
 
@@ -89,6 +90,7 @@ class Converter():
 
         return (phoneme[0], 1)
 
+
     def get_duration(self, phoneme: str) -> int:
         if self.durations and phoneme in self.durations:
             return self.durations[phoneme]
@@ -135,6 +137,9 @@ class Converter():
         output = output.decode("utf-8")
         output = output.replace("\n", "").strip()
         return output
+
+    def phones_to_mbrola(self):
+        return uuid.uuid4().hex[:16] + ".mp3"
 
 
 if __name__ == "__main__":

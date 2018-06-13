@@ -39,6 +39,8 @@ português brasileiro, optamos por esta pela facilidade de instalação. O siste
 TTS desenvolvido por \citeonline{couto} não foi encontrado para \emph{download}
 no começo do desenvolvimento deste trabalho.
 
+% MBROLA usa interpolação linear, INTSINT sugere quadratic spline
+
 \subsection{MBROLA}
 Cada voz do MBROLA tem suporte a um conjunto específico de dífonos. O programa
 \code{sampa_mbrola.py} foi desenvolvido para converter a saída gerada em fones
@@ -70,15 +72,16 @@ De acordo com \cite{intsintalg}
 			\hline
 			Regra   & Cálculo \\
 			\hline
-            T   & $ \text{key} \times \sqrt{2^{range}} $ \\
-            M   & $ \text{key} $ \\
-            B   & $ \text{key} / \sqrt{2^{range}} $ \\
+            Top   & $ \text{key} \times \sqrt{2^{range}} $ \\
+            Middle   & $ \text{key} $ \\
+            Bottom   & $ \text{key} / \sqrt{2^{range}} $ \\
 			\hline
-            H   & $ \sqrt{P_{i - 1} \times T} $ \\
-            U   & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  T}} $ \\
-            S   & $ P_{i - 1} $ \\
-            D   & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  B}} $ \\
-            L   & $ \sqrt{P_{i - 1} \times B} $ \\
+            Higher   & $ \sqrt{P_{i - 1} \times T} $ \\
+            Same   & $ P_{i - 1} $ \\
+            Lower   & $ \sqrt{P_{i - 1} \times B} $ \\
+			\hline
+            Upstepped   & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  T}} $ \\
+            Downstepped   & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  B}} $ \\
 			\hline
 		\end{tabular}
 	}
@@ -132,12 +135,13 @@ fone pode ser especificado arrastando barras de controle. O editor se comunica
 com o espeak-ng e MBROLA através de um servidor programado em Python utilizando
 o \emph{framework} Flask para prover \emph{endpoints} de uma API REST.
 
-\subsection{Endpoints}
-Foram criados dois endpoints para a API, tornando possível a comunicação entre
+\subsection{\emph{Endpoints}}
+Foram criados dois \emph{endpoints} para a API, possibilitando a comunicação entre
 interface gráfica e servidor.
 
 \paragraph{[POST] /api/espeak} Recebe um texto como entrada e gera uma resposta
-JSON com lista de fones. Um exemplo de resposta pode ser visto no código \ref{espeakpost}
+no formato JSON com lista de fones. Cada fone, por sua vez, possui campos \code{duration},
+\code{phone_mbrola}, \code{phone_sampa} e \code{pitch_changes}. Um exemplo de resposta pode ser visto no código \ref{espeakpost}
 \paragraph{[POST] /api/mbrola} Recebe uma lista de fones no formato MBROLA
 descrito na seção \ref{sec:mbrola} e gera uma resposta com o nome do arquivo de
 áudio contendo a fala sintetizada
@@ -145,6 +149,14 @@ descrito na seção \ref{sec:mbrola} e gera uma resposta com o nome do arquivo d
 \subsection{Editor gráfico}
 Editor gráfico utilizando o \emph{framework} Vue.js. Comunica-se com o servidor
 através de \emph{AJAX}
+
+\subsection{Utilização}
+O programa pode ser executado através de uma interface de linha de comandos
+
+\begin{lstlisting}[caption=Utilização por linha de comandos, label=cmdline, language=Python]
+$ echo "Testando" | python3 sampa_mbrola.py > out.pho
+$ mbrola ../br3/br3 out.pho out.wav; afplay out.wav
+\end{lstlisting}
 
 % \begin{figure}[!htbp]
 % \centering

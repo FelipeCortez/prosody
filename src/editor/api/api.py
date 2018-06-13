@@ -14,8 +14,9 @@ def frontend():
     return jsonify(sentence.dictify())
 
 @app.route('/api/mbrola', methods=['GET'])
-def mbrola(page):
-    pass
+def mbrola():
+    converter = sampa_mbrola.Converter()
+    return jsonify({"mp3_file": converter.phones_to_mbrola()})
 
 if __name__ == '__main__':
     app.run(debug=True)
