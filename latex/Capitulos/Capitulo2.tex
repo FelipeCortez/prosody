@@ -38,22 +38,6 @@ informação ao conteúdo do que está sendo dito. É usada, por exemplo, para
 enfatizar palavras, desambiguando uma mensagem que poderia ser interpretada de
 diferentes formas.
 
-\subsection{Prosódia como elemento extra-textual}
-\citeonline{taylor2009} argumenta que a geração de prosódia afetiva é árdua e
-depende de uma compreensão do texto. Ainda fala que, até a data de publicação do
-livro, nenhuma solução satisfatória foi encontrada e os sistemas TTS atuais
-pecam nesse aspecto.
-% Considerando o texto como sequência de palavras, é difícil determinar prosódia
-% afetiva.
-% Gerar a prosódia certa é uma questão de Natural Language Understanding, isto é,
-% é preciso entender o texto para gerar os contornos melódicos afetivos.
-% From this we can conclude that in situations where the text genre is quite factual, it is usually sufficient to generate speech from the verbal message only, and so all that is required is the gen- eration of the suprasegmental part of the signal; the affective part of prosody is ignored. In other text genres the situation is significantly more difficult, and if say a dialogue from a play is read in this fashion (or more likely) responses from a computer dialogue system, the generated speech can sound somewhat dull and removed. Finally, we see that mimicking a genuinely good human reader is very difficult indeed, as they will be performing an actual comprehension of the text, and then generating their own prosody. In no way are they simply decoding the prosody from the text and then speaking it aloud, as they can do with the words. To date, no satisfactory solution has been found to this problem, and so current text-to-speech systems are, unfortunately, lacking in this regard.
-
-% \subsection{Contornos melódicos}
-% \citeonline{moraes2008} analisa para a mesma frase ``Renata jogava'' utilizando
-% o modelo ToBI uma mesma frase falada com intenções diferentes analisando como a
-% entoação afeta a intenção percebida.
-
 \section{Sistemas TTS}
 \citeonline{ssml} definem \emph{text-to-speech} como ``o processo de geração
 automática de fala a partir de texto ou texto anotado'' (tradução nossa). São
@@ -139,6 +123,23 @@ possui informação prosódica.
 
 Possíveis soluções para este problema são discutidas na seção \ref{prosafe}.
 
+% \subsection{Prosódia como elemento extra-textual}
+% \citeonline{taylor2009} argumenta que a geração de prosódia afetiva é árdua e
+% depende de uma compreensão do texto. Ainda fala que, até a data de publicação do
+% livro, nenhuma solução satisfatória foi encontrada e os sistemas TTS atuais
+% pecam nesse aspecto.
+% Considerando o texto como sequência de palavras, é difícil determinar prosódia
+% afetiva.
+% Gerar a prosódia certa é uma questão de Natural Language Understanding, isto é,
+% é preciso entender o texto para gerar os contornos melódicos afetivos.
+% From this we can conclude that in situations where the text genre is quite factual, it is usually sufficient to generate speech from the verbal message only, and so all that is required is the gen- eration of the suprasegmental part of the signal; the affective part of prosody is ignored. In other text genres the situation is significantly more difficult, and if say a dialogue from a play is read in this fashion (or more likely) responses from a computer dialogue system, the generated speech can sound somewhat dull and removed. Finally, we see that mimicking a genuinely good human reader is very difficult indeed, as they will be performing an actual comprehension of the text, and then generating their own prosody. In no way are they simply decoding the prosody from the text and then speaking it aloud, as they can do with the words. To date, no satisfactory solution has been found to this problem, and so current text-to-speech systems are, unfortunately, lacking in this regard.
+
+% \subsection{Contornos melódicos}
+% \citeonline{moraes2008} analisa para a mesma frase ``Renata jogava'' utilizando
+% o modelo ToBI uma mesma frase falada com intenções diferentes analisando como a
+% entoação afeta a intenção percebida.
+
+
 % In text-to-speech, our interest is of course to generate prosody from text. This is problematic in that text mostly encodes the verbal component of language; prosody is by and large ignored. Given that prosody is such a vital part of spoken language, how then is it possible that written communication can even work
 
 % decide to use neutral prosody, and the suprasegmental effects that need to be
@@ -155,18 +156,27 @@ Possíveis soluções para este problema são discutidas na seção \ref{prosafe
 \subsection{Back end}
 % martin jurasfky p275
 Com o texto de entrada transformado em fones e informação prosódica, um
-\emph{back end} é responsável por gerar uma forma de onda.
-\citeonline{martinjurafsky} separam algoritmos de síntese em três paradigmas:
-síntese concatenativa, síntese por formantes e síntese articulatória. 
+\emph{back end} é responsável por gerar uma forma de onda, ou seja, o áudio a
+ser tocado pelos alto-falantes. \citeonline{martinjurafsky;taylor2009} separam
+algoritmos de síntese em três classes:
 
 \paragraph{Síntese articulatória}
+Sintetizadores articulatórios sintetizam fala através de modelos matemáticos,
+aproximando o aparelho fonador por um tubo aberto.
 
 \paragraph{Síntese por formantes}
+A fala, quando decomposta espectralmente através da transformada de Fourier, é
+majoritariamente composta por quatro senoides. A frequência mais baixa é dita
+frequência fundamental ou f0, e a boca serve como filtro, alterando a
+intensidade das outras três ondas f1, f2 e f3, denominadas harmônicos. Essa
+variação de intensidade dos harmônicos determina a vogal percebida.
+Sintetizadores por formantes são tentativas de modelagem da fala humana pela
+geração computacional dessas ondas. Apesar da simplicidade do modelo, como a
+parte residual é ignorada, a fala sintetizada é perceptivelmente artificial.
 
 \paragraph{Síntese concatenativa}
 Síntese concatenativa pode trabalhar com diferentes atomicidades: nível de palavra,
 dífonos e fones individuais.
-\end{itemize}
 
 % Intonational phrase: sintagmas entoacionais
 % Tone boundary: fronteira prosódica?
