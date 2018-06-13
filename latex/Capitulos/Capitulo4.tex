@@ -29,10 +29,15 @@ obter a partir do texto de entrada uma representação em fones. A saída gerada
 \begin{lstlisting}[caption=Utilização do programa espeak e saída correspondente,
   label=lst:espeak]
   $ espeak-ng -v pt-br 'Bom dia' -x -q --sep=/
-  $ b/'o/N dZ/'i/;/&
+  $ b/'o/N dZ/'i/&
 \end{lstlisting}
 
-Apesar da existência de outras ferramentas para \emph{front-end} para o português brasileiro, optamos por esta pela facilidade de instalação, marcação de ênfase disponível, etc.
+Um fone precedido pelo caractere \code{\'} indica emph{primary stress}.
+
+Apesar da existência de outras ferramentas para \emph{front end} para o
+português brasileiro, optamos por esta pela facilidade de instalação. O sistema
+TTS desenvolvido por \citeonline{couto} não foi encontrado para \emph{download}
+no começo do desenvolvimento deste trabalho.
 
 \subsection{MBROLA}
 Cada voz do MBROLA tem suporte a um conjunto específico de dífonos. O programa
@@ -67,21 +72,21 @@ De acordo com \cite{intsintalg}
 			\hline
             T   & $ \text{key} \times \sqrt{2^{range}} $ \\
             M   & $ \text{key} $ \\
-            B   & $ \frac{\text{key}}{\sqrt{2^{range}}} $ \\
+            B   & $ \text{key} / \sqrt{2^{range}} $ \\
 			\hline
             H   & $ \sqrt{P_{i - 1} \times T} $ \\
             U   & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  T}} $ \\
             S   & $ P_{i - 1} $ \\
-            D   & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  D}} $ \\
+            D   & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  B}} $ \\
             L   & $ \sqrt{P_{i - 1} \times B} $ \\
 			\hline
 		\end{tabular}
 	}
-	\label{tab:TabelaSemSentido}
+	\label{tab:intsint}
 \end{table}
 
 \subsection{Arquitetura}
-Foi utilizada uma arquitetura cliente-servidor REST \cite{rest} comumente vista em aplicações web contemporâneas. A interface gráfica consome uma API REST. A maneira como os
+Foi utilizada uma arquitetura cliente-servidor REST \cite{rest} comumente observada em aplicações \emph{web} atuais. A interface gráfica consome uma API REST. A maneira como os
 módulos se comunicam pode ser vista na figura \ref{fig:arch}.
 
 \begin{figure}[!htbp]
@@ -132,7 +137,7 @@ Foram criados dois endpoints para a API, tornando possível a comunicação entr
 interface gráfica e servidor.
 
 \paragraph{[POST] /api/espeak} Recebe um texto como entrada e gera uma resposta
-JSON com lista de fones
+JSON com lista de fones. Um exemplo de resposta pode ser visto no código \ref{espeakpost}
 \paragraph{[POST] /api/mbrola} Recebe uma lista de fones no formato MBROLA
 descrito na seção \ref{sec:mbrola} e gera uma resposta com o nome do arquivo de
 áudio contendo a fala sintetizada

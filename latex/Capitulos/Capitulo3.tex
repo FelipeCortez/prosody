@@ -3,6 +3,7 @@
 % texto no qual se deve apresentar os aspectos teóricos, isto é, os conceitos utilizados e a definição dos mesmos; nesta parte faz-se a revisão de literatura sobre o assunto, resumindo-se os resultados de estudos feitos por outros autores, cujas obras citadas e consultadas devem constar nas referências;
 
 % \simb[\% (fronteira de enunciado para ToBI)]
+\simb[f0 (frequência fundamental da fala)]
 \abrv[INTSINT -- \emph{International Transcription System for Intonation}]
 \abrv[HMM -- \emph{Hidden Markov Model}]
 \abrv[SSML -- \emph{Speech Synthesis Markup Language}]
@@ -106,7 +107,7 @@ Utilizada por \citeonline{moraes2008} para analisar uma mesma frase com diferent
 % um alvo a ser atingido e associada a uma unidade segmental linguística”
 \subsubsection{IPO}
 % página 32
-Sistema proposto pela Escola Holandesa. Utilizada por \cite{ipo} para analisar a
+Sistema proposto pela Escola Holandesa. Utilizada por \citeonline{ipo} para analisar a
 prosódia no português brasileiro.
 \subsubsection{INTSINT}
 Key (frequência base)
@@ -114,7 +115,10 @@ Range (intervalo entre ponto mais alto e mais baixo do f0).
 INTSINT é um sistema de anotação para prosódia. Top (T), Mid(M), Bottom (B).
 Higher (H), Same (S), Lower(L). Acentos: Upstepped (S), Downstepped (D).
 
-Utilizado por \cite{intsintpt} e \cite{moraes1998}para analisar entoação para o
+A tabela \ref{tab:intsint} detalha como cada marcação é convertida para uma
+frequência em Hertz para determinação de curva f0.
+
+Utilizado por \citeonline{intsintpt} e \citeonline{moraes1998} para analisar entoação para o
 português brasileiro.
 
 % The INTSINT model of Hirst et al [212], [213], [211], was deve loped in an attempt to provide a comprehensive  and multi-lingual  transcription  system fo r intonation.   The model can be seen as “theory-neutral” in that it was designed to transcribe th e intonation of utterances as a way of annotating databases and thereby providing the raw data upo n which intonational theories could be developed. Hirst has described the development of INTSINT a s an attempt to design an equivalent of IPA for intonation. As stated in Section 6.10, there is no s uch thing as completely theory neutral model as all models make some assumptions.  Nevertheless, IN TSINT certainly fulfills its main goals of allowing a phonetic transcription of an utterance t o be made without necessarily deciding which theory or model of intonation will be subsequently use d. INTSINT describes an utterance’s intonation by a sequence o f labels each of which repre- sents a target point. These target points are defined either b y reference to the speaker’s pitch range, 242 Chapter 9. Synthesis of Prosody in which case they are marked Top (T), Mid (M) or Bottom (B), or by reference to the previous tar- get point, in which case they are marked Higher (H), Same (S) o r Lower (L). In addition, accents can be marked as Upstepped (S) or Downstepped (D). Hirst [212] describes this system in detail and shows how it c an be applied to all the major languages.  Several algorithms have also been developed for extracting the labels automatically from the acoustics and for synthesizing F0 contours from the labels 2 .  Applications of this model to synthesis include Veronis et al [475]
@@ -198,10 +202,17 @@ múltiplas categorias simultaneamente.
 % Expressive speech synthesis, generating synthetic speech with different emotions, such as happy or sad, friendly or apologetic; expressive synthetic speech would for example make more information available to blind and partially sighted people, and enrich their experience of the content;
 
 \subsubsection{Anotação manual}
-O sistema TTS Festival \cite{festival} disponibiliza uma maneira de especificar entoação
-seguindo o modelo ToBI.
+Uma solução mais simples para geração de contornos f0 para prosódia efetiva é
+permitir que o usuário especifique na entrada do programa TTS marcações
+prosódicas utilizando um dos modelos de análise entoacional vistos
+anteriormente. Apesar de requerer conhecimento de fonologia, é uma opção 
+viável enquanto não são desenvolvidos algoritmos para determinação de prosódia a
+partir de marcação emocional. O sistema Festival \cite{festival} disponibiliza uma maneira de
+especificar entoação seguindo o modelo ToBI, como pode ser visto na tabela
+\ref{tobifest}.
 
-\begin{lstlisting}[caption=Anotações no modelo ToBI para o sistema TTS Festival]
+\begin{lstlisting}[caption=Anotações no modelo ToBI para o sistema TTS Festival,
+  label=tobifest]
 (Utterance Words 
  (The
   (boy ((accent L*)))

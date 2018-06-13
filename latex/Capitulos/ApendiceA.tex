@@ -180,3 +180,71 @@ if __name__ == "__main__":
         print(";;", line)
         print(converter.convert_sentence(line))
 \end{lstlisting}
+
+\begin{lstlisting}[caption=Editor gráfico, label=editorjs, language=Python]
+var app = new Vue({
+  el: '#app',
+  data: {
+    phones: [],
+    height: 300
+  },
+  mounted: function() {
+    var self = this;
+    const requestURL = "http://127.0.0.1:5000/api/espeak";
+    let XHR = new XMLHttpRequest();
+    let FD  = new FormData();
+
+    FD.append("text", "Bom dia, comunidade");
+
+    XHR.open("POST", requestURL);
+    XHR.send(FD);
+
+    XHR.onreadystatechange = function() {
+      if (XHR.readyState === XMLHttpRequest.DONE) {
+        if (XHR.status === 200) {
+          const results = JSON.parse(XHR.responseText);
+          self.phones = results;
+        }
+      }
+    };
+  },
+  computed: {
+    totalDuration: function() {
+      let durations = this.phones.map((phone) => phone.duration);
+      console.log(durations.reduce((acc, val) => acc + val, 0));
+      return durations.reduce((acc, val) => acc + val, 0);
+    }
+  }
+});
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Exemplo de resposta para \emph{endpoint} do eSpeakNG, label=espeakpost, language=Python]
+[
+  {
+    "duration": 150,
+    "phone_mbrola": "_",
+    "phone_sampa": " ",
+    "pitch_changes": [[50, 150]
+    ]
+  },
+  {
+    "duration": 80,
+    "phone_mbrola": "n",
+    "phone_sampa": "n",
+    "pitch_changes": [[50, 150]]
+  },
+  {
+    "duration": 110,
+    "phone_mbrola": "u",
+    "phone_sampa": "U",
+    "pitch_changes": [[50, 150]]
+  },
+  ...
+  {
+    "duration": 150,
+    "phone_mbrola": "_",
+    "phone_sampa": " ",
+    "pitch_changes": [[50, 150]]
+  }
+]
+\end{lstlisting}
