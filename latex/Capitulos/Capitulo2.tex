@@ -42,19 +42,22 @@ diferentes formas.
 \section{Sistemas TTS}
 \citeonline{ssml} definem \emph{text-to-speech} como ``o processo de geração
 automática de fala a partir de texto ou texto anotado'' (tradução nossa). São
-utilizados em leitores digitais, assistentes pessoais para \emph{smartphones} e
-\emph{home assistants}, aprendizagem de linguagens, entre outros.
+utilizados em leitores digitais, assistentes pessoais para \emph{smartphones},
+aprendizagem de linguagens, entre outros.
 
 Sistemas TTS são compostos por múltiplos subsistemas. Como veremos na seção
 \ref{sistemas}, algumas implementações de TTS são modulares, permitindo
 desenvolvimento paralelo de cada componente individual. Isso possibilita que
-pesquisas possam investigar uma parte específica do sistema. Neste trabalho, por
-exemplo, estudamos especificamente o módulo de prosódia. % Futuramente, avanços
+pesquisas possam focar em melhorias de uma parte específica do sistema sem
+necessidade de entendimento total. Neste trabalho, por exemplo, estudamos
+especificamente o módulo de prosódia. % Futuramente, avanços
                                 % em outras partes de sistemas TTS podem...
 
 \subsection{Estrutura}
-Na literatura, encontramos diversas arquiteturas específicas para um sistema TTS.
-\citeonline{tts-book} propõe uma arquitetura geral, dividindo os sistemas em duas partes principais:
+Na literatura, cada sistema TTS normalmente emprega algoritmos diferentes,
+resultando em múltiplas arquiteturas possíveis para conversão de texto em fala.
+Apesar disso, \citeonline{tts-book} propõe uma arquitetura geral, dividindo os
+sistemas em duas partes principais:
 
 \begin{figure}[!htbp]
 \centering
@@ -110,7 +113,7 @@ Com o texto normalizado, é preciso converter letras, isto é, grafemas, em uma
 representação pronunciável, ou seja, fones. Para isso, normalmente é composto um
 conjunto de regras \emph{letter-to-sound} ou letra-som, contendo as pronúncias
 comuns para sequências de letras, juntamente a um dicionário de pronúncia com
-palavras que não seguem as regras. Para cada palavra, é feita uma busca no
+palavras que não se adequam às regras. Para cada palavra, é feita uma busca no
 dicionário, e caso não seja encontrada, utilizam-se as regras.
 % Palavras não-padrão são colocadas num dicionário de pronúncia. O resto é
 % calculado de acordo com regras letra-som.
@@ -123,7 +126,8 @@ dicionário, e caso não seja encontrada, utilizam-se as regras.
 A partir do texto e fones gerados nas etapas anteriores, deve-se estimar
 \emph{pitch}, intensidade e duração. \citeonline {taylor2009} explica que o
 desafio para implementação deste componente é que o texto praticamente não
-possui informação prosódica. Possíveis soluções para este problema são discutidas na seção \ref{prosafe}.
+possui informação prosódica. Possíveis soluções para este problema são
+discutidas na seção \ref{prosafe}. (essa parte precisa ser estendida!)
 
 % \subsection{Prosódia como elemento extra-textual}
 % \citeonline{taylor2009} argumenta que a geração de prosódia afetiva é árdua e
@@ -187,9 +191,9 @@ sinal de uma fala humana. Ao ignorar-se essa parte residual, a fala sintetizada
 
 \paragraph{Síntese concatenativa}
 Devido aos problemas destacados para as outras duas abordagens, a maioria dos
-sistemas hodiernos utilizam síntese concatenativa.
-Síntese concatenativa pode trabalhar com diferentes atomicidades: nível de palavra,
-dífonos e fones individuais.
+sistemas hodiernos utilizam síntese concatenativa. Síntese concatenativa pode
+trabalhar com diferentes atomicidades: nível de palavra, dífonos e fones
+individuais. (estender essa parte também)
 
 % Intonational phrase: sintagmas entoacionais
 % Tone boundary: fronteira prosódica?

@@ -9,20 +9,23 @@
 \abrv[JSON -- \emph{JavaScript Object Notation}]
 \abrv[REST -- \emph{Representational State Transfer}]
 \abrv[AJAX -- \emph{Asynchronous JavaScript And XML}]
+
 \chapter{Editor de prosódia}
 
 \section{Implementação}
-
 \subsection{espeak-ng}
-Foi utilizado o programa \emph{open-source} espeak-ng \cite{espeakng} para
-realizar a normalização de texto e realizar a conversão grafema-fone, ou seja,
-obter a partir do texto de entrada uma representação em fones. A saída gerada
-é passada para o programa desenvolvido neste trabalho através da biblioteca
-\code{subprocess} da linguagem Python. O comando utilizado para obter os grafemas pode ser visto no código \ref{lst:espeak}.
+Foi utilizado o programa \emph{open-source} eSpeakNG \cite{espeakng} para
+realizar as primeiras etapas do \emph{back end}, normalização de texto e
+conversão grafema-fone, ou seja, obter a partir do texto de entrada uma
+representação em fones. A saída gerada pelo programa é subsequentemente passada
+para o programa desenvolvido neste trabalho através da biblioteca
+\code{subprocess} da linguagem Python. O comando utilizado para obter os
+grafemas pode ser visto no código
+\ref{lst:espeak}.
 
 \begin{itemize}
 \item A \emph{flag} \code{-v} seleciona uma voz. Neste caso, \code{pt-br}
-\item \code{-x} e \code{-q} escrevem fones na saída em vez da fala sintetizada
+\item \code{-x} e \code{-q} escrevem fones na saída em vez da fala sintetizada.
 \item \code{-sep=/} separa fones utilizando o caractere \code{/}
 \end{itemize}
 
@@ -32,65 +35,62 @@ obter a partir do texto de entrada uma representação em fones. A saída gerada
   $ b/'o/N dZ/'i/&
 \end{lstlisting}
 
-Um fone precedido pelo caractere \code{\'} indica emph{primary stress}.
+Um fone precedido pelo caractere \code{\'} indica \emph{primary stress}.
 
 Apesar da existência de outras ferramentas para \emph{front end} para o
-português brasileiro, optamos por esta pela facilidade de instalação. O sistema
-TTS desenvolvido por \citeonline{couto} não foi encontrado para \emph{download}
-no começo do desenvolvimento deste trabalho.
+português brasileiro, optamos pelo eSpeakNG pela disponibilidade e facilidade de
+instalação. O sistema TTS desenvolvido por \citeonline{couto} não foi encontrado
+para \emph{download} no início de desenvolvimento deste trabalho.
 
 % MBROLA usa interpolação linear, INTSINT sugere quadratic spline
 
 \subsection{MBROLA}
 Cada voz do MBROLA tem suporte a um conjunto específico de dífonos. O programa
 \code{sampa_mbrola.py} foi desenvolvido para converter a saída gerada em fones
-suportados pela voz do MBROLA utilizada. O equivalente ao fone \code{&} gerado
-pelo espeak é \code{a} na voz do MBROLA, por exemplo. A ferramenta de conversão
-lê a tabela do arquivo \code{sampa_mbrola.tbl}, e substitui cada fone pelo
-equivalente corrigido. A tabela possui três colunas: o fone que o espeak
+suportados pela voz do MBROLA utilizada. O equivalente ao fone \code{/&/} gerado
+pelo espeak é \code{/a/} na voz do MBROLA, por exemplo. A ferramenta de conversão
+lê a tabela do arquivo \code{sampa_mbrola.tbl}, e substitui cada fone em notação
+XSAMPA pelo equivalente. A tabela possui três colunas: o fone que o espeak
 produz, o fone equivalente para o MBROLA e um exemplo numa palavra do português.
-Em \ref{sampambrola} é possível ver algumas linhas do arquivo.
+No código \ref{sampambrola} é possível ver algumas linhas do arquivo.
 
-\begin{lstlisting}[caption=Linhas da tabela de conversão, label=sampambrola]
+\begin{lstlisting}[caption=Extrato de linhas da tabela de conversão, label=sampambrola]
+  b  |  b  | _b_arco
+  k  |  k  | _c_om
+  d  |  d  | _d_ose
   &  |  a  |  v_a_le
   6  |  @  |  tam_a_nho
   n  |  n  |  _n_unca
 \end{lstlisting}
 
-As durações padrão para cada fone estão contidas na tabela do arquivo
-\code{durations.tbl}, adaptado da tabela utilizada pelo LianeTTS \cite{lianetts}. Cada
-linha contém o fone e uma duração em milissegundos.
+As durações padrão para cada fone estão contidas no arquivo
+\code{durations.tbl}, adaptado da tabela utilizada pelo LianeTTS
+\cite{lianetts}. Cada linha contém o fone e uma duração em milissegundos.
 
 \subsection{INTSINT}
-De acordo com \cite{intsintalg}
+\label{intsintrules}
+Como visto na seção \ref{intsintsec}, o INTSINT serve não apenas para análise,
+mas também para síntese de contornos f0. Escolhemos utilizá-lo na implementação
+pela simplicidade da notação e flexibilidade.
 
-\begin{table}[htb]
-	\textsf{\caption{Regras para INTSINT}}
-	\center
-	{
-		\begin{tabular}{l|l}
-			\hline
-			Regra   & Cálculo \\
-			\hline
-            Top   & $ \text{key} \times \sqrt{2^{range}} $ \\
-            Middle   & $ \text{key} $ \\
-            Bottom   & $ \text{key} / \sqrt{2^{range}} $ \\
-			\hline
-            Higher   & $ \sqrt{P_{i - 1} \times T} $ \\
-            Same   & $ P_{i - 1} $ \\
-            Lower   & $ \sqrt{P_{i - 1} \times B} $ \\
-			\hline
-            Upstepped   & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  T}} $ \\
-            Downstepped   & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  B}} $ \\
-			\hline
-		\end{tabular}
-	}
-	\label{tab:intsint}
-\end{table}
+% \subsection{Módulo de prosódia}
+% O programa foi codificado utilizando a linguagem de programação Python 3.6,
+% calculando contorno f0 a partir de notação especificada pelo usuário seguindo o
+% modelo INTSINT. O módulo é uma interface entre os programas eSpeakNG e MBROLA,
+% calculando parâmetros a partir da representação textual inicial e sua conversão
+% em fones geradas pelo \emph{front end}, calculando valores de duração para cada
+% fone a partir de uma tabela e gerando frequências a partir do algoritmo
+% encontrado na seção \ref{intsintrules}.
 
-\subsection{Arquitetura}
-Foi utilizada uma arquitetura cliente-servidor REST \cite{rest} comumente observada em aplicações \emph{web} atuais. A interface gráfica consome uma API REST. A maneira como os
-módulos se comunicam pode ser vista na figura \ref{fig:arch}.
+\subsection{Editor gráfico}
+Para permitir refinamento de prosódia após cálculo de parâmetros, foi
+desenvolvido um editor gráfico para \emph{web} utilizando HTML, CSS e
+JavaScript. A duração e altura de cada fone pode ser especificado arrastando
+barras de controle.
+\subsubsection{Arquitetura}
+ O editor se comunica com o espeak-ng e MBROLA através de um
+servidor programado em Python utilizando o \emph{framework} Flask para prover
+\emph{endpoints} de uma API \emph{RESTful}. Foi utilizada uma arquitetura cliente-servidor \cite{rest} comumente observada em aplicações \emph{web} atuais. A maneira como os módulos se comunicam pode ser vista na figura \ref{fig:arch}.
 
 \begin{figure}[!htbp]
 \centering
@@ -121,35 +121,20 @@ módulos se comunicam pode ser vista na figura \ref{fig:arch}.
 
     \end{tikzpicture}
 }
-\caption{Arquitetura do sistema desenvolvido}
+\caption{Arquitetura para o programa da interface gráfica}
 \label{fig:arch}
 \end{figure}
 
-\subsection{Módulo de prosódia}
-
-O programa foi codificado em Python em sua versão 3.6. Pega resultado do espeak-ng, processa com editor gráfico e gera MBROLA.
-
-Para alterar a prosódia manualmente, foi desenvolvido um editor gráfico
-para \emph{web} utilizando HTML, CSS e JavaScript. A duração e altura de cada
-fone pode ser especificado arrastando barras de controle. O editor se comunica
-com o espeak-ng e MBROLA através de um servidor programado em Python utilizando
-o \emph{framework} Flask para prover \emph{endpoints} de uma API REST.
-
-\subsection{\emph{Endpoints}}
+\subsubsection{\emph{Endpoints}}
 Foram criados dois \emph{endpoints} para a API, possibilitando a comunicação entre
 interface gráfica e servidor.
 
 \paragraph{[POST] /api/espeak} Recebe um texto como entrada e gera uma resposta
 no formato JSON com lista de fones. Cada fone, por sua vez, possui campos \code{duration},
-\code{phone_mbrola}, \code{phone_sampa} e \code{pitch_changes}. Um exemplo de resposta pode ser visto no código \ref{espeakpost}
+\code{phone_mbrola}, \code{phone_sampa} e \code{pitch_changes}. Um exemplo de resposta pode ser visto no código \ref{espeakpost}.
 \paragraph{[POST] /api/mbrola} Recebe uma lista de fones no formato MBROLA
 descrito na seção \ref{sec:mbrola} e gera uma resposta com o nome do arquivo de
-áudio contendo a fala sintetizada
-
-\subsection{Editor gráfico}
-Editor gráfico utilizando o \emph{framework} Vue.js. Comunica-se com o servidor
-através de \emph{AJAX}
-
+áudio contendo a fala sintetizada.
 \subsection{Utilização}
 O programa pode ser executado através de uma interface de linha de comandos
 
@@ -157,6 +142,10 @@ O programa pode ser executado através de uma interface de linha de comandos
 $ echo "Testando" | python3 sampa_mbrola.py > out.pho
 $ mbrola ../br3/br3 out.pho out.wav; afplay out.wav
 \end{lstlisting}
+
+% A interface gráfica é uma aplicação \emph{web}
+% Também foi desenvolvido um editor gráfico para permitir refinamento do contorno melódico
+% gerado pelo algoritmo de \citeonline{intsintalg}.
 
 % \begin{figure}[!htbp]
 % \centering

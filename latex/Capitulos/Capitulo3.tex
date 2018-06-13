@@ -3,7 +3,6 @@
 % texto no qual se deve apresentar os aspectos teóricos, isto é, os conceitos utilizados e a definição dos mesmos; nesta parte faz-se a revisão de literatura sobre o assunto, resumindo-se os resultados de estudos feitos por outros autores, cujas obras citadas e consultadas devem constar nas referências;
 
 % \simb[\% (fronteira de enunciado para ToBI)]
-\simb[f0 (frequência fundamental da fala)]
 \abrv[INTSINT -- \emph{International Transcription System for Intonation}]
 \abrv[HMM -- \emph{Hidden Markov Model}]
 \abrv[SSML -- \emph{Speech Synthesis Markup Language}]
@@ -17,30 +16,33 @@
 \section{Sistemas TTS para o português brasileiro}
 \label{sistemas}
 
-Destacamos aqui sistemas TTS desenvolvidos por ordem cronológica a fim de
-evidenciar a evolução das tecnologias utilizadas e as tendências para trabalhos futuros.
+Destacamos aqui sistemas TTS \emph{open-source} com suporte ao português
+brasileiro desenvolvidos por ordem cronológica a fim de evidenciar a evolução
+das tecnologias utilizadas e as tendências para trabalhos futuros.
+
 \paragraph{Aiuruetê \cite{aiuruete}}
 Desenvolvido com o objetivo de obter um sistema TTS com fala natural sem custo
-computacional elevado. Descartam síntese articulatória e formantes porque o
-custo seria muito alto, como descrito na seção \ref{backend}, optando por uma
-solução concatenativa. Para a prosódia, a parte de \emph{pitch} utiliza curvas
-f0 associadas a frases declarativas com declinação e as durações segmentais são
-obtidas por redes neurais treinadas a partir de parâmetros como número de vogais e clíticos.
+computacional elevado, os autores descartam síntese articulatória e formantes
+justificando que o custo de desenvolvimento seria muito alto, como descrito na
+seção \ref{backend}, optando por uma solução concatenativa. Para a prosódia, a
+parte de \emph{pitch} utiliza curvas f0 associadas a frases declarativas com
+declinação e as durações segmentais são obtidas por redes neurais treinadas a
+partir de parâmetros como número de vogais e clíticos.
 
 \paragraph{eSpeakNG \cite{espeakng}}
 Projeto \emph{open-source} com suporte a múltiplas linguagens. É modular,
 permitindo \emph{back end} com síntese por formantes ou concatenativa. Também
 possibilita que seja utilizado apenas o \emph{front end}, gerando representação
-no formato X-SAMPA (\emph{Extended Speech Assessment Methods Phonetic
-  Alphabet}). No seu módulo de prosódia, determina contorno f0 a partir de
+fonética no formato X-SAMPA (\emph{Extended Speech Assessment Methods Phonetic
+Alphabet}). No seu módulo de prosódia, determina contorno f0 a partir de
 pontuação e tabela com regras para \emph{pre-head}, \emph{head}, \emph{nucleus}
 e \emph{tail}. As durações são fixas para fones diferentes e também são
 determinadas por uma tabela.
 
-\paragraph{Microsoft \cite{hmmmicrosoft}}
-Desenvolvido pela Microsoft, realiza a marcação de ênfase e separação silábica
-utilizando um dicionário. Destaca-se por utilizar um corpus composto por 2000
-sintagmas foneticamente anotados para determinar prosódia probabilisticamente.
+% \paragraph{Microsoft \cite{hmmmicrosoft}}
+% Desenvolvido pela Microsoft, realiza a marcação de ênfase e separação silábica
+% utilizando um dicionário. Destaca-se por utilizar um corpus composto por 2000
+% sintagmas foneticamente anotados para determinar prosódia probabilisticamente.
 
 \paragraph{\cite{couto}}
 Foi desenvolvido com base no \emph{framework} MaryTTS um sistema completo para
@@ -59,18 +61,23 @@ a partir do corpus de treinamento.
 
 \paragraph{LianeTTS \cite{lianetts}}
 Projeto da SERPRO, o LianeTTS utiliza síntese concatenativa através do programa
-MBROLA. Assim como o eSpeakNG, os componentes são baseados em regras e tabelas.
+MBROLA. Assim como o eSpeakNG, os subsistemas são baseados em regras e tabelas.
 O cálculo de curva f0 é feito com base em \emph{parts-of-speech tagging}, ou
 seja, atribuição de classes gramaticais a cada palavra do texto de entrada.
 
-\paragraph{MBROLA}
+\section{MBROLA}
 \label{sec:mbrola}
 MBROLA é uma ferramenta para geração de voz baseada em síntese concatenativa por
-dífonos desenvolvida com o objetivo de fomentar pesquisas acadêmicas em geração
-de prosódia \cite{mbrola}. É utilizada como \emph{back-end} para diversos
-sistemas TTS, como MaryTTS, Festival \cite{festival} e eSpeakNG, e possui três vozes disponíveis para o português brasileiro. % \cite{mbrola} The ultimate goal is to boost up academic research on speech synthesis, and particularly on prosody generation, known as one of the biggest challenges taken up by Text-to-Speech synthesizers for the years to come.
+dífonos (pares de fones) desenvolvida com o objetivo de fomentar pesquisas
+acadêmicas em geração de prosódia \cite{mbrola}. É utilizada como
+\emph{back end} para diversos sistemas TTS, como MaryTTS, Festival
+\cite{festival} e eSpeakNG, e possui três vozes disponíveis para o português
+brasileiro. % \cite{mbrola} The ultimate goal is to boost up academic research
+% on speech synthesis, and particularly on prosody generation, known as one of the
+% biggest challenges taken up by Text-to-Speech synthesizers for the years to
+% come.
 
-\begin{lstlisting}[caption=Exemplo de arquivo de entrada para MBROLA]
+\begin{lstlisting}[caption=Exemplo de arquivo de entrada para MBROLA, label=mbr]
       _ 150 50 150
       t  70 50 125
       e 125 50 75
@@ -81,15 +88,27 @@ sistemas TTS, como MaryTTS, Festival \cite{festival} e eSpeakNG, e possui três 
       _ 150 50 150
 \end{lstlisting}
 
-\subsubsection{Formato}
-Em cada linha, tem-se um fone ou um silêncio representado pelo \emph{underscore} seguido por uma duração em milissegundos e, por último, um ou mais pares de porcentagem e frequência em Hertz determinando alvos para a curva f0. Como exemplo, na penúltima linha temos o fone \/e\/ com duração de 116 ms e dois alvos para altura, 232 Hz em 20\% e 300 Hz em 80\%.
+\subsection{Formato}
+Como pode ser observado no código \ref{mbr}, em cada linha tem-se um fone ou um
+silêncio (representado pelo \emph{underscore}) seguido por uma duração em
+milissegundos e, por último, um ou mais pares de porcentagem e frequência em
+Hertz determinando alvos para a curva f0. Como exemplo, na penúltima linha temos
+o fone \/e\/ com duração de 116 ms e dois alvos para altura, 232 Hz em 20\% e
+300 Hz em 80\%. Para sintetizar a fala, a tabela é lida sequencialmente,
+concatenando pares de fones pré-gravados, e é feita uma interpolação linear
+entre cada alvo de \emph{pitch}. Os dífonos pré-gravados têm frequência alterada
+utilizando o algoritmo MBRPSOLA.
 
-Cada voz gravada provê uma tabela com os fones que podem ser utilizados. Utilizamos neste trabalho a voz br3 desenvolvida por Denis R. Costa disponível no site oficial do projeto MBROLA.
+Cada voz gravada fornece uma tabela com os dífonos que podem ser utilizados. Utilizamos neste trabalho a voz \code{br3} desenvolvida por Denis R. Costa disponível no site oficial do projeto MBROLA.
 % referência?
 
 \subsection{Modelos de análise entoacional}
+\label{entoa}
+
 \subsubsection{Teoria métrica-autossegmental}
-Utilizada por \citeonline{moraes2008} para analisar uma mesma frase com diferentes intenções.
+Utilizada por \citeonline{moraes2008} para analisar uma mesma frase com
+diferentes intenções. (falta isso)
+
 % Enquanto a teoria MA, representada pelo sistema ToBI, se baseia em aspectos 
 % lineares da estrutura tonal, na identifi cação dos 
 % pitch accents
@@ -105,54 +124,98 @@ Utilizada por \citeonline{moraes2008} para analisar uma mesma frase com diferent
 % Lucente (2012, p. 99) como “uma unidade tonal que contém elementos comuni-
 % cativos expressos em uma trajetória ideal da curva entoacional, especifi cada por 
 % um alvo a ser atingido e associada a uma unidade segmental linguística”
-\subsubsection{IPO}
-% página 32
-Sistema proposto pela Escola Holandesa. Utilizada por \citeonline{ipo} para analisar a
-prosódia no português brasileiro.
+
 \subsubsection{INTSINT}
-Proposto por \citeonline{intsintorig} como um sistema de transcrição para
-entoação capaz de ser utilizado para analisar múltiplas línguas, com objetivo de criar uma representação equivalente ao IPA (\emph{International Phonetic Alphabet}) para prosódia. 
-% Utilizado em sistemas de anotação automática.
+\label{intsintsec}
+Proposto por \citeonline{intsintorig} com objetivo de criar uma representação
+equivalente ao IPA (\emph{International Phonetic Alphabet}) para prosódia, é um
+sistema de transcrição para entoação capaz de ser utilizado para analisar
+múltiplas línguas.
 
 A entoação é anotada por três símbolos que definem frequências-alvo absolutas,
 Top (T), Mid (M) e Bottom (B), indicando respectivamente o limite superior, a
 base e o limite inferior para a frequência fundamental, três símbolos relativos
-à marcação anterior, Higher (H), Same (S) e Lower (L), e dois símbolos ditos
-iterativos, Upstepped (U) e Downstepped (D).
+à marcação anterior, Higher (H), Same (S) e Lower (L), e dois símbolos
+denominados iterativos, Upstepped (U) e Downstepped (D). Além das anotações,
+utilizam-se dois parâmetros fixos \emph{key}, definido em Hertz, e \emph{span},
+definido em oitavas.
 
-Além das anotações, utilizam-se dois parâmetros fixos \emph{key}, definido em
-Hertz, e \emph{span}, definido em oitavas.
+Apesar de ser inicialmente proposto como um modelo de análise, trabalhos
+subsequentes como \cite{intsintalg,stoc} utilizaram a mesma notação para sintetizar
+contornos f0. A tabela \ref{tab:intsint} detalha como cada marcação é convertida
+para uma frequência em Hertz para determinação de alvos f0.
 
-% [ (initial), < (early), : (medial), > (late), ] (final)
+O modelo INTSINT foi utilizado por \citeonline{intsintpt} e \citeonline{moraes1998} para analisar entoação para o português brasileiro.
 
-A tabela \ref{tab:intsint} detalha como cada marcação é convertida para uma
-frequência em Hertz para determinação de curva f0.
-
-Utilizada por \citeonline{intsintpt} e \citeonline{moraes1998} para analisar entoação para o português brasileiro.
+\begin{table}[htb]
+	\textsf{\caption{Regras para INTSINT}}
+	\center
+	{
+		\begin{tabular}{l|l}
+			\hline
+			Regra       & Cálculo \\
+			\hline
+            Top         & $ \text{key} \times \sqrt{2^{range}} $ \\
+            Middle      & $ \text{key} $ \\
+            Bottom      & $ \text{key} / \sqrt{2^{range}} $ \\
+			\hline
+            Higher      & $ \sqrt{P_{i - 1} \times T} $ \\
+            Same        & $ P_{i - 1} $ \\
+            Lower       & $ \sqrt{P_{i - 1} \times B} $ \\
+			\hline
+            Upstepped   & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  T}} $ \\
+            Downstepped & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  B}} $ \\
+			\hline
+		\end{tabular}
+	}
+	\label{tab:intsint}
+\end{table}
 
 % The INTSINT model of Hirst et al [212], [213], [211], was deve loped in an attempt to provide a comprehensive  and multi-lingual  transcription  system fo r intonation.   The model can be seen as “theory-neutral” in that it was designed to transcribe th e intonation of utterances as a way of annotating databases and thereby providing the raw data upo n which intonational theories could be developed. Hirst has described the development of INTSINT a s an attempt to design an equivalent of IPA for intonation. As stated in Section 6.10, there is no s uch thing as completely theory neutral model as all models make some assumptions.  Nevertheless, IN TSINT certainly fulfills its main goals of allowing a phonetic transcription of an utterance t o be made without necessarily deciding which theory or model of intonation will be subsequently use d. INTSINT describes an utterance’s intonation by a sequence o f labels each of which repre- sents a target point. These target points are defined either b y reference to the speaker’s pitch range, 242 Chapter 9. Synthesis of Prosody in which case they are marked Top (T), Mid (M) or Bottom (B), or by reference to the previous tar- get point, in which case they are marked Higher (H), Same (S) o r Lower (L). In addition, accents can be marked as Upstepped (S) or Downstepped (D). Hirst [212] describes this system in detail and shows how it c an be applied to all the major languages.  Several algorithms have also been developed for extracting the labels automatically from the acoustics and for synthesizing F0 contours from the labels 2 .  Applications of this model to synthesis include Veronis et al [475]
 % The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''
 \subsubsection{DaTo (\emph{Dynamic Tones})}
-Apesar de o modelo ToBI para anotação entoacional ter sido utilizado para analisar o
+Apesar de o modelo ToBI ter sido utilizado para analisar o
 português brasileiro em diversos trabalhos, \citeonline{lucentetobi} argumenta que
-há características perceptíveis que a notação não consegue expressar, propondo o
-modelo DaTo com base na entonação do português brasileiro.
+há características perceptíveis que a notação não consegue expressar, propondo
+um novo modelo, DaTo, com base na entoação do português brasileiro.
+
+\begin{table}[htb]
+	\textsf{\caption{Regras para DaTo}}
+	\center
+	{
+		\begin{tabular}{l|l}
+			\hline
+			Contorno          & Notação \\
+			\hline
+            Rising            & LH  \\
+            Late rising       & >LH  \\
+            Compressed rising & vLH  \\
+            Rising falling    & LHL  \\
+            Late falling      & >HL  \\
+            Late rising       & vHL  \\
+            Falling rising    & HLH  \\
+			\hline
+		\end{tabular}
+	}
+	\label{tab:dato}
+\end{table}
 
 \subsection{Prosódia afetiva em sistemas TTS}
 \label{prosafe}
 \subsubsection{SSML}
 A linguagem de marcação \emph{Speech Synthesis Markup Language} foi criada
 motivada pela dificuldade de predição computacional de pronúncia
-\cite{ssmlpaper}. Quando originalmente proposta, diferentes sistemas TTS
+\cite{ssmlpaper}. Quando originalmente proposta, alguns sistemas TTS
 permitiam anotações extra-textuais para auxiliar a estimação de parâmetros, mas
-usuários tinham que aprender um sistema de anotação para cada programa
-diferente. A proposta da SSML é que os sistemas TTS recebam o texto anotado numa
-linguagem unificada. A linguagem foi adotada por soluções \emph{open-source}
-como MaryTTS e espeak-ng, além dos sistemas proprietários encontrados em Alexa,
-Google Assistant e Cortana. A especificação é mantida pela W3C \cite{ssml}.
-e cita os elementos \emph{emphasis}, \emph{break} e \emph{prosody}
-como marcadores que podem auxiliar o processador de linguagem natural a gerar
-parâmetros prosódicos apropriados.
+cada sistema tinha sua própria notação. Consequentemente, usuários tinham que
+aprender um sistema de anotação para cada programa diferente. A proposta da SSML
+é padronizar notações, permitindo que sistemas TTS recebam o texto com marcações
+adicionais feitas utilizando uma linguagem unificada. A linguagem foi adotada
+por soluções \emph{open-source} como MaryTTS e eSpeakNG, além dos sistemas
+proprietários encontrados em Alexa, Google Assistant e Cortana. A especificação
+é mantida pela W3C \cite{ssml} e cita os elementos \emph{emphasis}, \emph{break}
+e \emph{prosody} como marcadores que podem auxiliar o processador de linguagem
+natural a gerar parâmetros prosódicos apropriados.
 
 \begin{lstlisting}[caption=Exemplo de texto anotado com SSML]
 <speak>
@@ -163,19 +226,27 @@ parâmetros prosódicos apropriados.
 % http://mary.dfki.de/documentation/overview.html
 % https://www.w3.org/TR/emotionml/
 \subsubsection{EmotionML}
-EmotionML \cite{emotionml} foi criada para várias coisas, uma delas é ajudar
-algoritmos a determinarem prosódia. \cite{emotionmary} descreve um
-\emph{framework} para implementação de determinação de prosódia a partir de
-anotações em EmotionML utilizando o \emph{framework} MaryTTS.
+A EmotionML \cite{emotionml} foi criada para estender textos e outros
+documentos, adicionando marcações que indicam. Uma das aplicações da EmotionML é
+auxiliar algoritmos de TTS a determinarem prosódia. 
 
 Como explicitado por \cite{taylor2009}, não há um acordo quanto ao sistema mais
 apropriado para representar emoções. A linguagem de marcação tem suporte a
-múltiplos sistemas descritivos, como categorias, dimensões, appraisals e action
-tendencies. As categorias podem receber valores discretos (como pode ser visto
-no código \ref{lst:discreto}), determinando se uma emoção está presente ou valores
-contínuos, determinando a intensidade de uma emoção específica (como pode ser
-visto na figura \ref{lst:ssmlemotion}), permitindo
-múltiplas categorias simultaneamente.
+múltiplos sistemas descritivos, como categorias, dimensões, \emph{appraisals} e \emph{action tendencies}. As categorias podem receber valores discretos (como pode ser
+visto no código \ref{lst:discreto}), determinando se uma emoção está presente, ou
+valores contínuos, determinando a intensidade de uma emoção específica (como
+pode ser visto no código \ref{lst:ssmlemotion}), permitindo múltiplas categorias
+simultaneamente.
+
+Na literatura, \citeonline{emotionmary} descrevem um algoritmo para implementação de
+cálculo de parâmetros prosódicos a partir de anotações em EmotionML utilizando o
+\emph{framework} MaryTTS.
+
+% 
+% \subsubsection{IPO}
+% % página 32
+% Sistema proposto pela Escola Holandesa. Utilizada por \citeonline{ipo} para analisar a
+% prosódia no português brasileiro.
 
 % Emotions can be represented in terms of four types of de-
 % scriptions  taken  from  the  scientific  literature:  categories,
@@ -212,7 +283,7 @@ múltiplas categorias simultaneamente.
 Uma solução mais simples para geração de contornos f0 para prosódia efetiva é
 permitir que o usuário especifique na entrada do programa TTS marcações
 prosódicas utilizando um dos modelos de análise entoacional vistos
-anteriormente. Apesar de requerer conhecimento de fonologia, é uma opção 
+anteriormente na seção \ref{entoa}. Apesar de requerer conhecimento de fonologia, é uma opção 
 viável enquanto não são desenvolvidos algoritmos para determinação de prosódia a
 partir de marcação emocional. O sistema Festival \cite{festival} disponibiliza
 uma maneira de especificar entoação seguindo o modelo ToBI, como pode ser visto
