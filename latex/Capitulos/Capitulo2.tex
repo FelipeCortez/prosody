@@ -42,17 +42,18 @@ diferentes formas.
 \citeonline{ssml} definem \emph{text-to-speech} como ``o processo de geração
 automática de fala a partir de texto ou texto anotado'' (tradução nossa). São
 utilizados em leitores digitais, assistentes pessoais para \emph{smartphones} e
-\emph{smartphones}, aprendizagem de linguagens, entre outros.
+\emph{home assistants}, aprendizagem de linguagens, entre outros.
 
 Sistemas TTS são compostos por múltiplos subsistemas. Como veremos na seção
 \ref{sistemas}, algumas implementações de TTS são modulares, permitindo
 desenvolvimento paralelo de cada componente individual. Isso possibilita que
-pesquisas possam investigar uma parte específica do sistema, como este trabalho,
-que foca no módulo de prosódia.
+pesquisas possam investigar uma parte específica do sistema. Neste trabalho, por
+exemplo, estudamos especificamente o módulo de prosódia. % Futuramente, avanços
+                                % em outras partes de sistemas TTS podem...
 
 \subsection{Estrutura}
 Na literatura, encontramos diversas arquiteturas específicas para um sistema TTS.
-\citeonline{tts-book} propõe uma arquitetura geral, dividindo sistemas em duas partes principais:
+\citeonline{tts-book} propõe uma arquitetura geral, dividindo os sistemas em duas partes principais:
 
 \begin{figure}[!htbp]
 \centering
@@ -85,14 +86,16 @@ processamento digital de sinais. Doravante utilizaremos essa nomenclatura.
 O \emph{front end} de um sistema TTS é responsável pela conversão do texto em
 sua representação em fones juntamente com parâmetros prosódicos. Em outras
 palavras, o bloco é responsável por determinar a pronúncia de cada palavra do
-texto, incluindo o contorno melódico e ritmo da fala. As definições a seguir são adaptadas de \cite{martinjurafsky}:
+texto, incluindo o contorno melódico e ritmo da fala. As definições seguintes
+são adaptadas de \cite{martinjurafsky}:
 
 \subsubsection{Normalização de texto}
 O processo de conversão de texto para fala começa com o processamento do texto a
-fim de gerar uma representação grafêmica.
-
-A primeira etapa da normalização é a separação em sintagmas, isto é, encontrar os
-limites de cada frase do texto. Frases que terminam com siglas ou abreviações podem dificultar o processo. Em ``Encaminhamos o caso à deliberação de V. Exas. O prazo para resposta é de dez dias.'', por exemplo, o ponto em ``Exas.'' é final, não da abreviação.
+fim de gerar uma representação grafêmica. A primeira etapa da normalização é a
+separação em sintagmas, isto é, encontrar os limites de cada frase do texto.
+Frases que terminam com siglas ou abreviações podem dificultar o processo. Em
+``Encaminhamos o caso à deliberação de V. Exas. O prazo para resposta é de dez
+dias.'', por exemplo, o ponto em ``Exas.'' é final, não da abreviação.
 
 Em seguida, devem-se transformar símbolos, abreviações, siglas e outras
 \emph{non-standard words} em suas representações pronunciáveis. Como exemplo, ``R\$
@@ -106,7 +109,7 @@ Com o texto normalizado, é preciso converter letras, isto é, grafemas, em uma
 representação pronunciável, ou seja, fones. Para isso, normalmente é composto um
 conjunto de regras \emph{letter-to-sound} ou letra-som, contendo as pronúncias
 comuns para sequências de letras, juntamente a um dicionário de pronúncia com
-palavras que fogem das regras. Para cada palavra, é feita uma busca no
+palavras que não seguem as regras. Para cada palavra, é feita uma busca no
 dicionário, e caso não seja encontrada, utilizam-se as regras.
 % Palavras não-padrão são colocadas num dicionário de pronúncia. O resto é
 % calculado de acordo com regras letra-som.
@@ -119,9 +122,7 @@ dicionário, e caso não seja encontrada, utilizam-se as regras.
 A partir do texto e fones gerados nas etapas anteriores, deve-se estimar
 \emph{pitch}, intensidade e duração. \citeonline {taylor2009} explica que o
 desafio para implementação deste componente é que o texto praticamente não
-possui informação prosódica.
-
-Possíveis soluções para este problema são discutidas na seção \ref{prosafe}.
+possui informação prosódica. Possíveis soluções para este problema são discutidas na seção \ref{prosafe}.
 
 % \subsection{Prosódia como elemento extra-textual}
 % \citeonline{taylor2009} argumenta que a geração de prosódia afetiva é árdua e
@@ -154,27 +155,38 @@ Possíveis soluções para este problema são discutidas na seção \ref{prosafe
 % A very high-precision rule is the one we saw for sentence segmentation: insert a boundary after punctuation. Another commonly used rule inserts a phrase boundary before a function word following a content word.
 
 \subsection{Back end}
+\label{backend}
 % martin jurasfky p275
 Com o texto de entrada transformado em fones e informação prosódica, um
 \emph{back end} é responsável por gerar uma forma de onda, ou seja, o áudio a
-ser tocado pelos alto-falantes. \citeonline{martinjurafsky;taylor2009} separam
+ser reproduzido pelos alto-falantes. \citeonline{martinjurafsky,taylor2009} separam
 algoritmos de síntese em três classes:
 
 \paragraph{Síntese articulatória}
 Sintetizadores articulatórios sintetizam fala através de modelos matemáticos,
-aproximando o aparelho fonador por um tubo aberto.
+aproximando o aparelho fonador por uma série de tubos abertos. Pequenas
+alterações nos parâmetros de entrada podem gerar uma grande variação de sons. Em
+contrapartida, é difícil encontrar uma correspondência entre o texto de entrada
+e os parâmetros necessários para o sintetizador.
 
 \paragraph{Síntese por formantes}
 A fala, quando decomposta espectralmente através da transformada de Fourier, é
 majoritariamente composta por quatro senoides. A frequência mais baixa é dita
-frequência fundamental ou f0, e a boca serve como filtro, alterando a
-intensidade das outras três ondas f1, f2 e f3, denominadas harmônicos. Essa
-variação de intensidade dos harmônicos determina a vogal percebida.
-Sintetizadores por formantes são tentativas de modelagem da fala humana pela
-geração computacional dessas ondas. Apesar da simplicidade do modelo, como a
-parte residual é ignorada, a fala sintetizada é perceptivelmente artificial.
+frequência fundamental ou f0, emitida pela glote. As outras três senoides f1, f2
+e f3 são chamadas formantes, e são geradas pela resonância do filtro resultante
+da posição da língua, queixo e lábio, alterando a intensidade de cada componente
+frequencial. A variação de intensidade de cada formante determina a vogal
+percebida. Sintetizadores por formantes são tentativas de modelagem da fala
+humana pela geração computacional dessas ondas. Apesar da simplicidade do
+modelo, além das senoides principais, há conteúdo harmônico significante no
+sinal de uma fala humana. Ao ignorar-se essa parte residual, a fala sintetizada
+é perceptivelmente robótica.
+
+% quanto a f0, f1, ver Taylor p. 185/161
 
 \paragraph{Síntese concatenativa}
+Devido aos problemas destacados para as outras duas abordagens, a maioria dos
+sistemas hodiernos utilizam síntese concatenativa.
 Síntese concatenativa pode trabalhar com diferentes atomicidades: nível de palavra,
 dífonos e fones individuais.
 
@@ -184,13 +196,10 @@ dífonos e fones individuais.
 
 % https://www.ime.usp.br/~cpaz/downloads/algorithm-portuguese.pdf
 
-Abordagem utilizada pelo programa MBROLA. Consiste em gravar fala, separar
-pedaços de dois em dois.
-
 % http://hts.sp.nitech.ac.jp/
-Algumas vozes para o MaryTTS \cite{marytts} utilizam HMMs, isto é, Modelos
-ocultos de Markov para \emph{unit selection}. Há, inclusive, uma voz brasileira
-feita a partir de HMMs: \cite{couto}.
-Projetos mais recentes como \cite{merlin,dnngoogle} utilizam redes neurais para
-estimação de parâmetros. O trabalho da Google informa? que a estimação da curva
-F0 é uma possível melhoria.
+% Algumas vozes para o MaryTTS \cite{marytts} utilizam HMMs, isto é, Modelos
+% ocultos de Markov para \emph{unit selection}. Há, inclusive, uma voz brasileira
+% feita a partir de HMMs: \cite{couto}.
+% Projetos mais recentes como \cite{merlin,dnngoogle} utilizam redes neurais para
+% estimação de parâmetros. O trabalho da Google informa? que a estimação da curva
+% F0 é uma possível melhoria.

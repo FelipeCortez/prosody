@@ -54,6 +54,32 @@ As durações padrão para cada fone estão contidas na tabela do arquivo
 \code{durations.tbl}, adaptado da tabela utilizada pelo LianeTTS \cite{lianetts}. Cada
 linha contém o fone e uma duração em milissegundos.
 
+\subsection{INTSINT}
+De acordo com \cite{intsintalg}
+
+\begin{table}[htb]
+	\textsf{\caption{Regras para INTSINT}}
+	\center
+	{
+		\begin{tabular}{l|l}
+			\hline
+			Regra   & Cálculo \\
+			\hline
+            T   & $ \text{key} \times \sqrt{2^{range}} $ \\
+            M   & $ \text{key} $ \\
+            B   & $ \frac{\text{key}}{\sqrt{2^{range}}} $ \\
+			\hline
+            H   & $ \sqrt{P_{i - 1} \times T} $ \\
+            U   & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  T}} $ \\
+            S   & $ P_{i - 1} $ \\
+            D   & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  D}} $ \\
+            L   & $ \sqrt{P_{i - 1} \times B} $ \\
+			\hline
+		\end{tabular}
+	}
+	\label{tab:TabelaSemSentido}
+\end{table}
+
 \subsection{Arquitetura}
 Foi utilizada uma arquitetura cliente-servidor REST \cite{rest} comumente vista em aplicações web contemporâneas. A interface gráfica consome uma API REST. A maneira como os
 módulos se comunicam pode ser vista na figura \ref{fig:arch}.
