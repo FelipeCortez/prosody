@@ -23,11 +23,11 @@ das tecnologias utilizadas e as tendências para trabalhos futuros.
 \paragraph{Aiuruetê \cite{aiuruete}}
 Desenvolvido com o objetivo de obter um sistema TTS com fala natural sem custo
 computacional elevado, os autores descartam síntese articulatória e formantes
-justificando que o custo de desenvolvimento seria muito alto, como descrito na
-seção \ref{backend}, optando por uma solução concatenativa. Para a prosódia, a
-parte de \emph{pitch} utiliza curvas f0 associadas a frases declarativas com
-declinação e as durações segmentais são obtidas por redes neurais treinadas a
-partir de parâmetros como número de vogais e clíticos.
+justificando que o custo de desenvolvimento seria muito alto, optando por uma
+solução concatenativa. Para a prosódia, a parte de \emph{pitch} utiliza curvas
+f0 associadas a frases declarativas com declinação e as durações segmentais são
+obtidas por redes neurais treinadas a partir de parâmetros como número de vogais
+e clíticos.
 
 \paragraph{eSpeakNG \cite{espeakng}}
 Projeto \emph{open-source} com suporte a múltiplas linguagens. É modular,
@@ -35,9 +35,9 @@ permitindo \emph{back end} com síntese por formantes ou concatenativa. Também
 possibilita que seja utilizado apenas o \emph{front end}, gerando representação
 fonética no formato X-SAMPA (\emph{Extended Speech Assessment Methods Phonetic
 Alphabet}). No seu módulo de prosódia, determina contorno f0 a partir de
-pontuação e tabela com regras para \emph{pre-head}, \emph{head}, \emph{nucleus}
-e \emph{tail}. As durações são fixas para fones diferentes e também são
-determinadas por uma tabela.
+pontuação e tabela com regras para diferentes posições silábicas:
+\emph{pre-head}, \emph{head}, \emph{nucleus} e \emph{tail}. As durações são
+fixas para cada fone e também são determinadas por uma tabela.
 
 % \paragraph{Microsoft \cite{hmmmicrosoft}}
 % Desenvolvido pela Microsoft, realiza a marcação de ênfase e separação silábica
@@ -97,17 +97,28 @@ o fone \/e\/ com duração de 116 ms e dois alvos para altura, 232 Hz em 20\% e
 300 Hz em 80\%. Para sintetizar a fala, a tabela é lida sequencialmente,
 concatenando pares de fones pré-gravados, e é feita uma interpolação linear
 entre cada alvo de \emph{pitch}. Os dífonos pré-gravados têm frequência alterada
-utilizando o algoritmo MBRPSOLA.
-
-Cada voz gravada fornece uma tabela com os dífonos que podem ser utilizados. Utilizamos neste trabalho a voz \code{br3} desenvolvida por Denis R. Costa disponível no site oficial do projeto MBROLA.
+utilizando o algoritmo MBRPSOLA. Cada voz gravada fornece uma tabela com os dífonos que podem ser utilizados. 
 % referência?
 
 \subsection{Modelos de análise entoacional}
 \label{entoa}
 
 \subsubsection{Teoria métrica-autossegmental}
-Utilizada por \citeonline{moraes2008} para analisar uma mesma frase com
-diferentes intenções. (falta isso)
+O modelo ToBI -- \emph{Tone Breaks and Indices} \cite{tobi} descreve prosódia
+através de duas camadas: o \emph{tonal tier} descreve entoação a partir de um
+conjunto de rótulos ``superior'' (H) e ``inferior'' (L). \emph{Pitch accents},
+são representados como tons duplos ou simples, podendo assumir os valores H*, L*, H* + L, H + L*, L + H* ou L* + H. Além disso,
+\emph{boundary tones} (ou tons de fronteira) podem ser representados com o simbolo \%.
+
+A outra camada, \emph{Break Index tier}, é referente ao componente rítmico da
+prosódia, com rótulos de 0 a 6, onde 0 indica que duas palavras são
+pronunciadas juntas, e 6 representa uma separação máxima.
+
+Alguns sistemas TTS, como MaryTTS e Festival, têm suporte a notação ToBI, como se
+pode ver no código \ref{tobifest}.
+
+O modelo ToBI é utilizado por \citeonline{moraes2008} para analisar uma mesma
+frase com múltiplas intenções, mudando apenas o contorno melódico.
 
 % Enquanto a teoria MA, representada pelo sistema ToBI, se baseia em aspectos 
 % lineares da estrutura tonal, na identifi cação dos 
@@ -141,8 +152,7 @@ utilizam-se dois parâmetros fixos \emph{key}, definido em Hertz, e \emph{span},
 definido em oitavas.
 
 Apesar de ser inicialmente proposto como um modelo de análise, trabalhos
-subsequentes como \cite{intsintalg,stoc} utilizaram a mesma notação para sintetizar
-contornos f0. A tabela \ref{tab:intsint} detalha como cada marcação é convertida
+subsequentes como \cite{intsintalg,stoc} utilizaram a mesma notação para sintetizar contornos f0. A tabela \ref{tab:intsint} detalha como cada marcação é convertida
 para uma frequência em Hertz para determinação de alvos f0.
 
 O modelo INTSINT foi utilizado por \citeonline{intsintpt} e \citeonline{moraes1998} para analisar entoação para o português brasileiro.
@@ -177,7 +187,12 @@ O modelo INTSINT foi utilizado por \citeonline{intsintpt} e \citeonline{moraes19
 Apesar de o modelo ToBI ter sido utilizado para analisar o
 português brasileiro em diversos trabalhos, \citeonline{lucentetobi} argumenta que
 há características perceptíveis que a notação não consegue expressar, propondo
-um novo modelo, DaTo, com base na entoação do português brasileiro.
+um novo modelo, DaTo, com base na entoação do português brasileiro. No DaTo, em
+vez de identificar \emph{pitch accents} como no ToBI, tem-se o conceito de ``tarefa
+linguística por meio dos contornos entoacionais''. Como o INTSINT, é baseado na
+ideia de alvos a serem atingidos por uma trajetória de f0. As anotações
+possíveis para análise entoacionais são mostradas na tabela \ref{tab:dato}.
+% trabalha com o conceito de contorno dinâmico, que é de nido em Lucente (2012, p. 99) como “uma unidade tonal que contém elementos comuni- cativos expressos em uma trajetória ideal da curva entoacional, especi cada por um alvo a ser atingido e associada a uma unidade segmental linguística”
 
 \begin{table}[htb]
 	\textsf{\caption{Regras para DaTo}}
@@ -227,10 +242,11 @@ natural a gerar parâmetros prosódicos apropriados.
 % https://www.w3.org/TR/emotionml/
 \subsubsection{EmotionML}
 A EmotionML \cite{emotionml} foi criada para estender textos e outros
-documentos, adicionando marcações que indicam. Uma das aplicações da EmotionML é
-auxiliar algoritmos de TTS a determinarem prosódia. 
+documentos, adicionando marcações que indicam uma emoção desejada ou
+identificada. Uma das aplicações da EmotionML é auxiliar algoritmos de TTS a
+determinarem prosódia.
 
-Como explicitado por \cite{taylor2009}, não há um acordo quanto ao sistema mais
+Como meciona \citeonline{taylor2009}, não há um acordo quanto ao sistema mais
 apropriado para representar emoções. A linguagem de marcação tem suporte a
 múltiplos sistemas descritivos, como categorias, dimensões, \emph{appraisals} e \emph{action tendencies}. As categorias podem receber valores discretos (como pode ser
 visto no código \ref{lst:discreto}), determinando se uma emoção está presente, ou

@@ -5,12 +5,15 @@
 
 \section{Prosódia}
 \subsection{Componentes}
-\citeonline{tts-book} descreve como parâmetros principais da prosódia \emph{pitch},
-intensidade e duração. Outros nomes para os mesmos fenômenos também são
-utilizados. \citeonline{moraes1998} separa as características principais da
-prosódia em \emph{stress}, \emph{accent} e \emph{rhythm}. Como eventos prosódicos estão alinhados a sílabas ou grupos de sílabas, a prosódia é dita um fenômeno suprassegmental. Além desses componentes principais, \citeonline{taylor2009} destaca
-\emph{downdrift} (declinação), isto é, a queda gradual do valor de f0 durante um
-sintagma como aspecto relevante para a análise entoacional.
+\citeonline{tts-book} descreve como parâmetros principais da prosódia
+\emph{pitch} (frequência), intensidade e duração. Outros nomes para os mesmos
+fenômenos também são utilizados: \citeonline{moraes1998}, por exemplo, separa as
+características principais da prosódia em \emph{stress}, \emph{accent} e
+\emph{rhythm}. Como eventos prosódicos estão alinhados a sílabas ou grupos de
+sílabas, a prosódia é dita um fenômeno suprassegmental \cite{ladd}. Além desses
+componentes principais, \citeonline{taylor2009} destaca como aspecto relevante
+para análise entoacional o \emph{downdrift} (declinação), isto é, a queda
+gradual do valor de f0 durante uma enunciação.
 
 % melhor: ladd, f0, intensidade e duração! p.10 lucente
 
@@ -21,17 +24,19 @@ comunicativa da fala, isto é, comumente análises são feitas ignorando o conte
 da intenção do locutor. Apresenta, então, três principais funções comunicativas
 para prosódia:
 
-\paragraph{Afetiva} Prosódia referente à emoção, estado mental e atitude do
-locutor.
 % n general, affective prosody has a fairly direct meaning-to-form relationship and hence the more extreme the form the more extreme the emotion. This implies that, unlike verbal language, the affective prosody system is not arbitrary with regard to meaning/form. A number of emotion categorisation systems have been proposed. One common theory holds that there are six basic emotions (anger, happiness, sadness, disgust, fear and surprise) from which follow a number of secondary emotions such as puzzlement or intrigue [110], [113], [153]. Some however argue that there is no fixed set of emotions and rather emotion is best expressed in a multi-dimensional system. One such proposal advocates three independent axes of emotion called activation, evalu- ation and power [393], [126].
 % In addition to emotion, affective prosody includes speaker attitude. The difference between emotion and attitude is that only emotion can exist independent of communication. As an illustra- tion; you can be happy on your own, but you need someone else to be sarcastic with. Apart from this distinction, attitude functions similarly to emotion in that it is fairly direct, has a significant degree of universality and does not have a arbitrary or dual nature.
+\paragraph{Afetiva} A prosódia afetiva é utilizada para demonstrar emoções,
+atitude e intenção do locutor, e está praticamente ausente da forma escrita.
+
 \paragraph{Suprassegmental} Quando uma mensagem é dita de maneira declarativa,
 sem conteúdo afetivo significante -- descrita como \emph{discourse neutral} --,
 ainda é possível observar variação de \emph{pitch}, intensidade e duração. Na
 abordagem de \citeonline{taylor2009}, essa parte da prosódia, dita
 suprassegmental, não é considerada conteúdo prosódico verdadeiro, mas sim um
-aspecto da fonética verbal. É possível ainda pensar em prosódia ``real'' como
-desvios dos parâmetros suprassegmentais.
+aspecto da fonética verbal. É possível ainda pensar em prosódia ``real'', ou
+seja, afetiva e aumentativa, como desvios dos parâmetros suprassegmentais.
+
 % If a sentence is spoke with little or no affective content, ie. in a discourse neutral manner, we still see characteristic patterns in the phrasing, rhythm, pitch, voice quality and timing. Typical effects include phones at the ends of sentences or phrases being lengthened, syntactically salient words (e.g. heads) having more emphasis, F0 levels being higher at the starts of sentences and so on.
 \paragraph{Aumentativa} Além da prosódia afetiva, é possível desviar da prosódia
 padrão para assegurar a comunicação efetiva de uma mensagem sem adicionar
@@ -97,13 +102,11 @@ são adaptadas de \cite{martinjurafsky}:
 O processo de conversão de texto para fala começa com o processamento do texto a
 fim de gerar uma representação grafêmica. A primeira etapa da normalização é a
 separação em sintagmas, isto é, encontrar os limites de cada frase do texto.
-Frases que terminam com siglas ou abreviações podem dificultar o processo. Em
-``Encaminhamos o caso à deliberação de V. Exas. O prazo para resposta é de dez
-dias.'', por exemplo, o ponto em ``Exas.'' é final, não da abreviação.
+Frases que terminam com siglas ou abreviações podem dificultar o processo.
 
 Em seguida, devem-se transformar símbolos, abreviações, siglas e outras
-\emph{non-standard words} em suas representações pronunciáveis. Como exemplo, ``R\$
-50'' deve ser lido como ``cinquenta reais''.
+\emph{non-standard words} em suas representações pronunciáveis. Como exemplo,
+``R\$ 50'' deve ser lido como ``cinquenta reais''.
 
 Por último, deve ser realizada a desambiguação de homônimos heterófonos: em
 ``Gosto de pão'', ``gosto'' pode ser pronunciada como ``gôsto'' ou ``gósto''.
@@ -127,7 +130,7 @@ A partir do texto e fones gerados nas etapas anteriores, deve-se estimar
 \emph{pitch}, intensidade e duração. \citeonline {taylor2009} explica que o
 desafio para implementação deste componente é que o texto praticamente não
 possui informação prosódica. Possíveis soluções para este problema são
-discutidas na seção \ref{prosafe}. (essa parte precisa ser estendida!)
+discutidas na seção \ref{prosafe}.
 
 % \subsection{Prosódia como elemento extra-textual}
 % \citeonline{taylor2009} argumenta que a geração de prosódia afetiva é árdua e
@@ -167,14 +170,14 @@ Com o texto de entrada transformado em fones e informação prosódica, um
 ser reproduzido pelos alto-falantes. \citeonline{martinjurafsky,taylor2009} separam
 algoritmos de síntese em três classes:
 
-\paragraph{Síntese articulatória}
+\subsubsection{Síntese articulatória}
 Sintetizadores articulatórios sintetizam fala através de modelos matemáticos,
 aproximando o aparelho fonador por uma série de tubos abertos. Pequenas
 alterações nos parâmetros de entrada podem gerar uma grande variação de sons. Em
 contrapartida, é difícil encontrar uma correspondência entre o texto de entrada
 e os parâmetros necessários para o sintetizador.
 
-\paragraph{Síntese por formantes}
+\subsubsection{Síntese por formantes}
 A fala, quando decomposta espectralmente através da transformada de Fourier, é
 majoritariamente composta por quatro senoides. A frequência mais baixa é dita
 frequência fundamental ou f0, emitida pela glote. As outras três senoides f1, f2
@@ -189,11 +192,39 @@ sinal de uma fala humana. Ao ignorar-se essa parte residual, a fala sintetizada
 
 % quanto a f0, f1, ver Taylor p. 185/161
 
-\paragraph{Síntese concatenativa}
+\subsubsection{Síntese concatenativa}
 Devido aos problemas destacados para as outras duas abordagens, a maioria dos
-sistemas hodiernos utilizam síntese concatenativa. Síntese concatenativa pode
-trabalhar com diferentes atomicidades: nível de palavra, dífonos e fones
-individuais. (estender essa parte também)
+sistemas hodiernos utilizam síntese concatenativa, que consiste na gravação de
+múltiplas frases e edição em uma unidade de atomicidade variável.
+
+Para vocabulários com poucas palavras, como um sistema de anúncios de um metrô, é
+suficiente gravar frases completas e palavras que podem variar dentro da frase. Em
+``Este metrô para nas estações Catete, Glória, Cinelândia [...]'', por exemplo,
+``Este metrô para nas estações'' pode advir de uma única gravação, enquanto os nomes
+individuais das estações são provenientes de outras gravações, concatenadas.
+
+Para sistemas TTS mais flexíveis, porém, as gravações são separadas em unidades
+menores, como fones ou dífonos, isto é, pares de fones, que podem ser
+concatenados para formar até mesmo palavras que não foram gravadas.
+
+\emph{Unit selection synthesis} é uma abordagem probabilística para a síntese
+concatenativa, minimizando uma função de custo para fones individuais e outra
+para a junção entre dois fones. \citeonline{black} argumenta que através desse
+tipo de síntese, a fala gerada é natural o suficiente para ser confundida com a
+de um humano.
+
+% \subsubsection{Síntese por \emph{Hidden Markov Models}}
+% \citeonline{zen} descreve síntese por HMM como uma maneira paramétrica de
+% produzir fala. Nela, um banco de dados com gravações é utilizado para treinar um
+% modelo a partir de \emph{excitation parameters} e \emph{spectral parameters}. Na
+% síntese por HMM, há unificação dos módulos de \emph{front end} e \emph{back
+% end}.
+
+% However, by properly combining these two, we may be able to obtain a first-rate complementary hybrid approach that can solve their respective drawbacks while retaining all their advantages. In the near fu- ture, we may find the holy grail of corpus-based speech synthe- sis fusing statistical parametric and unit-selection synthesi
+
+% Statistical parametric speech synthesis provides a new frame- work for jointly optimizing the front-end (text analysis) and back-end (waveform generation) modules of text-to-speech (TTS) systems. These two modules are conventionally con- structed independently. The text-analysis module is trained us- ing text corpora and often includes statistical models to analyze text, e.g., the phrasing boundary, accent, and POS. The wave- form generation module, on the other hand, is trained using a labeled speech database. In statistical parametric synthesis, this module includes acoustic models. If these two modules are jointly estimated as a unified statistical model, it is expected to improve the overall performance of a TTS system. Based on this idea, Oura et al. proposed an integrated model for linguistic and acoustic modeling and demonstrated its effectiveness (Oura et al., 2008a).
+% 
+% \subsubsection{Síntese por \emph{Deep Neural Networks}}
 
 % Intonational phrase: sintagmas entoacionais
 % Tone boundary: fronteira prosódica?

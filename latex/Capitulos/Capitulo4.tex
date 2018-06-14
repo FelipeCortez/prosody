@@ -52,7 +52,9 @@ pelo espeak é \code{/a/} na voz do MBROLA, por exemplo. A ferramenta de convers
 lê a tabela do arquivo \code{sampa_mbrola.tbl}, e substitui cada fone em notação
 XSAMPA pelo equivalente. A tabela possui três colunas: o fone que o espeak
 produz, o fone equivalente para o MBROLA e um exemplo numa palavra do português.
-No código \ref{sampambrola} é possível ver algumas linhas do arquivo.
+No código \ref{sampambrola} é possível ver algumas linhas do arquivo. Utilizamos
+neste trabalho a voz \code{br3} desenvolvida por Denis R. Costa disponível no
+site oficial do projeto MBROLA.
 
 \begin{lstlisting}[caption=Extrato de linhas da tabela de conversão, label=sampambrola]
   b  |  b  | _b_arco
@@ -133,15 +135,20 @@ interface gráfica e servidor.
 no formato JSON com lista de fones. Cada fone, por sua vez, possui campos \code{duration},
 \code{phone_mbrola}, \code{phone_sampa} e \code{pitch_changes}. Um exemplo de resposta pode ser visto no código \ref{espeakpost}.
 \paragraph{[POST] /api/mbrola} Recebe uma lista de fones no formato MBROLA
-descrito na seção \ref{sec:mbrola} e gera uma resposta com o nome do arquivo de
-áudio contendo a fala sintetizada.
+descrito na seção \ref{sec:mbrola}, passa a lista para o programa para criar o
+arquivo de áudio final e gera uma resposta com o nome do arquivo de áudio
+contendo a fala sintetizada.
 \subsection{Utilização}
-O programa pode ser executado através de uma interface de linha de comandos
+O programa pode ser executado através de uma interface de linha de comandos,
+como ilustrado no código \ref{cmdline}.
 
 \begin{lstlisting}[caption=Utilização por linha de comandos, label=cmdline, language=Python]
 $ echo "Testando" | python3 sampa_mbrola.py > out.pho
 $ mbrola ../br3/br3 out.pho out.wav; afplay out.wav
 \end{lstlisting}
+
+Alternativamente, pode-se utilizar um navegador e ter acesso à interface
+gráfica, permitindo edição de parâmetros para fones individuais.
 
 % A interface gráfica é uma aplicação \emph{web}
 % Também foi desenvolvido um editor gráfico para permitir refinamento do contorno melódico
