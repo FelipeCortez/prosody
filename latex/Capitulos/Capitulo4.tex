@@ -10,12 +10,15 @@
 \abrv[REST -- \emph{Representational State Transfer}]
 \abrv[AJAX -- \emph{Asynchronous JavaScript And XML}]
 
-\chapter{Editor de prosódia}
+\chapter{Módulo de prosódia}
+Baseado na revisão da literatura, decidiu-se criar um módulo de prosódia que
+permite anotações prosódicas manuais, tornando possível variar a prosódia
+afetiva e aumentativa para um sistema TTS.
 
 \section{Implementação}
 \subsection{espeak-ng}
 Foi utilizado o programa \emph{open-source} eSpeakNG \cite{espeakng} para
-realizar as primeiras etapas do \emph{back end}, normalização de texto e
+realizar as primeiras etapas do \emph{back end}: normalização de texto e
 conversão grafema-fone, ou seja, obter a partir do texto de entrada uma
 representação em fones. A saída gerada pelo programa é subsequentemente passada
 para o programa desenvolvido neste trabalho através da biblioteca
@@ -27,6 +30,8 @@ grafemas pode ser visto no código
 \item A \emph{flag} \code{-v} seleciona uma voz. Neste caso, \code{pt-br}
 \item \code{-x} e \code{-q} escrevem fones na saída em vez da fala sintetizada.
 \item \code{-sep=/} separa fones utilizando o caractere \code{/}
+\item O caractere \code{\'} indica \emph{primary stress}, ou seja, o fone tônico
+da palavra
 \end{itemize}
 
 \begin{lstlisting}[caption=Utilização do programa espeak e saída correspondente,
@@ -35,26 +40,25 @@ grafemas pode ser visto no código
   $ b/'o/N dZ/'i/&
 \end{lstlisting}
 
-Um fone precedido pelo caractere \code{\'} indica \emph{primary stress}.
 
 Apesar da existência de outras ferramentas para \emph{front end} para o
 português brasileiro, optamos pelo eSpeakNG pela disponibilidade e facilidade de
-instalação. O sistema TTS desenvolvido por \citeonline{couto} não foi encontrado
-para \emph{download} no início de desenvolvimento deste trabalho.
+instalação.
+% O sistema TTS desenvolvido por \citeonline{couto} não foi encontrado para \emph{download} no início de desenvolvimento deste trabalho.
 
 % MBROLA usa interpolação linear, INTSINT sugere quadratic spline
 
 \subsection{MBROLA}
-Cada voz do MBROLA tem suporte a um conjunto específico de dífonos. O programa
-\code{sampa_mbrola.py} foi desenvolvido para converter a saída gerada em fones
-suportados pela voz do MBROLA utilizada. O equivalente ao fone \code{/&/} gerado
-pelo espeak é \code{/a/} na voz do MBROLA, por exemplo. A ferramenta de conversão
-lê a tabela do arquivo \code{sampa_mbrola.tbl}, e substitui cada fone em notação
-XSAMPA pelo equivalente. A tabela possui três colunas: o fone que o espeak
-produz, o fone equivalente para o MBROLA e um exemplo numa palavra do português.
-No código \ref{sampambrola} é possível ver algumas linhas do arquivo. Utilizamos
-neste trabalho a voz \code{br3} desenvolvida por Denis R. Costa disponível no
-site oficial do projeto MBROLA.
+O programa \code{sampa_mbrola.py} foi desenvolvido para converter a saída gerada
+pelo eSpeakNG em fones suportados pela voz utilizada. O equivalente ao
+fone \code{/&/} gerado pelo espeak é \code{/a/} na voz do MBROLA, por exemplo.
+
+A ferramenta de conversão lê a tabela do arquivo \code{sampa_mbrola.tbl} e
+substitui cada fone em notação XSAMPA pelo equivalente. A tabela possui três
+colunas: o fone que o espeak produz, o fone equivalente para o MBROLA e um
+exemplo numa palavra do português. No código \ref{sampambrola} é possível ver
+algumas linhas do arquivo. Utilizamos neste trabalho a voz \code{br3}
+desenvolvida por Denis R. Costa disponível no site oficial do projeto MBROLA.
 
 \begin{lstlisting}[caption=Extrato de linhas da tabela de conversão, label=sampambrola]
   b  |  b  | _b_arco
@@ -65,15 +69,18 @@ site oficial do projeto MBROLA.
   n  |  n  |  _n_unca
 \end{lstlisting}
 
-As durações padrão para cada fone estão contidas no arquivo
-\code{durations.tbl}, adaptado da tabela utilizada pelo LianeTTS
-\cite{lianetts}. Cada linha contém o fone e uma duração em milissegundos.
+Além da conversão XSAMPA-MBROLA, são determinadas as durações padrão para cada
+fone a partir da tabela \code{durations.tbl}, adaptada do código utilizado pelo
+LianeTTS \cite{lianetts}. Cada linha contém o fone e uma duração em milissegundos.
 
 \subsection{INTSINT}
 \label{intsintrules}
 Como visto na seção \ref{intsintsec}, o INTSINT serve não apenas para análise,
 mas também para síntese de contornos f0. Escolhemos utilizá-lo na implementação
 pela simplicidade da notação e flexibilidade.
+
+Em \code{intsint.py} é feita a determinação de valores f0 a partir do texto de
+entrada anotado e das regras descritas na tabela \ref{intsintrules}.
 
 % \subsection{Módulo de prosódia}
 % O programa foi codificado utilizando a linguagem de programação Python 3.6,
@@ -85,10 +92,11 @@ pela simplicidade da notação e flexibilidade.
 % encontrado na seção \ref{intsintrules}.
 
 \subsection{Editor gráfico}
-Para permitir refinamento de prosódia após cálculo de parâmetros, foi
+Para permitir refinamento de prosódia após cálculo inicial de parâmetros, foi
 desenvolvido um editor gráfico para \emph{web} utilizando HTML, CSS e
 JavaScript. A duração e altura de cada fone pode ser especificado arrastando
 barras de controle.
+
 \subsubsection{Arquitetura}
  O editor se comunica com o espeak-ng e MBROLA através de um
 servidor programado em Python utilizando o \emph{framework} Flask para prover
@@ -103,8 +111,10 @@ servidor programado em Python utilizando o \emph{framework} Flask para prover
         {eSpeakNG};
     \node[box, right=of esp] (con)
         {eSpeakNG para MBROLA};
+    \node[box, right=of con] (sin)
+        {INTSINT};
 
-    \node[box, below=of con] (ser)
+    \node[box, below=of sin] (ser)
         {Servidor};
 
     \node[box, left=of ser] (mbr)
@@ -115,8 +125,9 @@ servidor programado em Python utilizando o \emph{framework} Flask para prover
 
     \draw[->] (txt) -- (esp);
     \draw[->] (esp) -- (con);
+    \draw[->] (con) -- (sin);
 
-    \draw[->] (con) -- (ser);
+    \draw[->] (sin) -- (ser);
     \draw[->] (mbr) -- (ser);
 
     \draw[<->] (ser) -- (int);
