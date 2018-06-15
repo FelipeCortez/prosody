@@ -194,6 +194,7 @@ e os parâmetros necessários para o sintetizador.
 
 \subsubsection{Síntese por formantes}
 % TODO explicar
+\label{formant}
 A fala, quando decomposta espectralmente através da transformada de Fourier, é
 majoritariamente composta por quatro senoides. A frequência mais baixa é dita
 frequência fundamental ou f0, emitida pela glote. As outras três senoides f1, f2
@@ -205,6 +206,13 @@ humana pela geração computacional dessas ondas. Apesar da simplicidade do
 modelo, além das senoides principais, há conteúdo harmônico significante no
 sinal de uma fala humana. Ao ignorar-se essa parte residual, a fala sintetizada
 é perceptivelmente robótica.
+
+
+\begin{figure}
+  \centering
+    \includegraphics[width=0.5\textwidth]{Imagens/espectro.png}
+  \caption{Partes espectral e temporal de uma gravação de voz}
+\end{figure}
 
 % quanto a f0, f1, ver Taylor p. 185/161
 
@@ -233,7 +241,7 @@ para fones individuais e outra para a junção entre dois fones.
 gerada passou a ser natural o suficiente para ser possivelmente confundida com a de um humano.
 
 \subsection{Síntese por \emph{Hidden Markov Models} e \emph{Deep Neural Networks}}
-\citeonline{zen} descreve síntese por HMM como uma maneira paramétrica de
+\citeonline{zen} descrevem síntese por HMM como uma maneira paramétrica de
 produzir fala. Nela, um banco de dados com gravações é utilizado para treinar um
 modelo a partir de \emph{excitation parameters} e \emph{spectral parameters}. Na
 síntese por HMM, há unificação dos módulos de \emph{front end} e \emph{back

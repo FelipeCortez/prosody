@@ -11,8 +11,6 @@
 
 \chapter{Revisão da literatura}
 
-% Resultados realistas, mas não há como controlar parâmetros: \cite{merlin}
-
 \section{Sistemas TTS para o português brasileiro}
 \label{sistemas}
 
@@ -97,7 +95,7 @@ Como pode ser observado no código \ref{mbr}, em cada linha tem-se um fone ou um
 silêncio (representado pelo \emph{underscore}) seguido por uma duração em
 milissegundos e, por último, um ou mais pares de porcentagem e frequência em
 Hertz determinando alvos para a curva f0. Como exemplo, na penúltima linha temos
-o fone ``e'' com duração de 116 ms e dois alvos para altura, 232 Hz em 20\% e
+o fone ``e'' com duração de 116 ms e dois alvos para altura; 232 Hz em 20\% e
 300 Hz em 80\%. Para sintetizar a fala, a tabela é lida sequencialmente,
 concatenando pares de fones pré-gravados, e é feita uma interpolação linear
 entre cada alvo de \emph{pitch}. Os dífonos pré-gravados têm frequência alterada
@@ -107,7 +105,11 @@ utilizando o algoritmo MBRPSOLA. Cada voz gravada fornece uma tabela com os díf
 \section{Modelos de análise entoacional}
 \label{entoa}
 
-EXPLICAR AQUI EM UM PARÁGRAFO SIMPLES O QUE É ANÁLISE ENTOACIONAL, SUA HISTÓRIA E UTILIDADE.
+\citeonline{botinis} definem entoação como ``a combinação de características
+tonais em unidades estruturais maiores associadas com o parâmetro acústico da
+frequência fundamental da fala e suas variações'' (tradução nossa). Em outras
+palavras, a entoação diz respeito à variação da frequência base emitida pela
+glote -- como visto na seção \ref{formant} -- quando falamos.
 
 \subsection{Teoria métrica-autossegmental}
 O modelo ToBI -- \emph{Tone Breaks and Indices} \cite{tobi} descreve prosódia
@@ -157,7 +159,7 @@ Higher (H), Same (S) e Lower (L), e, finalmente, dois símbolos denominados
 iterativos: Upstepped (U) e Downstepped (D), indicando subida e descidas suaves.
 
 Para calcular as frequências-alvo, utilizam-se dois parâmetros fixos
-\emph{key}, definido em Hertz, que indica a f0 média do locutor, e \emph{span},
+\emph{key}, definido em Hertz, que indica a f0 média do locutor, e \emph{range},
 definido em oitavas, determinando o alcance máximo da entoação, isto é, quão
 intensas são as variações de \emph{pitch}.
 
@@ -195,6 +197,7 @@ O modelo INTSINT foi utilizado por \citeonline{intsintpt} e \citeonline{moraes19
 % The INTSINT model of Hirst et al [212], [213], [211], was deve loped in an attempt to provide a comprehensive  and multi-lingual  transcription  system fo r intonation.   The model can be seen as “theory-neutral” in that it was designed to transcribe th e intonation of utterances as a way of annotating databases and thereby providing the raw data upo n which intonational theories could be developed. Hirst has described the development of INTSINT a s an attempt to design an equivalent of IPA for intonation. As stated in Section 6.10, there is no s uch thing as completely theory neutral model as all models make some assumptions.  Nevertheless, IN TSINT certainly fulfills its main goals of allowing a phonetic transcription of an utterance t o be made without necessarily deciding which theory or model of intonation will be subsequently use d. INTSINT describes an utterance’s intonation by a sequence o f labels each of which repre- sents a target point. These target points are defined either b y reference to the speaker’s pitch range, 242 Chapter 9. Synthesis of Prosody in which case they are marked Top (T), Mid (M) or Bottom (B), or by reference to the previous tar- get point, in which case they are marked Higher (H), Same (S) o r Lower (L). In addition, accents can be marked as Upstepped (S) or Downstepped (D). Hirst [212] describes this system in detail and shows how it c an be applied to all the major languages.  Several algorithms have also been developed for extracting the labels automatically from the acoustics and for synthesizing F0 contours from the labels 2 .  Applications of this model to synthesis include Veronis et al [475]
 % The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''
 \subsection{DaTo (\emph{Dynamic Tones})}
+% TODO: explicar muito melhor
 Apesar de o modelo ToBI ter sido utilizado para analisar o
 português brasileiro em diversos trabalhos, \citeonline{lucentetobi} argumenta que
 há características perceptíveis que a notação não consegue expressar, propondo

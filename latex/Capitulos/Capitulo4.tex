@@ -80,7 +80,37 @@ mas também para síntese de contornos f0. Escolhemos utilizá-lo na implementa�
 pela simplicidade da notação e flexibilidade.
 
 Em \code{intsint.py} é feita a determinação de valores f0 a partir do texto de
-entrada anotado e das regras descritas na tabela \ref{intsintrules}.
+entrada anotado e das regras descritas na tabela \ref{intsintrules}. O
+pseudocódigo \ref{alg:intsint} ilustra o funcionamento do processo de conversão.
+
+\begin{algorithm}[H]
+\begin{algorithmic}
+\STATE freq\_t $ \gets \text{key} \times \sqrt{2^{range}}$
+\STATE freq\_m $ \gets \text{key} $
+\STATE freq\_b $ \gets \text{key} / \sqrt{2^{range}} $
+\FORALL {rótulo $ P_i $}
+  \IF {rótulo = T}
+    \STATE $ f_i \gets $ freq\_t
+  \ELSIF {rótulo = M}
+    \STATE $ f_i \gets $ freq\_m
+  \ELSIF {rótulo = B}
+    \STATE $ f_i \gets $ freq\_b
+  \ELSIF {rótulo = H}
+  \STATE $ f_i \gets \sqrt{f_{i - 1} \times \text{freq\_t}} $
+  \ELSIF {rótulo = S}
+    \STATE $ f_i \gets f_{i - 1} $
+  \ELSIF {rótulo = L}
+  \STATE $ f_i \gets \sqrt{f_{i - 1} \times \text{freq\_b}} $
+  \ELSIF {rótulo = U}
+  \STATE $ f_i \gets \sqrt{f_{i - 1} \times  \sqrt{f_{i - 1} \times \text{freq\_t}}} $
+  \ELSIF {rótulo = D}
+  \STATE $ f_i \gets \sqrt{f_{i - 1} \times  \sqrt{f_{i - 1} \times \text{freq\_b}}}  $
+  \ENDIF
+\ENDFOR
+\end{algorithmic}
+\caption{Pseudocódigo para geração de frequências utilizando modelo INTSINT}
+\label{alg:intsint}
+\end{algorithm}
 
 % \subsection{Módulo de prosódia}
 % O programa foi codificado utilizando a linguagem de programação Python 3.6,
@@ -94,8 +124,9 @@ entrada anotado e das regras descritas na tabela \ref{intsintrules}.
 \subsection{Editor gráfico}
 Para permitir refinamento de prosódia após cálculo inicial de parâmetros, foi
 desenvolvido um editor gráfico para \emph{web} utilizando HTML, CSS e
-JavaScript. A duração e altura de cada fone pode ser especificado arrastando
-barras de controle.
+JavaScript. A duração e altura de cada fone podem ser especificadas manualmente
+arrastando barras de controle, gerando um novo arquivo de áudio com a fala
+sintetizada a partir dos novos parâmetros.
 
 \subsubsection{Arquitetura}
  O editor se comunica com o espeak-ng e MBROLA através de um
