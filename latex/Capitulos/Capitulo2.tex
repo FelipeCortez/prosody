@@ -4,6 +4,14 @@
 \simb[f0 (frequência fundamental da fala)]
 
 \section{Prosódia}
+Para fins de melhor entendimento e homogeneidade, tomaremos como base o conceito
+de prosódia descrito por fulaninho de tal (ano), que cita “prosódia é uma
+coisinha que tem na fala que deixa mais ou menos natural, favor colocar aqui o
+que é, porque tô com preguiça de googlar. Você precisa de um conceito
+fechadinho, imagino que possa existir algum tipo de controvérsia do que é
+prosódia, eu colocaria também a importância dela.”. Dessa forma, a seguir serão
+descritos os componentes e a função prosódica.
+
 \subsection{Componentes}
 \citeonline{tts-book} descreve como parâmetros principais da prosódia o
 \emph{pitch} (frequência), intensidade e duração. Outros nomes para os mesmos
@@ -22,12 +30,13 @@ gradual do valor de f0 durante uma enunciação.
 um bom modelo de prosódia se deve à falta de consideração da função
 comunicativa da fala, isto é, comumente análises são feitas ignorando o contexto
 da intenção do locutor. Apresenta, então, três principais funções comunicativas
-para prosódia:
+para prosódia, descritas a seguir.
 
 % n general, affective prosody has a fairly direct meaning-to-form relationship and hence the more extreme the form the more extreme the emotion. This implies that, unlike verbal language, the affective prosody system is not arbitrary with regard to meaning/form. A number of emotion categorisation systems have been proposed. One common theory holds that there are six basic emotions (anger, happiness, sadness, disgust, fear and surprise) from which follow a number of secondary emotions such as puzzlement or intrigue [110], [113], [153]. Some however argue that there is no fixed set of emotions and rather emotion is best expressed in a multi-dimensional system. One such proposal advocates three independent axes of emotion called activation, evalu- ation and power [393], [126].
 % In addition to emotion, affective prosody includes speaker attitude. The difference between emotion and attitude is that only emotion can exist independent of communication. As an illustra- tion; you can be happy on your own, but you need someone else to be sarcastic with. Apart from this distinction, attitude functions similarly to emotion in that it is fairly direct, has a significant degree of universality and does not have a arbitrary or dual nature.
 \paragraph{Afetiva} A prosódia afetiva é utilizada para demonstrar emoções,
 atitude e intenção do locutor, e está praticamente ausente da forma escrita.
+% TODO: muito mais que isso
 
 \paragraph{Suprassegmental} Quando uma mensagem é dita de maneira declarativa,
 sem conteúdo afetivo significante -- descrita como \emph{discourse neutral} --,
@@ -40,15 +49,20 @@ seja, afetiva e aumentativa, como desvios dos parâmetros suprassegmentais.
 % If a sentence is spoke with little or no affective content, ie. in a discourse neutral manner, we still see characteristic patterns in the phrasing, rhythm, pitch, voice quality and timing. Typical effects include phones at the ends of sentences or phrases being lengthened, syntactically salient words (e.g. heads) having more emphasis, F0 levels being higher at the starts of sentences and so on.
 \paragraph{Aumentativa} Além da prosódia afetiva, é possível desviar da prosódia
 padrão para assegurar a comunicação efetiva de uma mensagem sem adicionar
-informação ao conteúdo do que está sendo dito. É usada, por exemplo, para
+informação ao conteúdo que está sendo dito. É usada, por exemplo, para
 enfatizar palavras, desambiguando uma mensagem que poderia ser interpretada de
 diferentes formas.
 
-\section{Sistemas TTS}
+\section{Sistemas \emph{text-to-speech}}
 \citeonline{ssml} definem \emph{text-to-speech} como ``o processo de geração
 automática de fala a partir de texto ou texto anotado'' (tradução nossa). São
 utilizados em leitores digitais, assistentes pessoais para \emph{smartphones},
 aprendizagem de linguagens, entre outros.
+
+% TODO:
+Os primeiros sistemas TTS foram inventados em mil novecentos e lá vai bolinha
+para fazer sei lá o que, o cara devia estar se sentindo sozinho or something,
+mas só se popularizaram em 2010, com o advento da SIRI!!!!
 
 Sistemas TTS são compostos por múltiplos subsistemas. Como veremos na seção
 \ref{sistemas}, algumas implementações de TTS são modulares, permitindo
@@ -62,7 +76,7 @@ especificamente o módulo de prosódia. % Futuramente, avanços
 Na literatura, cada sistema TTS normalmente emprega algoritmos diferentes,
 resultando em múltiplas arquiteturas possíveis para conversão de texto em fala.
 Apesar disso, \citeonline{tts-book} propõe uma arquitetura geral, dividindo os
-sistemas em duas partes principais:
+sistemas em duas partes principais descritas na figura \ref{fig:tts-arch}.
 
 \begin{figure}[!htbp]
 \centering
@@ -96,7 +110,7 @@ O \emph{front end} de um sistema TTS é responsável pela conversão do texto em
 sua representação em fones juntamente com parâmetros prosódicos. Em outras
 palavras, o bloco é responsável por determinar a pronúncia de cada palavra do
 texto, incluindo o contorno melódico e ritmo da fala. As definições seguintes
-são adaptadas de \cite{martinjurafsky}:
+são adaptadas de \cite{martinjurafsky}.
 
 \subsubsection{Normalização de texto}
 O processo de conversão de texto para fala começa com o processamento do texto a
@@ -131,6 +145,7 @@ A partir do texto e fones gerados nas etapas anteriores, deve-se estimar
 desafio para implementação deste componente é que o texto praticamente não
 possui informação prosódica. Possíveis soluções para este problema são
 discutidas na seção \ref{prosafe}.
+% TODO: muito mais que isso
 
 % \subsection{Prosódia como elemento extra-textual}
 % \citeonline{taylor2009} argumenta que a geração de prosódia afetiva é árdua e
@@ -168,7 +183,7 @@ discutidas na seção \ref{prosafe}.
 Com o texto de entrada transformado em fones e informação prosódica, um
 \emph{back end} é responsável por gerar uma forma de onda, ou seja, o áudio a
 ser reproduzido pelos alto-falantes. \citeonline{martinjurafsky,taylor2009} separam
-algoritmos de síntese em três classes:
+algoritmos de síntese em três classes, listadas a seguir.
 
 \subsubsection{Síntese articulatória}
 Sintetizadores articulatórios sintetizam fala através de modelos matemáticos,
@@ -178,10 +193,11 @@ contrapartida, é difícil encontrar uma correspondência entre o texto de entra
 e os parâmetros necessários para o sintetizador.
 
 \subsubsection{Síntese por formantes}
+% TODO explicar
 A fala, quando decomposta espectralmente através da transformada de Fourier, é
 majoritariamente composta por quatro senoides. A frequência mais baixa é dita
 frequência fundamental ou f0, emitida pela glote. As outras três senoides f1, f2
-e f3 são chamadas formantes, e são geradas pela resonância do filtro resultante
+e f3 são chamadas formantes, e são geradas pela ressonância do filtro resultante
 da posição da língua, queixo e lábio, alterando a intensidade de cada componente
 frequencial. A variação de intensidade de cada formante determina a vogal
 percebida. Sintetizadores por formantes são tentativas de modelagem da fala
@@ -193,32 +209,35 @@ sinal de uma fala humana. Ao ignorar-se essa parte residual, a fala sintetizada
 % quanto a f0, f1, ver Taylor p. 185/161
 
 \subsubsection{Síntese concatenativa}
-Devido aos problemas destacados para as outras duas abordagens, a maioria dos
-sistemas hodiernos utilizam síntese concatenativa, que consiste na gravação de
-múltiplas frases e edição em uma unidade de atomicidade variável.
+Devido aos problemas destacados para as outras duas abordagens, a maior parte
+dos sistemas TTS, até alguns anos atrás, utilizava síntese concatenativa, que
+consiste na gravação de múltiplas frases posteriormente posteriormente divididas
+em fragmentos de granularidade variável, como ilustrado a seguir.
 
 Para vocabulários com poucas palavras, como um sistema de anúncios de um metrô, é
-suficiente gravar frases completas e palavras que podem variar dentro da frase. Em
-``Este metrô para nas estações Catete, Glória, Cinelândia [...]'', por exemplo,
-``Este metrô para nas estações'' pode advir de uma única gravação, enquanto os nomes
-individuais das estações são provenientes de outras gravações, concatenadas.
+suficiente gravar frases completas e palavras que podem variar dentro da frase.
+Ao enunciar ``Este metrô para nas estações Catete, Glória, Cinelândia [...]'',
+por exemplo, o fragmento ``Este metrô para nas estações'' pode advir de uma
+única gravação, enquanto os nomes individuais das estações são provenientes de
+outras gravações, concatenadas. Para obter sistemas TTS mais flexíveis, porém,
+as gravações devem ser separadas em unidades menores, como fones ou dífonos --
+ pares de fones -- que podem ser então concatenados para formar até mesmo
+palavras que não foram gravadas.
 
-Para sistemas TTS mais flexíveis, porém, as gravações são separadas em unidades
-menores, como fones ou dífonos, isto é, pares de fones, que podem ser
-concatenados para formar até mesmo palavras que não foram gravadas.
+% TODO: quando
+Mais recentemente (quando?), foi desenvolvida uma nova classe de algoritmos para
+síntese concatenativa denominada \emph{unit selection synthesis}, abordagem
+probabilística que funciona através da minimização de duas função de custo, uma
+para fones individuais e outra para a junção entre dois fones.
+\citeonline{black} argumenta que, com advento desse tipo de síntese, a fala
+gerada passou a ser natural o suficiente para ser possivelmente confundida com a de um humano.
 
-\emph{Unit selection synthesis} é uma abordagem probabilística para a síntese
-concatenativa, minimizando uma função de custo para fones individuais e outra
-para a junção entre dois fones. \citeonline{black} argumenta que através desse
-tipo de síntese, a fala gerada é natural o suficiente para ser confundida com a
-de um humano.
-
-% \subsubsection{Síntese por \emph{Hidden Markov Models}}
-% \citeonline{zen} descreve síntese por HMM como uma maneira paramétrica de
-% produzir fala. Nela, um banco de dados com gravações é utilizado para treinar um
-% modelo a partir de \emph{excitation parameters} e \emph{spectral parameters}. Na
-% síntese por HMM, há unificação dos módulos de \emph{front end} e \emph{back
-% end}.
+\subsection{Síntese por \emph{Hidden Markov Models} e \emph{Deep Neural Networks}}
+\citeonline{zen} descreve síntese por HMM como uma maneira paramétrica de
+produzir fala. Nela, um banco de dados com gravações é utilizado para treinar um
+modelo a partir de \emph{excitation parameters} e \emph{spectral parameters}. Na
+síntese por HMM, há unificação dos módulos de \emph{front end} e \emph{back
+end}.
 
 % However, by properly combining these two, we may be able to obtain a first-rate complementary hybrid approach that can solve their respective drawbacks while retaining all their advantages. In the near fu- ture, we may find the holy grail of corpus-based speech synthe- sis fusing statistical parametric and unit-selection synthesi
 
