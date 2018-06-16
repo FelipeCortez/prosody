@@ -214,7 +214,7 @@ dita residual, a fala sintetizada é perceptivelmente robótica.
 \begin{figure}
   \centering
     \includegraphics[width=0.5\textwidth]{Imagens/espectro.png}
-  \caption{Partes temporal (acima) e temporal (abaixo) de uma gravação de voz. Fonte: própria}
+  \caption{Representações temporal (acima) e temporal (abaixo) de uma gravação de voz. Fonte: própria}
   \label{fig:spectrum}
 \end{figure}
 
@@ -249,7 +249,9 @@ gerada passou a ser natural o suficiente para ser possivelmente confundida com a
 maneira paramétrica de produzir fala. Nela, um banco de dados com gravações é
 utilizado para treinar um modelo a partir de \emph{excitation parameters} e
 \emph{spectral parameters}. Na síntese por HMM, há unificação dos módulos de
-\emph{front end} e \emph{back end}.
+\emph{front end} e \emph{back end}. Mais recentemente, esse modelo, denominado
+\emph{Statistical Parametric Speech Synthesis} foi adaptado para utilizar redes
+neurais profundas no lugar de cadeias de Markov \cite{dnngoogle}.
 
 % However, by properly combining these two, we may be able to obtain a first-rate complementary hybrid approach that can solve their respective drawbacks while retaining all their advantages. In the near fu- ture, we may find the holy grail of corpus-based speech synthe- sis fusing statistical parametric and unit-selection synthesi
 

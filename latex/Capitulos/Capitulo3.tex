@@ -204,21 +204,23 @@ O modelo INTSINT foi utilizado por \citeonline{intsintpt} e \citeonline{moraes19
 % The INTSINT model of Hirst et al [212], [213], [211], was deve loped in an attempt to provide a comprehensive  and multi-lingual  transcription  system fo r intonation.   The model can be seen as “theory-neutral” in that it was designed to transcribe th e intonation of utterances as a way of annotating databases and thereby providing the raw data upo n which intonational theories could be developed. Hirst has described the development of INTSINT a s an attempt to design an equivalent of IPA for intonation. As stated in Section 6.10, there is no s uch thing as completely theory neutral model as all models make some assumptions.  Nevertheless, IN TSINT certainly fulfills its main goals of allowing a phonetic transcription of an utterance t o be made without necessarily deciding which theory or model of intonation will be subsequently use d. INTSINT describes an utterance’s intonation by a sequence o f labels each of which repre- sents a target point. These target points are defined either b y reference to the speaker’s pitch range, 242 Chapter 9. Synthesis of Prosody in which case they are marked Top (T), Mid (M) or Bottom (B), or by reference to the previous tar- get point, in which case they are marked Higher (H), Same (S) o r Lower (L). In addition, accents can be marked as Upstepped (S) or Downstepped (D). Hirst [212] describes this system in detail and shows how it c an be applied to all the major languages.  Several algorithms have also been developed for extracting the labels automatically from the acoustics and for synthesizing F0 contours from the labels 2 .  Applications of this model to synthesis include Veronis et al [475]
 % The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''
 \subsection{DaTo (\emph{Dynamic Tones})}
-% TODO: explicar muito melhor
-Apesar de o modelo ToBI ter sido utilizado para analisar o
-português brasileiro em diversos trabalhos, \citeonline{lucentetobi} argumenta que
-há características perceptíveis que a notação não consegue expressar, propondo
-um novo modelo, DaTo, com base na entoação do português brasileiro. No DaTo, em
-vez de identificar \emph{pitch accents} como no ToBI, tem-se o conceito de ``tarefa
-linguística por meio dos contornos entoacionais''. Como o INTSINT, é baseado na
-ideia de alvos a serem atingidos por uma trajetória de f0. As anotações
-possíveis para análise entoacionais são mostradas na tabela \ref{tab:dato}. Um
-exemplo de oração analisada utilizando o modelo pode ser visto na figura \ref{fig:dato}.
+Apesar de o modelo ToBI ter sido utilizado para analisar o português brasileiro
+em diversos trabalhos, \citeonline{lucentetobi} argumenta que há características
+fonéticas que a notação da escola métrica-autossegmental não consegue expressar,
+propondo um novo modelo, DaTo, com base na entoação do português brasileiro. No
+DaTo, em vez do direcionamento para a identificação de \emph{pitch accents},
+tem-se o conceito de ``tarefa linguística por meio dos contornos entoacionais'',
+isto é, as transições entre diferentes pontos de ênfase tornam-se relevantes, em
+vez de simples preenchimento entre eventos estáticos, justificando o nome
+\emph{\emph{Dynamic} Tones}. As
+anotações possíveis para análise entoacionais são mostradas na tabela
+\ref{tab:dato} e um exemplo de oração analisada utilizando o modelo pode ser
+visto na figura \ref{fig:dato}.
 
 \begin{figure}
   \centering
     \includegraphics[width=0.7\textwidth]{Imagens/dato.png}
-  \caption{Oração analisada utilizando o modelo DaTo. Fonte: \cite{lucentetobi}}
+  \caption[Oração analisada utilizando o modelo DaTo]{Oração analisada utilizando o modelo DaTo. Fonte: \cite{lucentetobi}}
   \label{fig:dato}
 \end{figure}
 
