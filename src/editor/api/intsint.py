@@ -1,6 +1,6 @@
 from math import sqrt
 
-def intsint(labels: list, key: float = 220.0, range: float = 1.0):
+def intsint(labels: list, key: float = 150.0, range: float = 1.0):
     if labels[0] not in ["T", "M", "B"]:
         raise ValueError("First item in list can't be relative")
 
@@ -18,12 +18,17 @@ def intsint(labels: list, key: float = 220.0, range: float = 1.0):
         elif l == "B":
             freqs.append(freq_b)
         elif l == "H":
-            freqs.append(sqrt(labels[idx - 1]) * freq_t)
+            freqs.append(sqrt(freqs[idx - 1] * freq_t))
         elif l == "S":
-            freqs.append(labels[idx - 1])
+            freqs.append(freqs[idx - 1])
         elif l == "L":
-            freqs.append(sqrt(labels[idx - 1]) * freq_b)
+            freqs.append(sqrt(freqs[idx - 1] * freq_b))
         elif l == "U":
-            freqs.append(sqrt(labels[idx - 1]) * sqrt(labels[idx - 1] * freq_t))
+            freqs.append(sqrt(freqs[idx - 1] * sqrt(freqs[idx - 1] * freq_t)))
         elif l == "D":
-            freqs.append(sqrt(labels[idx - 1]) * sqrt(labels[idx - 1] * freq_b))
+            freqs.append(sqrt(freqs[idx - 1] * sqrt(freqs[idx - 1] * freq_b)))
+
+    return freqs
+
+seq = list("TSLLSUHBU")
+print(intsint(seq))

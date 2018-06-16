@@ -47,13 +47,15 @@ uma tabela.
 
 \paragraph{\cite{couto}}
 Foi desenvolvido com base no \emph{framework} MaryTTS um sistema completo para
-português brasileiro baseado em HMMs. O projeto iniciou com uma implementação
+português brasileiro baseado em HMM. O projeto iniciou com uma implementação
 de um módulo de conversão grafema-fone LaPS-G2P \cite{g2pusp}, tornando-se então
 um sistema completo \cite{couto}, e foi subsequentemente estendido por
-\citeonline{costa} para funcionar de maneira \emph{stand-alone}, isto é, ser utilizado
-sem necessidade de instalação do \emph{framework} MaryTTS. A prosódia é gerada
-pelos parâmetros das cadeias de Markov, ou seja, determinada probabilisticamente
-a partir do corpus de treinamento.
+\citeonline{costa} para funcionar de maneira \emph{stand-alone}, isto é, ser
+utilizado sem necessidade de instalação do \emph{framework} MaryTTS. Como
+anteriormente explicado na seção \ref{hmmsynthesis}, sistemas construídos a
+partir HMM unificam front end e back end, deste modo a prosódia
+é gerada pelos parâmetros das cadeias de Markov, ou seja, determinada
+probabilisticamente a partir do corpus de treinamento.
 
 % TTS systems evolved from a knowledge-based paradigm to  a  pragmatic
 % data-driven approach.  With  respect  to  the technique  adopted  for  the
@@ -66,6 +68,9 @@ MBROLA, descrito na seção \ref{sec:mbrola}. Assim como o eSpeakNG, os
 subsistemas são baseados em regras e tabelas. O cálculo de curva f0 é feito com
 base em \emph{parts-of-speech tagging}, ou seja, atribuição de classes
 gramaticais a cada palavra do texto de entrada.
+
+\paragraph{\cite{dnnpt}}
+Utiliza DDN.
 
 \subsection{MBROLA}
 \label{sec:mbrola}
@@ -166,7 +171,7 @@ definido em oitavas, determinando o alcance máximo da entoação, isto é, quã
 intensas são as variações de \emph{pitch}.
 
 Apesar de ser inicialmente proposto como um modelo de análise, trabalhos
-subsequentes como \cite{intsintalg,stoc} utilizaram a notação para sintetizar
+subsequentes como \citeonline{intsintalg,stoc} utilizaram a notação para sintetizar
 contornos f0. A tabela \ref{tab:intsint} detalha como cada marcação é convertida
 para uma frequência em Hertz para determinação de uma sequência de valores f0.
 
@@ -207,7 +212,16 @@ um novo modelo, DaTo, com base na entoação do português brasileiro. No DaTo, 
 vez de identificar \emph{pitch accents} como no ToBI, tem-se o conceito de ``tarefa
 linguística por meio dos contornos entoacionais''. Como o INTSINT, é baseado na
 ideia de alvos a serem atingidos por uma trajetória de f0. As anotações
-possíveis para análise entoacionais são mostradas na tabela \ref{tab:dato}.
+possíveis para análise entoacionais são mostradas na tabela \ref{tab:dato}. Um
+exemplo de oração analisada utilizando o modelo pode ser visto na figura \ref{fig:dato}.
+
+\begin{figure}
+  \centering
+    \includegraphics[width=0.7\textwidth]{Imagens/dato.png}
+  \caption{Oração analisada utilizando o modelo DaTo. Fonte: \cite{lucentetobi}}
+  \label{fig:dato}
+\end{figure}
+
 % trabalha com o conceito de contorno dinâmico, que é de nido em Lucente (2012, p. 99) como “uma unidade tonal que contém elementos comuni- cativos expressos em uma trajetória ideal da curva entoacional, especi cada por um alvo a ser atingido e associada a uma unidade segmental linguística”
 
 \begin{table}[htb]
