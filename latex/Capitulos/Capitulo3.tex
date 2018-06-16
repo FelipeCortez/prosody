@@ -14,11 +14,9 @@
 \section{Sistemas TTS para o português brasileiro}
 \label{sistemas}
 
-% TODO: quando surgiram os primeiros?
-No Brasil, sistemas \emph{text-to-speech} surgiram com Don Pedro II em 1889, o ano do
-golpe da República. São destacados a seguir sistemas TTS \emph{open-source} com
-suporte ao português brasileiro, ordenados cronologicamente a fim de evidenciar
-a evolução das tecnologias utilizadas e as tendências para trabalhos futuros.
+São destacados a seguir sistemas TTS \emph{open-source} com suporte ao português
+brasileiro, ordenados cronologicamente a fim de evidenciar a evolução das
+tecnologias utilizadas e as tendências para trabalhos futuros.
 
 \paragraph{Aiuruetê \cite{aiuruete}}
 Desenvolvido com o objetivo de obter um sistema TTS com fala natural sem custo
@@ -69,9 +67,6 @@ subsistemas são baseados em regras e tabelas. O cálculo de curva f0 é feito c
 base em \emph{parts-of-speech tagging}, ou seja, atribuição de classes
 gramaticais a cada palavra do texto de entrada.
 
-\paragraph{\cite{dnnpt}}
-Utiliza DDN.
-
 \subsection{MBROLA}
 \label{sec:mbrola}
 MBROLA é uma ferramenta para geração de voz baseada em síntese concatenativa por
@@ -114,16 +109,21 @@ utilizando o algoritmo MBRPSOLA. Cada voz gravada fornece uma tabela com os díf
 tonais em unidades estruturais maiores associadas com o parâmetro acústico da
 frequência fundamental da fala e suas variações'' (tradução nossa). Em outras
 palavras, a entoação diz respeito à variação da frequência base emitida pela
-glote -- como visto na seção \ref{formant} -- quando falamos. Múltiplas teorias
+glote quando falamos, como visto na seção \ref{formant}. Múltiplas teorias
 tentam descrever o contorno melódico a partir de rótulos associados às variações
 de frequência. Destacamos a seguir três delas.
 
 \subsection{Teoria métrica-autossegmental}
-O modelo ToBI -- \emph{Tone Breaks and Indices} \cite{tobi} descreve prosódia
-através de duas camadas: o \emph{tonal tier} descreve entoação a partir de um
-conjunto de rótulos ``superior'' (H) e ``inferior'' (L). \emph{Pitch accents}
-são representados como tons duplos ou simples, podendo assumir os valores H*, L*, H* + L, H + L*, L + H* ou L* + H. Além disso,
-\emph{boundary tones} (ou tons de fronteira) podem ser representados com o simbolo \%.
+O modelo ToBI -- \emph{Tone Breaks and Indices} \cite{tobi} faz parte da teoria
+métrica-autossegmental e descreve prosódia através de duas camadas. Para a
+entoação, tem-se o \emph{Tonal tier}, que consiste na identificação de
+\emph{pitch accents}: variações de f0 que podem ser categorizadas a partir de
+combinações de dois rótulos ``superior'' (H, de \emph{high}) e ``inferior'' (L,
+de \emph{low}). As combinações possíveis do modelo ToBI são H*, L*, H* + L, H +
+L*, L + H* ou L* + H, onde a estrela sinaliza o tom associado à sílaba
+acentuada. Além disso, \emph{boundary tones} (ou tons de fronteira) podem ser
+representados com o simbolo \% e demarcam fins e começos de sintagmas
+entoacionais.
 
 A outra camada, \emph{Break Index tier}, refere-se ao componente rítmico da
 prosódia, com rótulos de 0 a 6, onde 0 indica que duas palavras são
@@ -133,7 +133,16 @@ Alguns sistemas TTS, como MaryTTS e Festival, têm suporte a notação ToBI, com
 pode ver no código \ref{tobifest}.
 
 O modelo ToBI é utilizado por \citeonline{moraes2008} para analisar uma mesma
-frase com múltiplas intenções, mudando apenas o contorno melódico.
+frase com múltiplas intenções, mudando apenas o contorno melódico. Um exemplo de
+oração analisada utilizando o modelo pode ser visto na figura \ref{fig:tobiana}.
+
+\begin{figure}
+  \centering
+    \includegraphics[width=0.7\textwidth]{Imagens/tobi.png}
+  \caption[Oração analisada utilizando o modelo ToBI]{Oração analisada utilizando o modelo ToBI. Fonte: \cite{tobiguide}}
+  \label{fig:tobiana}
+\end{figure}
+
 
 % Enquanto a teoria MA, representada pelo sistema ToBI, se baseia em aspectos 
 % lineares da estrutura tonal, na identifi cação dos 
@@ -158,12 +167,12 @@ equivalente ao alfabeto fonético IPA (\emph{International Phonetic Alphabet})
 para prosódia, o modelo INTSINT é um sistema de transcrição para entoação capaz
 de ser utilizado para analisar múltiplas línguas.
 
-A entoação é anotada através de símbolos que indicam frequências-alvo
-. Os símbolos de absolutas, Top (T), Mid (M) e Bottom (B), referem-se
-respectivamente ao limite superior, a base e o limite inferior para a frequência
-fundamental. Há adicionalmente três símbolos relativos à marcação anterior,
-Higher (H), Same (S) e Lower (L), e, finalmente, dois símbolos denominados
-iterativos: Upstepped (U) e Downstepped (D), indicando subida e descidas suaves.
+A entoação é anotada através de símbolos que indicam frequências-alvo. Os
+símbolos absolutos, Top (T), Mid (M) e Bottom (B), referem-se respectivamente ao
+limite superior, a base e o limite inferior para a frequência fundamental. Há
+adicionalmente três símbolos que modificam à marcação anterior, Higher (H), Same (S)
+e Lower (L), e, finalmente, dois símbolos denominados iterativos: Upstepped (U)
+e Downstepped (D), indicando subidas e descidas suaves.
 
 Para calcular as frequências-alvo, utilizam-se dois parâmetros fixos
 \emph{key}, definido em Hertz, que indica a f0 média do locutor, e \emph{range},
@@ -207,15 +216,15 @@ O modelo INTSINT foi utilizado por \citeonline{intsintpt} e \citeonline{moraes19
 Apesar de o modelo ToBI ter sido utilizado para analisar o português brasileiro
 em diversos trabalhos, \citeonline{lucentetobi} argumenta que há características
 fonéticas que a notação da escola métrica-autossegmental não consegue expressar,
-propondo um novo modelo, DaTo, com base na entoação do português brasileiro. No
-DaTo, em vez do direcionamento para a identificação de \emph{pitch accents},
+propondo um novo modelo, DaTo, com base na entoação do português brasileiro.
+
+No DaTo, em vez do direcionamento para a identificação de \emph{pitch accents},
 tem-se o conceito de ``tarefa linguística por meio dos contornos entoacionais'',
-isto é, as transições entre diferentes pontos de ênfase tornam-se relevantes, em
-vez de simples preenchimento entre eventos estáticos, justificando o nome
-\emph{\emph{Dynamic} Tones}. As
-anotações possíveis para análise entoacionais são mostradas na tabela
-\ref{tab:dato} e um exemplo de oração analisada utilizando o modelo pode ser
-visto na figura \ref{fig:dato}.
+isto é, as transições entre diferentes pontos de ênfase tornam-se o meio de
+análise, em vez de simples preenchimento entre eventos estáticos, justificando o
+nome \emph{\emph{Dynamic} Tones}. As anotações possíveis para análise
+entoacionais são mostradas na tabela \ref{tab:dato} e um exemplo de oração
+analisada utilizando o modelo pode ser visto na figura \ref{fig:dato}.
 
 \begin{figure}
   \centering
@@ -249,6 +258,10 @@ visto na figura \ref{fig:dato}.
 
 \section{Prosódia afetiva em sistemas TTS}
 \label{prosafe}
+
+Destacamos a seguir ferramentas que podem auxiliar na geração de prosódia --
+principalmente com função afetiva -- em sistemas TTS.
+
 \subsection{SSML}
 A linguagem de marcação \emph{Speech Synthesis Markup Language} foi criada
 motivada pela dificuldade de predição computacional de pronúncia
@@ -331,12 +344,11 @@ cálculo de parâmetros prosódicos a partir de anotações em EmotionML utiliza
 Uma solução mais simples para geração de contornos f0 para prosódia efetiva é
 permitir que o usuário especifique na entrada do programa TTS marcações
 prosódicas utilizando um dos modelos de análise entoacional vistos
-anteriormente na seção \ref{entoa}. Apesar de requerer conhecimento de fonologia, é uma opção 
-viável enquanto não são desenvolvidos algoritmos para determinação de prosódia a
-partir de marcação emocional. O sistema Festival \cite{festival} disponibiliza
-uma maneira de especificar entoação seguindo o modelo ToBI, como pode ser visto
-no código
-\ref{tobifest}.
+anteriormente na seção \ref{entoa}. Apesar de requerer conhecimento de
+fonologia, é uma opção viável enquanto não são desenvolvidos algoritmos para
+determinação de prosódia a partir de marcação emocional. O sistema Festival
+\cite{festival} disponibiliza uma maneira de especificar entoação seguindo o
+modelo ToBI, como pode ser visto no código \ref{tobifest}.
 
 \begin{lstlisting}[caption=Anotações no modelo ToBI para o sistema TTS Festival,
   label=tobifest]
