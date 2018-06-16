@@ -256,52 +256,33 @@ var app = new Vue({
 \end{lstlisting}
 
 \begin{lstlisting}[caption=Gerador de f0 a partir do modelo INTSINT, label=intsintpy, language=Python]
-import json
+from math import sqrt
 
-def get_duration(self, phoneme: str) -> int:
-    if self.durations and phoneme in self.durations:
-        return self.durations[phoneme]
-    else:
-        return 100
+def intsint(labels: list, key: float = 220.0, range: float = 1.0):
+    if labels[0] not in ["T", "M", "B"]:
+        raise ValueError("First item in list can't be relative")
 
-def convert_sentence(self, input_str: str) -> Sentence:
-    sentence = Sentence()
-    sentence.phones.append(Phone(" ", "_", 150, [[50, 150]]))
+    freq_t = key * sqrt(2 ** range)
+    freq_m = key
+    freq_b = key / sqrt(2 ** range)
 
-    ignored = ["@", "\n", ",", "'", "^", ";"]
+    freqs = []
 
-    sampa = self.text_to_sampa(input_str)
-    sampa = sampa.replace("'", "")
-    print(";; ", sampa)
-
-    while sampa:
-        if sampa[0] not in ignored:
-            converted = self.convert_phoneme(sampa)
-            phone_sampa = sampa[:converted[1]]
-            sampa = sampa[converted[1]:]
-
-            duration = self.get_duration(converted[0])
-            phone = Phone(
-                phone_sampa = phone_sampa,
-                phone_mbrola = converted[0],
-                duration = int(duration),
-                pitch_changes = [[50, 150]] # percentage, Hz
-            )
-
-            sentence.phones.append(phone)
-        else:
-            sampa = sampa[1:]
-
-    sentence.phones.append(Phone(" ", "_", 150, [[50, 150]]))
-    return sentence
-
-def text_to_sampa(self, sentence: str) -> str:
-    espeak_str = "espeak-ng -v pt-br '{}' -x -q".format(sentence)
-
-    p = subprocess.Popen(espeak_str, stdout=subprocess.PIPE, shell=True)
-    (output, err) = p.communicate()
-    p_status = p.wait()
-    output = output.decode("utf-8")
-    output = output.replace("\n", "").strip()
-    return output
+    for idx, l in enumerate(labels):
+        if l == "T":
+            freqs.append(freq_t)
+        elif l == "M":
+            freqs.append(freq_m)
+        elif l == "B":
+            freqs.append(freq_b)
+        elif l == "H":
+            freqs.append(sqrt(labels[idx - 1]) * freq_t)
+        elif l == "S":
+            freqs.append(labels[idx - 1])
+        elif l == "L":
+            freqs.append(sqrt(labels[idx - 1]) * freq_b)
+        elif l == "U":
+            freqs.append(sqrt(labels[idx - 1]) * sqrt(labels[idx - 1] * freq_t))
+        elif l == "D":
+            freqs.append(sqrt(labels[idx - 1]) * sqrt(labels[idx - 1] * freq_b))
 \end{lstlisting}

@@ -79,31 +79,36 @@ Como visto na seção \ref{intsintsec}, o INTSINT serve não apenas para anális
 mas também para síntese de contornos f0. Escolhemos utilizá-lo na implementação
 pela simplicidade da notação e flexibilidade.
 
-Em \code{intsint.py} é feita a determinação de valores f0 a partir do texto de
+Em \code{intsint.py} (código \ref{intsintpy}) é feita a determinação de valores f0 a partir do texto de
 entrada anotado e das regras descritas na tabela \ref{intsintrules}. O
-pseudocódigo \ref{alg:intsint} ilustra o funcionamento do processo de conversão.
+algoritmo \ref{alg:intsint} ilustra o funcionamento do processo de conversão.
 
 \begin{algorithm}[H]
 \begin{algorithmic}
+  \REQUIRE{lista de rótulos P, $ \forall i : P_i \in \{ T, M, B, H, S, L, U \}$}
+  \ENSURE{lista de frequências f (em Hertz)}
 \STATE freq\_t $ \gets \text{key} \times \sqrt{2^{range}}$
 \STATE freq\_m $ \gets \text{key} $
 \STATE freq\_b $ \gets \text{key} / \sqrt{2^{range}} $
+\IF {rótulo $ P_0 \notin \{ T, M, B \} $}
+\STATE retorne erro \COMMENT{Primeiro rótulo deve ser absoluto}
+\ENDIF
 \FORALL {rótulo $ P_i $}
-  \IF {rótulo = T}
+  \IF {$ P_i $ = T}
     \STATE $ f_i \gets $ freq\_t
-  \ELSIF {rótulo = M}
+  \ELSIF {$ P_i $ = M}
     \STATE $ f_i \gets $ freq\_m
-  \ELSIF {rótulo = B}
+  \ELSIF {$P_i$ = B}
     \STATE $ f_i \gets $ freq\_b
-  \ELSIF {rótulo = H}
+  \ELSIF {$ P_i $ = H}
   \STATE $ f_i \gets \sqrt{f_{i - 1} \times \text{freq\_t}} $
-  \ELSIF {rótulo = S}
+  \ELSIF {$ P_i $ = S}
     \STATE $ f_i \gets f_{i - 1} $
-  \ELSIF {rótulo = L}
+  \ELSIF {$ P_i $ = L}
   \STATE $ f_i \gets \sqrt{f_{i - 1} \times \text{freq\_b}} $
-  \ELSIF {rótulo = U}
+  \ELSIF {$ P_i $ = U}
   \STATE $ f_i \gets \sqrt{f_{i - 1} \times  \sqrt{f_{i - 1} \times \text{freq\_t}}} $
-  \ELSIF {rótulo = D}
+  \ELSIF {$ P_i $ = D}
   \STATE $ f_i \gets \sqrt{f_{i - 1} \times  \sqrt{f_{i - 1} \times \text{freq\_b}}}  $
   \ENDIF
 \ENDFOR
