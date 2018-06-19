@@ -20,10 +20,11 @@ def mbrola():
     converter = sampa_mbrola.Converter()
     return jsonify({"mp3_file": converter.phones_to_mbrola()})
 
-@app.route('/api/gen_audio', methods=['GET'])
+@app.route('/api/gen_audio', methods=['POST'])
 def gen_audio():
+    text = request.form["text"]
     converter = sampa_mbrola.Converter()
-    sentence = converter.convert_sentence("Vamos que vamos")
+    sentence = converter.convert_sentence(text)
 
     token = secrets.token_hex(nbytes=4)
     with open(f"out/{token}.pho", 'w') as f:

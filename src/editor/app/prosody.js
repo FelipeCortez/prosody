@@ -23,6 +23,8 @@ let FD  = new FormData();
 
 // console.log(durations.reduce((acc, val) => acc + val, 0));
 
+let textBox = document.querySelector("#textBox");
+
 let audio = document.querySelector("#audio");
 let audioSource = document.querySelector("#audioSource");
 
@@ -32,16 +34,17 @@ postDiv.style.display = "none";
 let genBtn = document.querySelector("#generateBtn");
 
 genBtn.addEventListener("click", function( event ) {
+  console.log(textBox.value);
   const requestURL = "http://127.0.0.1:5000/api/gen_audio";
 
   let XHR = new XMLHttpRequest();
   let FD  = new FormData();
+  FD.append("text", textBox.value);
 
-  XHR.open("GET", requestURL);
-  XHR.send();
+  XHR.open("POST", requestURL);
+  XHR.send(FD);
 
   XHR.onreadystatechange = function() {
-    console.log("hmm");
     if (XHR.readyState === XMLHttpRequest.DONE) {
       if (XHR.status === 200) {
         const results = JSON.parse(XHR.responseText);

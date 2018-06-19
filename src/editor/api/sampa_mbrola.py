@@ -80,7 +80,7 @@ class Converter():
             # s is a special case, needs to peek next
             if sentence[0] == "s":
                 try:
-                    if sentence[1] in "aeiou&":
+                    if sentence[1] in "aeiou&,":
                         return ("s", 1)
                 except IndexError:
                     pass
@@ -129,11 +129,14 @@ class Converter():
                 sentence.phones.append(phone)
             else:
                 sampa = sampa[1:]
+            key -= 1
 
         sentence.phones.append(Phone(" ", "_", 150 * factor, [[50, key]]))
         return sentence
 
     def text_to_sampa(self, sentence: str) -> str:
+        sentence = re.sub(r"\[[TMBHSLUD]\]", "", sentence)
+
         espeak_str = "espeak-ng -v pt-br '{}' -x -q".format(sentence)
 
         p = subprocess.Popen(espeak_str, stdout=subprocess.PIPE, shell=True)
@@ -141,6 +144,7 @@ class Converter():
         p_status = p.wait()
         output = output.decode("utf-8")
         output = output.replace("\n", "").strip()
+
         return output
 
     def phones_to_mbrola(self):
