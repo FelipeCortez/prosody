@@ -1,12 +1,12 @@
 from math import sqrt
 
-def intsint(labels: list, key: float = 150.0, range: float = 1.0):
+def intsint(labels: list, key: float = 150.0, octaves: float = 1.0):
     if labels[0] not in ["T", "M", "B"]:
         raise ValueError("First item in list can't be relative")
 
-    freq_t = key * sqrt(2 ** range)
+    freq_t = key * sqrt(2 ** octaves)
     freq_m = key
-    freq_b = key / sqrt(2 ** range)
+    freq_b = key / sqrt(2 ** octaves)
 
     freqs = []
 

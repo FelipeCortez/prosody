@@ -4,6 +4,7 @@ import subprocess
 import random
 import json
 import uuid
+from math import sqrt
 from collections import OrderedDict
 from typing import List
 
@@ -16,12 +17,14 @@ class Phone():
             phone_sampa: str,
             phone_mbrola: str,
             duration: int,
-            pitch_changes: list
+            pitch_changes: list,
+            stress: bool = False
     ):
         self.phone_sampa = phone_sampa
         self.phone_mbrola = phone_mbrola
         self.duration = duration
         self.pitch_changes = pitch_changes
+        self.stress = stress
 
     def as_line(self):
         return "{} {} {}".format(
@@ -80,7 +83,7 @@ class Converter():
             # s is a special case, needs to peek next
             if sentence[0] == "s":
                 try:
-                    if sentence[1] in "aeiou&,":
+                    if sentence[1] in "aeiouyAEIOUY&,":
                         return ("s", 1)
                 except IndexError:
                     pass
@@ -100,43 +103,75 @@ class Converter():
             return 100 * factor
 
     def convert_sentence(self, input_str: str) -> Sentence:
-        key = 100
+        key = 115
+        octaves = .8
+        decl = 0
+
         factor = 1 / 1.0
+        freq = key
+
+        freq_t = key * sqrt(2 ** octaves)
+        freq_m = key
+        freq_b = key / sqrt(2 ** octaves)
 
         sentence = Sentence()
         sentence.phones.append(Phone(" ", "_", 150 * factor, [[50, key]]))
 
         ignored = ["@", "\n", ",", "'", "^", ";"]
 
-        sampa = self.text_to_sampa(input_str)
-        sampa = sampa.replace("'", "")
-        print(";; ", sampa)
+        for word in input_str.split():
+            print(word)
+            labeled = re.match(r"\[([TMBHSLUD])\]", word)
+            if labeled:
+                word = re.sub(r"\[[TMBHSLUD]\]", "", word)
+                label = labeled.group(1)
+                if label == "T":
+                    freq = freq_t
+                elif label == "M":
+                    freq = freq_m
+                elif label == "B":
+                    freq = freq_b
+                elif label == "H":
+                    print(freq)
+                    freq = sqrt(freq * freq_t)
+                    print(freq)
+                elif label == "S":
+                    freq = freq
+                elif label == "L":
+                    freq = sqrt(freq * freq_b)
+                elif label == "U":
+                    freq = sqrt(freq * sqrt(freq * freq_t))
+                elif label == "D":
+                    freq = sqrt(freq * sqrt(freq * freq_b))
 
-        while sampa:
-            if sampa[0] not in ignored:
-                converted = self.convert_phoneme(sampa)
-                phone_sampa = sampa[:converted[1]]
-                sampa = sampa[converted[1]:]
+            sampa = self.text_to_sampa(word)
+            sampa = sampa.replace("'", "")
+            print(";; ", sampa)
 
-                duration = self.get_duration(converted[0], factor)
-                phone = Phone(
-                    phone_sampa = phone_sampa,
-                    phone_mbrola = converted[0],
-                    duration = duration,
-                    pitch_changes = [[50, key]] # percentage, Hz
-                )
+            while sampa:
+                if sampa[0] not in ignored:
+                    converted = self.convert_phoneme(sampa)
+                    phone_sampa = sampa[:converted[1]]
+                    sampa = sampa[converted[1]:]
 
-                sentence.phones.append(phone)
-            else:
-                sampa = sampa[1:]
-            key -= 1
+                    duration = self.get_duration(converted[0], factor)
+                    phone = Phone(
+                        phone_sampa = phone_sampa,
+                        phone_mbrola = converted[0],
+                        duration = duration,
+                        pitch_changes = [[50, freq + decl]],
+                        stress = False# percentage, Hz
+                    )
 
-        sentence.phones.append(Phone(" ", "_", 150 * factor, [[50, key]]))
+                    sentence.phones.append(phone)
+                else:
+                    sampa = sampa[1:]
+                decl -= 1
+
+        sentence.phones.append(Phone(" ", "_", 150 * factor, [[50, freq]]))
         return sentence
 
     def text_to_sampa(self, sentence: str) -> str:
-        sentence = re.sub(r"\[[TMBHSLUD]\]", "", sentence)
-
         espeak_str = "espeak-ng -v pt-br '{}' -x -q".format(sentence)
 
         p = subprocess.Popen(espeak_str, stdout=subprocess.PIPE, shell=True)
@@ -146,10 +181,6 @@ class Converter():
         output = output.replace("\n", "").strip()
 
         return output
-
-    def phones_to_mbrola(self):
-        return uuid.uuid4().hex[:16] + ".mp3"
-
 
 if __name__ == "__main__":
     converter = Converter()
