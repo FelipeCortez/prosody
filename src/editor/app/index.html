@@ -28,22 +28,26 @@
     <div class="container">
       <h1 class="title">prosody editor</h1>
       <div id="app">
-        <textarea name="text" type="text" style="margin-bottom: 30px;"></textarea>
-          <svg :width="totalDuration"
-               :height="height"
-               xmlns="http://www.w3.org/2000/svg">
-            <g class="phone">
-              <rect class="phone-bg"
-                    x="1"
-                    y="1"
-                    :width="totalDuration - 2"
-                    :height="height - 2" />
-            </g>
-        </svg>
+        <textarea name="text" type="text" style="margin-bottom: 15px"></textarea>
+        <input id="generateBtn"
+               type="submit"
+               value="Gerar"
+               style="margin-bottom: 15px">
+        <div id="post">
+          <svg width="15"
+              height="30"
+              xmlns="http://www.w3.org/2000/svg">
+          </svg>
+          <input type="submit" value="Ajustar" style="margin-bottom: 15px">
+          <audio
+            id="audio"
+            controls>
+            <source id="audioSource" src=""></source>
+          </audio>
+        </div>
       </div>
     </div>
 
-    <script src="vue.js"></script>
     <script src="prosody.js"></script>
   </body>
 </html>

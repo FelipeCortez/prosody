@@ -61,6 +61,30 @@
             \item odé,  "canto"
         \end{itemize}
   \end{itemize}
+
+  \begin{figure}[!htbp]
+  \centering
+  \scalebox{0.80}{
+      \begin{tikzpicture}[auto, >={Latex[inset=0pt, length=3mm, angle'=28,round]}, box/.style={draw,rounded corners,text width=4.5cm,align=center}]
+      \node[] (txt) {Texto};
+      \node[box, right=of txt] (nlp)
+          {Processamento de linguagem natural};
+      \node[box, right=of nlp] (dsp)
+          {Processamento digital de sinais};
+      \node[right=of dsp] (fal)
+          {Fala};
+
+          \node[box, fit=(nlp)(dsp), label=Sistema \emph{text-to-speech}] (tts) {};
+
+      \draw[->] (txt) -- (nlp);
+      \draw[->] (nlp) -- (dsp);
+      \draw[->] (dsp) -- (fal);
+      \end{tikzpicture}
+  }
+  \caption[Arquitetura geral de sistemas TTS]{Arquitetura geral de sistemas TTS. Fonte: Adaptado de \citeonline{tts-book}}
+  \label{fig:tts-arch}
+  \end{figure}
+
   \pause
     \begin{figure}
       \includegraphics[scale=0.25]{prosody.png}

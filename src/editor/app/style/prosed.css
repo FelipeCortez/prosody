@@ -19,3 +19,26 @@
 .phone-text {
   fill: black;
 }
+
+input[type="submit"] {
+  position: relative;
+  background-color: #FEFEFE;
+  border: 1px solid #979797;
+  border-radius: 2px;
+  font-size: 14px;
+  color: #959595;
+  padding: 10px;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, .04);
+  width: 100%;
+  outline: none;
+}
+
+input[type=submit]:hover {
+  background-color: #3F91CC;
+  color: #FFFFFF;
+  border-color: #1A79AA;
+}
+
+audio {
+  width: 100%;
+}

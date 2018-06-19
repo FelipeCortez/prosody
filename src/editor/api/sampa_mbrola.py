@@ -79,27 +79,32 @@ class Converter():
         elif self.equivs:
             # s is a special case, needs to peek next
             if sentence[0] == "s":
-                if sentence[1] in "aeiou&":
-                    return ("s", 1)
+                try:
+                    if sentence[1] in "aeiou&":
+                        return ("s", 1)
+                except IndexError:
+                    pass
 
             for equiv in self.equivs.items():
-
                 if re.match(re.escape(equiv[0]), sentence):
                     # print("match:", equiv[0], phoneme, "=", equiv[1])
                     return (equiv[1], len(equiv[0]))
 
-        return (phoneme[0], 1)
+        return (equiv[0], 1)
 
 
-    def get_duration(self, phoneme: str) -> int:
+    def get_duration(self, phoneme: str, factor: float) -> float:
         if self.durations and phoneme in self.durations:
-            return self.durations[phoneme]
+            return str(int(float(self.durations[phoneme]) * factor))
         else:
-            return 100
+            return 100 * factor
 
     def convert_sentence(self, input_str: str) -> Sentence:
+        key = 100
+        factor = 1 / 1.0
+
         sentence = Sentence()
-        sentence.phones.append(Phone(" ", "_", 150, [[50, 150]]))
+        sentence.phones.append(Phone(" ", "_", 150 * factor, [[50, key]]))
 
         ignored = ["@", "\n", ",", "'", "^", ";"]
 
@@ -113,19 +118,19 @@ class Converter():
                 phone_sampa = sampa[:converted[1]]
                 sampa = sampa[converted[1]:]
 
-                duration = self.get_duration(converted[0])
+                duration = self.get_duration(converted[0], factor)
                 phone = Phone(
                     phone_sampa = phone_sampa,
                     phone_mbrola = converted[0],
-                    duration = int(duration),
-                    pitch_changes = [[50, 150]] # percentage, Hz
+                    duration = duration,
+                    pitch_changes = [[50, key]] # percentage, Hz
                 )
 
                 sentence.phones.append(phone)
             else:
                 sampa = sampa[1:]
 
-        sentence.phones.append(Phone(" ", "_", 150, [[50, 150]]))
+        sentence.phones.append(Phone(" ", "_", 150 * factor, [[50, key]]))
         return sentence
 
     def text_to_sampa(self, sentence: str) -> str:
