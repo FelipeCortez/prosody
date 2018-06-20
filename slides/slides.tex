@@ -9,9 +9,22 @@
 \usepackage[utf8]{inputenc}     % Encoding certo
 \usepackage[brazilian]{babel}   % Hifenização e dicionário
 
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{positioning, fit, arrows.meta, backgrounds}
+
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
 
 \setbeamertemplate{navigation symbols}{}  % Esconde o menu tosco
 \usetheme{Madrid}
@@ -39,6 +52,14 @@
 \end{frame}
 
 \section{Introdução}
+\begin{frame}
+  \begin{aquote}{Leonhard Euler, 1761}
+    It would be a considerable invention indeed, that of
+    a machine able to mimic speech, with its sounds and articulations.
+    I think it is not impossible."
+  \end{aquote}
+\end{frame}
+
 \begin{frame}{Motivação}
   \begin{itemize}
     \item \emph{Voice User Interfaces}
@@ -49,19 +70,40 @@
             \item \emph{Amazon - Alexa}
         \end{itemize}
     \item Acessibilidade
+    \item Ensino de linguagens
+    \item Estudo de linguística
+    \item Prosódia afetiva
   \end{itemize}
 \end{frame}
 
 \section{Prosódia}
 \begin{frame}{Prosódia}
   \begin{itemize}
-    \item O que é prosódia?
-        \begin{itemize}
-            \item pros, "verso"
-            \item odé,  "canto"
-        \end{itemize}
+    \item pros (verso) - odé (canto)
+     \item Suprassegmental
+     \item Frequência
+     \item Duração
+     \item Intensidade
   \end{itemize}
+\end{frame}
 
+\begin{frame}{Prosódia}
+    \begin{figure}
+      \includegraphics[scale=0.50]{espectro.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Função prosódica}
+  \begin{itemize}
+    % \citeonline{taylor2009} argumenta que uma das dificuldades do desenvolvimento de um bom modelo de prosódia se deve à falta de consideração da função comunicativa da fala, isto é, comumente análises são feitas ignorando o contexto da intenção do locutor. Apresenta, então, as três principais funções comunicativas para prosódia, descritas a seguir.
+    \item Suprassegmental
+    \item Afetiva
+    \item Aumentativa
+  \end{itemize}
+\end{frame}
+
+\section{Fundamentação teórica}
+\begin{frame}{Sistemas text-to-speech}
   \begin{figure}[!htbp]
   \centering
   \scalebox{0.80}{
@@ -81,94 +123,195 @@
       \draw[->] (dsp) -- (fal);
       \end{tikzpicture}
   }
-  \caption[Arquitetura geral de sistemas TTS]{Arquitetura geral de sistemas TTS. Fonte: Adaptado de \citeonline{tts-book}}
   \label{fig:tts-arch}
   \end{figure}
 
-  \pause
+\end{frame}
+
+\begin{frame}{Arquitetura}
+  \begin{itemize}
+    \item Front end
+    \begin{itemize}
+      \item Normalização de texto
+      \item Conversão grafema-fone
+      \item Geração de prosódia
+    \end{itemize}
+    \item Back end
+    \begin{itemize}
+      \item Síntese articulatória
+      \item Síntese por formantes
+      \item Síntese concatenativa
+      \item Síntese por Hidden Markov Models e Deep Neural Networks
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{O desafio da geração de prosódia}
+  \begin{itemize}
+    \item Elemento extra-textual
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Máquina de Wolfgang von Kempelen (1769)}
     \begin{figure}
-      \includegraphics[scale=0.25]{prosody.png}
+      \includegraphics[scale=0.40]{kempelen.png}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Prosódia}
+\begin{frame}{Sistemas TTS}
   \begin{itemize}
-    \item Afetiva (pura)
-    \item Suprasegmental
-    \item Aumentativa
+      \item Aiuruetê (1997)
+      \item espeak-ng 
+      \item Couto et al (MaryTTS)
+      \item LianeTTS
   \end{itemize}
 \end{frame}
 
-\section{TTS}
-\begin{frame}{Sistemas TTS}
-  \begin{block}{Arquitetura genérica}
+\begin{frame}{Analisando prosódia}
+  \begin{itemize}
+  \item ToBI -- Tone Breaks and Indices
+  \item DaTo -- Dynamic Tones
+  \item INTSINT -- International Transcription System for Intonation
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ToBI}
     \begin{figure}
-      \includegraphics[scale=0.55]{tts-system.png}
+      \includegraphics[scale=0.40]{tobi.png}
     \end{figure}
-  \end{block}
 \end{frame}
 
-\begin{frame}{Prosódia em sistemas TTS}
+\begin{frame}{DaTo}
+    \begin{figure}
+      \includegraphics[scale=0.40]{dato.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{INTSINT}
+    \begin{figure}
+      \includegraphics[scale=0.80]{intsint.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Complementando texto}
   \begin{itemize}
-    \item Prosódia neutra
-    \item Prosódia aprendida
-    \item SSML -- \emph{Speech Synthesis Markup Language}
+  \item SSML -- Speech Synthesis Markup Language
+  \item EmotionML
+  \item Anotações manuais
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Sistemas TTS}
-  \begin{itemize}
-    \item Comerciais
-      \begin{itemize}
-        \item CereProc
-        \item Ivona (Amazon)
-        \item Watson (IBM)
-      \end{itemize}
-    \item Open-source
-      \begin{itemize}
-        \item MaryTTS
-        \item espeak-ng
-        \item Merlin
-      \end{itemize}
-  \end{itemize}
+\begin{frame}{SSML}
+    \begin{figure}
+      \includegraphics[scale=0.60]{ssml.png}
+    \end{figure}
 \end{frame}
 
-\begin{frame}{Abordagens}
-  \begin{itemize}
-    \item Dífonos (MBROLA)
-    \item Unit selection (MaryTTS)
-    \item Síntese paramétrica (espeak-ng)
-    \item DNN (Merlin)
-  \end{itemize}
+\begin{frame}{EmotionML}
+    \begin{figure}
+      \includegraphics[scale=0.40]{emotionml.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Anotações manuais}
+    \begin{figure}
+      \includegraphics[scale=0.60]{manual.png}
+    \end{figure}
 \end{frame}
 
 \section{Implementação}
-\begin{frame}{Teoria}
-  \begin{itemize}
-  \item ToBI (Tone Breaks and Indices)
-    \begin{itemize}
-    \item Usado por análises feitas por Moraes para pt-br
-    \item Usado pelo grupo de pesquisas de TTS da CMU / UoE
-    \item Pierrehumbert (modelo \emph{Autosegmental-Metrical})
-    \end{itemize}
-  \icem INTSINT
-  \item IPO
-  \end{itemize}
+
+\begin{frame}{Arquitetura}
+\begin{figure}[!htbp]
+\centering
+\scalebox{0.80}{
+    \begin{tikzpicture}[auto, >={Latex[inset=0pt, length=3mm, angle'=28,round]}, box/.style={draw,rounded corners,text width=3.0cm,align=center}]
+    \node[] (txt) {Texto};
+    \node[box, right=of txt] (esp)
+        {eSpeakNG};
+    \node[box, right=of esp, line width=1.6pt] (con)
+        {Conversão eSpeakNG para MBROLA};
+    \node[box, right=of con, line width=1.6pt] (sin)
+        {INTSINT};
+    \node[above=of con] (ano)
+        {Texto anotado};
+
+    \node[box, below=of sin, line width=1.6pt] (ser)
+        {Servidor};
+
+    \node[box, left=of ser] (mbr)
+        {MBROLA};
+        
+    \node[box, below=of ser, line width=1.6pt] (int)
+        {Interface gráfica};
+
+    \draw[->] (ano) -- (con);
+    \draw[->] (txt) -- (esp);
+    \draw[->] (esp) -- (con);
+    \draw[->] (con) -- (sin);
+
+    \draw[->] (sin) -- (ser);
+    \draw[->] (mbr) -- (ser);
+
+    \draw[<->] (ser) -- (int);
+
+    \end{tikzpicture}
+}
+\label{fig:arch}
+\end{figure}
 \end{frame}
 
-\begin{frame}{Ferramentas}
-  \begin{itemize}
-    \item Python 3
-    \item espeak-ng (front-end)
-    \item MBROLA (back-end)
-    \item Módulo gráfico
-  \end{itemize}
+\begin{frame}
+\begin{table}[htb]
+	\center
+	{
+		\begin{tabular}{l|l}
+			\hline
+			Regra       & Cálculo \\
+			\hline
+            Top         & $ \text{key} \times \sqrt{2^{range}} $ \\
+            Middle      & $ \text{key} $ \\
+            Bottom      & $ \text{key} / \sqrt{2^{range}} $ \\
+			\hline
+            Higher      & $ \sqrt{P_{i - 1} \times T} $ \\
+            Same        & $ P_{i - 1} $ \\
+            Lower       & $ \sqrt{P_{i - 1} \times B} $ \\
+			\hline
+            Upstepped   & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  T}} $ \\
+            Downstepped & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  B}} $ \\
+			\hline
+		\end{tabular}
+	}
+	\label{tab:intsint}
+\end{table}
+\end{frame}
+
+\begin{frame}{MBROLA}
+  \begin{figure}
+    \includegraphics[scale=0.60]{mbrola.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{table}[htb]
+  Demonstração!
+\end{table}
 \end{frame}
 
 \begin{frame}{Trabalhos futuros}
   \begin{itemize}
-    \item Usar \emph{Natural Language Understanding} para adivinhar prosódia
+    \item Adicionar suporte a outros modelos de análise entoacional
+    \item Usar \emph{Natural Language Understanding} para estimar prosódia
     \item Gerar prosódia a partir de marcação SSML
+    \item Criação de corpus anotado com prosódia para o português brasileiro
   \end{itemize}
 \end{frame}
+
+\section{Perguntas}
+\begin{frame}{Perguntas}
+\begin{aquote}{Miles Davis}
+If you understood everything I said, you'd be me
+\end{aquote}
+\end{frame}
+
 \end{document}
