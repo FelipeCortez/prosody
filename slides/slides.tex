@@ -15,6 +15,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{tikz}
+\usepackage{tipa}
 \usetikzlibrary{positioning, fit, arrows.meta, backgrounds}
 
 \def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
@@ -62,6 +63,7 @@
 
 \begin{frame}{Motivação}
   \begin{itemize}
+    \item Euler e Wolfgang von Kempelen
     \item \emph{Voice User Interfaces}
         \begin{itemize}
             \item \emph{Apple - Siri}
@@ -76,7 +78,8 @@
   \end{itemize}
 \end{frame}
 
-\section{Prosódia}
+\section{Fundamentação teórica}
+\subsection{Prosódia}
 \begin{frame}{Prosódia}
   \begin{itemize}
     \item pros (verso) - odé (canto)
@@ -102,7 +105,7 @@
   \end{itemize}
 \end{frame}
 
-\section{Fundamentação teórica}
+\subsection{Sistemas text-to-speech}
 \begin{frame}{Sistemas text-to-speech}
   \begin{figure}[!htbp]
   \centering
@@ -146,24 +149,89 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{O desafio da geração de prosódia}
+\begin{frame}{Front end}
   \begin{itemize}
-    \item Elemento extra-textual
+    \item Normalização de texto
+      \begin{itemize}
+        \item A conta deu R\$ 20, V. Exa. Pode conferir?
+      \end{itemize}
+    \item Conversão grafema-fone
+      \begin{itemize}
+        \item Gosto de pão
+        \item \textipa{[gOstu]} (gósto)
+        \item \textipa{[gostu]} (gôsto)
+      \end{itemize}
+    \item Geração de prosódia
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Máquina de Wolfgang von Kempelen (1769)}
+\begin{frame}{O desafio da geração de prosódia}
+  \pause
+    \begin{figure}
+      \includegraphics[scale=0.40]{machado.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Geração de prosódia}
+      \begin{itemize}
+        \item Heurísticas derivadas a mão
+        \item Sistemas baseados em análise gramatical
+        \item Métodos baseados em corpus
+      \end{itemize}
+\end{frame}
+
+\begin{frame}{Back end}
+\begin{itemize}
+  \item Síntese articulatória
+  \item Síntese por formantes
+  \item Síntese concatenativa
+  \item Síntese por Hidden Markov Models e Deep Neural Networks
+\end{itemize}
+\end{frame}
+
+% • And since it is almost mathematically proven that speech = voice passing
+% through openings it follows that for a speaking machine you need nothing else
+% but
+%    • a lung
+%    • a glottis
+%    • a mouth
+
+\begin{frame}{Máquina de Wolfgang von Kempelen (1778)}
     \begin{figure}
       \includegraphics[scale=0.40]{kempelen.png}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Sistemas TTS}
+\begin{frame}{Articulatória}
+    \begin{figure}
+      \includegraphics[scale=0.30]{pinktrombone.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Formantes}
+    \begin{figure}
+      \includegraphics[scale=0.40]{klatt.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Concatenativa}
+    \begin{figure}
+      \includegraphics[scale=0.60]{concatenative.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{HMM}
+    \begin{figure}
+      \includegraphics[scale=0.38]{hmm.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Sistemas TTS para o português brasileiro}
   \begin{itemize}
-      \item Aiuruetê (1997)
-      \item espeak-ng 
-      \item Couto et al (MaryTTS)
-      \item LianeTTS
+      \item Aiuruetê (1997) -- curvas de frequência pré-definidas
+      \item espeak-ng (2006) -- \emph{pre-head, head, nucleus, tail}
+      \item Couto et al (2010) -- probabilístico
+      \item LianeTTS (2011) -- partes do discurso
   \end{itemize}
 \end{frame}
 
@@ -245,6 +313,7 @@
     \node[box, below=of ser, line width=1.6pt] (int)
         {Interface gráfica};
 
+    \draw[->] (ano) -| (txt);
     \draw[->] (ano) -- (con);
     \draw[->] (txt) -- (esp);
     \draw[->] (esp) -- (con);
@@ -290,6 +359,12 @@
   \begin{figure}
     \includegraphics[scale=0.60]{mbrola.png}
   \end{figure}
+\end{frame}
+
+\begin{frame}{Concatenando dífonos}
+    \begin{figure}
+      \includegraphics[scale=0.60]{concatenative.png}
+    \end{figure}
 \end{frame}
 
 \begin{frame}

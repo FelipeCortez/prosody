@@ -23,6 +23,7 @@
     "amsfonts"
     "amssymb"
     "tikz"
+    "tipa"
     "times")
    (TeX-add-symbols
     "signed")

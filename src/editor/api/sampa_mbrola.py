@@ -98,13 +98,13 @@ class Converter():
 
     def get_duration(self, phoneme: str, factor: float) -> float:
         if self.durations and phoneme in self.durations:
-            return str(int(float(self.durations[phoneme]) * factor))
+            return int(float(self.durations[phoneme]) * factor)
         else:
             return 100 * factor
 
     def convert_sentence(self, input_str: str) -> Sentence:
-        key = 115
-        octaves = .8
+        key = 125
+        octaves = 1.2
         decl = 0
 
         factor = 1 / 1.0

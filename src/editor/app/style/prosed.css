@@ -20,6 +20,10 @@
   fill: black;
 }
 
+.dot:hover {
+  cursor: grab;
+}
+
 input[type="submit"] {
   position: relative;
   background-color: #FEFEFE;
