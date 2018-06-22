@@ -1,11 +1,11 @@
 % Capítulo 2 - Contextualização ou definição do problema
 
 \chapter{Fundamentação teórica}
-\simb[f0 (frequência fundamental da fala)]
+\simb[$ f_0 $ (frequência fundamental da fala)]
 
 \section{Prosódia}
 \citeonline{tts-book,ladd} descrevem como parâmetros principais da prosódia o
-\emph{pitch} -- termo intercambiável com frequência fundamental ou f0 --,
+\emph{pitch} -- termo intercambiável com frequência fundamental ou $f_0$ --,
 intensidade e duração. Outros nomes para os mesmos fenômenos também são
 utilizados: \citeonline{moraes1998}, por exemplo, separa as características
 principais da prosódia em \emph{stress}, \emph{accent} e \emph{rhythm}. O que as
@@ -17,9 +17,9 @@ sílabas e fones, a prosódia é dita um fenômeno suprassegmental \cite{ladd}.
 
 Além desses componentes principais, \citeonline{taylor2009}
 destaca como aspecto relevante para análise entoacional o \emph{downdrift}
-(declinação), isto é, a queda gradual do valor de f0 durante uma enunciação.
+(declinação), isto é, a queda gradual do valor de $ f_0 $ durante uma enunciação.
 
-% melhor: ladd, f0, intensidade e duração! p.10 lucente
+% melhor: ladd, $ f_0 $, intensidade e duração! p.10 lucente
 
 \subsection{Função prosódica}
 \citeonline{taylor2009} argumenta que uma das dificuldades do desenvolvimento de
@@ -38,14 +38,14 @@ intenção ou emoção de um locutor que fala uma língua estrangeira mesmo sem
 compreender o significado de cada palavra individualmente.
 
 \paragraph{Suprassegmental} Quando uma mensagem é dita de maneira declarativa,
-sem conteúdo afetivo significante -- descrita como \emph{discourse neutral} --,
+sem conteúdo afetivo significativo -- descrita como \emph{discourse neutral} --,
 ainda é possível observar variação de \emph{pitch}, intensidade e duração. Na
 abordagem de \citeonline{taylor2009}, essa parte da prosódia, dita
 suprassegmental, não é considerada conteúdo prosódico verdadeiro, mas sim um
 aspecto da fonética verbal. É possível ainda pensar em prosódia ``real'', ou
 seja, afetiva e aumentativa, como desvios dos parâmetros suprassegmentais.
 
-% If a sentence is spoke with little or no affective content, ie. in a discourse neutral manner, we still see characteristic patterns in the phrasing, rhythm, pitch, voice quality and timing. Typical effects include phones at the ends of sentences or phrases being lengthened, syntactically salient words (e.g. heads) having more emphasis, F0 levels being higher at the starts of sentences and so on.
+% If a sentence is spoke with little or no affective content, ie. in a discourse neutral manner, we still see characteristic patterns in the phrasing, rhythm, pitch, voice quality and timing. Typical effects include phones at the ends of sentences or phrases being lengthened, syntactically salient words (e.g. heads) having more emphasis, $ f_0 $ levels being higher at the starts of sentences and so on.
 \paragraph{Aumentativa} Além da prosódia afetiva, é possível desviar da prosódia
 padrão para assegurar a comunicação efetiva de uma mensagem sem adicionar
 informação ao conteúdo que está sendo dito. É usada, por exemplo, para
@@ -69,7 +69,7 @@ especificamente o módulo de prosódia.
 Na literatura, cada sistema TTS normalmente emprega algoritmos diferentes,
 resultando em múltiplas arquiteturas possíveis para conversão de texto em fala.
 Apesar disso, \citeonline{tts-book} propõe uma arquitetura geral, dividindo os
-sistemas em duas partes principais descritas na figura \ref{fig:tts-arch}.
+sistemas em duas partes principais descritas na Figura \ref{fig:tts-arch}.
 
 \begin{figure}[!htbp]
 \centering
@@ -108,24 +108,29 @@ são adaptadas de \citeonline{martinjurafsky}.
 \subsubsection{Normalização de texto}
 O processo de conversão de texto para fala começa com o processamento do texto a
 fim de gerar uma representação grafêmica. A primeira etapa da normalização é a
-separação em sintagmas, isto é, encontrar os limites de cada frase do texto.
-Frases que terminam com siglas ou abreviações podem dificultar o processo.
+separação de sentenças, isto é, devem ser encontrados os limites de cada frase
+do texto. Frases que terminam com siglas ou abreviações podem dificultar o
+processo, como pode ser observado no exemplo seguinte.
 
-Em seguida, devem-se transformar símbolos, abreviações, siglas e outras
+Posteriormente, devem-se transformar símbolos, abreviações, siglas e outras
 \emph{non-standard words} em suas representações pronunciáveis. Como exemplo,
-``R\$ 50'' deve ser lido como ``cinquenta reais''.
+``V. Exa. me deve R\$ 50'' deve ser lido como ``vossa excelência me deve
+cinquenta reais''.
 
 Por último, deve ser realizada a desambiguação de homônimos heterófonos: em
 ``Gosto de pão'', ``gosto'' pode ser pronunciada como ``gôsto'' ou ``gósto'',
 por exemplo.
 
 \subsubsection{Conversão grafema-fone}
-Com o texto normalizado, é preciso converter letras, isto é, grafemas, em uma
+Com o texto normalizado, é preciso converter letras ou grafemas, em uma
 representação pronunciável, ou seja, fones. Para isso, normalmente é composto um
 conjunto de regras \emph{letter-to-sound} ou letra-som, contendo as pronúncias
 comuns para sequências de letras, juntamente a um dicionário de pronúncia com
 palavras que não se adequam às regras. Para cada palavra, é feita uma busca no
 dicionário, e caso não seja encontrada, utilizam-se as regras.
+
+% TODO: letra vs. grafema
+
 % Palavras não-padrão são colocadas num dicionário de pronúncia. O resto é
 % calculado de acordo com regras letra-som.
 % Context-dependent e independent. Abordagens por machine learning ou regras.
@@ -172,7 +177,7 @@ anotação automática ou manual de prosódia, ênfase ou emoção, fornecendo
 % found from the text has no explicit clues as to what the prosody should be.
 % (taylor p 37)
 %  I wanted to go to London, but could only get tickets for France there seems to be two main intonation phrases, their boundary occurring at the comma
-%  there is often a slight drop in F0 from the beginning of an intonation phrase to its end, which resets at the beginning of a new intonation phrase
+%  there is often a slight drop in $ f_0 $ from the beginning of an intonation phrase to its end, which resets at the beginning of a new intonation phrase
 % A very high-precision rule is the one we saw for sentence segmentation: insert a boundary after punctuation. Another commonly used rule inserts a phrase boundary before a function word following a content word.
 
 \subsection{\emph{Back end}}
@@ -192,19 +197,20 @@ e os parâmetros necessários para o sintetizador.
 
 \subsubsection{Síntese por formantes}
 \label{formant}
-Na figura \ref{fig:spectrum}, podem-se ver duas representações para uma gravação de
+Na Figura \ref{fig:spectrum}, podem-se ver duas representações para uma gravação de
 fala. Acima tem-se a amplitude em função do tempo e abaixo, frequências em
 função do tempo, isto é, a decomposição espectral. O conteúdo frequencial é
-majoritariamente composto por múltiplas senoides de frequências $ f_0 $, $ f_1 =
-f_0 * 2 $, $ f_2 = f_0 * 3 $ e $ f_3 = f_0 * 4 $. A frequência mais baixa é dita
-frequência fundamental ou f0, emitida pela glote. As três senoides imediatamente
-acima, f1, f2 e f3, são chamadas formantes, geradas pela ressonância do filtro
-resultante da posição da língua, queixo e lábio, alterando a intensidade de cada
-componente frequencial. A variação de intensidade de cada formante determina a
-vogal percebida. Sintetizadores por formantes são tentativas de modelagem da
-fala humana pela geração computacional dessas ondas. Apesar da simplicidade do
-modelo, além das senoides principais, pode ser visto na figura conteúdo
-harmônico significante no sinal de uma fala humana. Ao ignorar-se essa parte,
+majoritariamente composto por múltiplas senoides -- também ditas harmônicas --
+de frequências $ f_0 $, $ f_1 = f_0 * 2 $, $ f_2 = f_0 * 3 $ e $ f_3 = f_0 * 4
+$. A frequência mais baixa é dita frequência fundamental ou apenas $ f_0 $,
+emitida pela glote. As três senoides imediatamente acima, f1, f2 e f3, são
+chamadas formantes, geradas pela ressonância do filtro resultante da posição da
+língua, queixo e lábio, alterando a intensidade de cada componente frequencial.
+A variação de intensidade de cada formante determina a vogal percebida.
+Sintetizadores por formantes são tentativas de modelagem da fala humana pela
+geração computacional dessas ondas. Apesar da simplicidade do modelo, além das
+senoides principais, pode ser visto na Figura \ref{fig:spectrum} conteúdo
+harmônico significante no sinal de uma fala humana.  Ao ignorar-se essa parte,
 dita residual, a fala sintetizada é perceptivelmente robótica.
 
 \begin{figure}
@@ -214,7 +220,7 @@ dita residual, a fala sintetizada é perceptivelmente robótica.
   \label{fig:spectrum}
 \end{figure}
 
-% quanto a f0, f1, ver Taylor p. 185/161
+% quanto a $ f_0 $, f1, ver Taylor p. 185/161
 
 \subsubsection{Síntese concatenativa}
 Devido aos problemas destacados para as outras duas abordagens, a maior parte
@@ -272,4 +278,4 @@ individuais.
 % feita a partir de HMMs: \cite{couto}.
 % Projetos mais recentes como \cite{merlin,dnngoogle} utilizam redes neurais para
 % estimação de parâmetros. O trabalho da Google informa? que a estimação da curva
-% F0 é uma possível melhoria.
+% $ f_0 $ é uma possível melhoria.

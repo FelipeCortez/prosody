@@ -23,7 +23,7 @@ Desenvolvido com o objetivo de obter um sistema TTS com fala natural sem custo
 computacional elevado, os autores descartam síntese articulatória e formantes
 justificando que o custo de desenvolvimento seria muito alto, optando por uma
 solução concatenativa. Para a prosódia, a parte de \emph{pitch} utiliza curvas
-f0 associadas a frases declarativas com declinação e as durações segmentais são
+$ f_0 $ associadas a frases declarativas com declinação e as durações segmentais são
 obtidas por redes neurais treinadas a partir de parâmetros como número de vogais
 e clíticos.
 
@@ -33,7 +33,7 @@ permitindo \emph{back end} com síntese por formantes ou concatenativa. Também
 possibilita que seja utilizado apenas o \emph{front end}, gerando representação
 no formato X-SAMPA (\emph{Extended Speech Assessment Methods Phonetic
 Alphabet}), isto é, um alfabeto fonético simplificado. No seu módulo de
-prosódia, determina contorno f0 a partir de pontuação e tabela com regras para
+prosódia, determina contorno $ f_0 $ a partir de pontuação e tabela com regras para
 diferentes posições silábicas: \emph{pre-head}, \emph{head}, \emph{nucleus} e
 \emph{tail}. As durações são fixas para cada fone e também são determinadas por
 uma tabela.
@@ -63,7 +63,7 @@ probabilisticamente a partir do corpus de treinamento.
 \paragraph{LianeTTS \cite{lianetts}}
 Projeto da SERPRO, o LianeTTS utiliza síntese concatenativa através do programa
 MBROLA, descrito na seção \ref{sec:mbrola}. Assim como o eSpeakNG, os
-subsistemas são baseados em regras e tabelas. O cálculo de curva f0 é feito com
+subsistemas são baseados em regras e tabelas. O cálculo de curva $ f_0 $ é feito com
 base em \emph{parts-of-speech tagging}, ou seja, atribuição de classes
 gramaticais a cada palavra do texto de entrada.
 
@@ -91,10 +91,10 @@ brasileiro. A seguir, descrevemos como a ferramenta é utilizada. % \cite{mbrola
 \end{lstlisting}
 
 \subsubsection{Formato}
-Como pode ser observado no código \ref{mbr}, em cada linha tem-se um fone ou um
+Como pode ser observado no Código \ref{mbr}, em cada linha tem-se um fone ou um
 silêncio (representado pelo \emph{underscore}) seguido por uma duração em
 milissegundos e, por último, um ou mais pares de porcentagem e frequência em
-Hertz determinando alvos para a curva f0. Como exemplo, na penúltima linha temos
+Hertz determinando alvos para a curva $ f_0 $. Como exemplo, na penúltima linha temos
 o fone ``e'' com duração de 116 ms e dois alvos para altura; 232 Hz em 20\% e
 300 Hz em 80\%. Para sintetizar a fala, a tabela é lida sequencialmente,
 concatenando pares de fones pré-gravados, e é feita uma interpolação linear
@@ -117,7 +117,7 @@ de frequência. Destacamos a seguir três delas.
 O modelo ToBI -- \emph{Tone Breaks and Indices} \cite{tobi} faz parte da teoria
 métrica-autossegmental e descreve prosódia através de duas camadas. Para a
 entoação, tem-se o \emph{Tonal tier}, que consiste na identificação de
-\emph{pitch accents}: variações de f0 que podem ser categorizadas a partir de
+\emph{pitch accents}: variações de $ f_0 $ que podem ser categorizadas a partir de
 combinações de dois rótulos ``superior'' (H, de \emph{high}) e ``inferior'' (L,
 de \emph{low}). As combinações possíveis do modelo ToBI são H*, L*, H* + L, H +
 L*, L + H* ou L* + H, onde a estrela sinaliza o tom associado à sílaba
@@ -130,11 +130,11 @@ prosódia, com rótulos de 0 a 6, onde 0 indica que duas palavras são
 pronunciadas juntas, e 6 representa uma separação máxima.
 
 Alguns sistemas TTS, como MaryTTS e Festival, têm suporte a notação ToBI, como se
-pode ver no código \ref{tobifest}.
+pode ver no Código \ref{tobifest}.
 
 O modelo ToBI é utilizado por \citeonline{moraes2008} para analisar uma mesma
 frase com múltiplas intenções, mudando apenas o contorno melódico. Um exemplo de
-oração analisada utilizando o modelo pode ser visto na figura \ref{fig:tobiana}.
+oração analisada utilizando o modelo pode ser visto na Figura \ref{fig:tobiana}.
 
 \begin{figure}
   \centering
@@ -175,19 +175,19 @@ e Lower (L), e, finalmente, dois símbolos denominados iterativos: Upstepped (U)
 e Downstepped (D), indicando subidas e descidas suaves.
 
 Para calcular as frequências-alvo, utilizam-se dois parâmetros fixos
-\emph{key}, definido em Hertz, que indica a f0 média do locutor, e \emph{range},
+\emph{key}, definido em Hertz, que indica a $ f_0 $ média do locutor, e \emph{range},
 definido em oitavas, determinando o alcance máximo da entoação, isto é, quão
 intensas são as variações de \emph{pitch}.
 
 Apesar de ser inicialmente proposto como um modelo de análise, trabalhos
 subsequentes como \citeonline{intsintalg,stoc} utilizaram a notação para sintetizar
-contornos f0. A tabela \ref{tab:intsint} detalha como cada marcação é convertida
-para uma frequência em Hertz para determinação de uma sequência de valores f0.
+contornos $ f_0 $. A Tabela \ref{tab:intsint} detalha como cada marcação é convertida
+para uma frequência em Hertz para determinação de uma sequência de valores $ f_0 $.
 
 O modelo INTSINT foi utilizado por \citeonline{intsintpt} e \citeonline{moraes1998} para analisar entoação para o português brasileiro.
 
 \begin{table}[htb]
-	\textsf{\caption{Regras para INTSINT}}
+	\textsf{\caption{Regras para INTSINT \label{tab:intsint}}}
 	\center
 	{
 		\begin{tabular}{l|l}
@@ -207,10 +207,9 @@ O modelo INTSINT foi utilizado por \citeonline{intsintpt} e \citeonline{moraes19
 			\hline
 		\end{tabular}
 	}
-	\label{tab:intsint}
 \end{table}
 
-% The INTSINT model of Hirst et al [212], [213], [211], was deve loped in an attempt to provide a comprehensive  and multi-lingual  transcription  system fo r intonation.   The model can be seen as “theory-neutral” in that it was designed to transcribe th e intonation of utterances as a way of annotating databases and thereby providing the raw data upo n which intonational theories could be developed. Hirst has described the development of INTSINT a s an attempt to design an equivalent of IPA for intonation. As stated in Section 6.10, there is no s uch thing as completely theory neutral model as all models make some assumptions.  Nevertheless, IN TSINT certainly fulfills its main goals of allowing a phonetic transcription of an utterance t o be made without necessarily deciding which theory or model of intonation will be subsequently use d. INTSINT describes an utterance’s intonation by a sequence o f labels each of which repre- sents a target point. These target points are defined either b y reference to the speaker’s pitch range, 242 Chapter 9. Synthesis of Prosody in which case they are marked Top (T), Mid (M) or Bottom (B), or by reference to the previous tar- get point, in which case they are marked Higher (H), Same (S) o r Lower (L). In addition, accents can be marked as Upstepped (S) or Downstepped (D). Hirst [212] describes this system in detail and shows how it c an be applied to all the major languages.  Several algorithms have also been developed for extracting the labels automatically from the acoustics and for synthesizing F0 contours from the labels 2 .  Applications of this model to synthesis include Veronis et al [475]
+% The INTSINT model of Hirst et al [212], [213], [211], was deve loped in an attempt to provide a comprehensive  and multi-lingual  transcription  system fo r intonation.   The model can be seen as “theory-neutral” in that it was designed to transcribe th e intonation of utterances as a way of annotating databases and thereby providing the raw data upo n which intonational theories could be developed. Hirst has described the development of INTSINT a s an attempt to design an equivalent of IPA for intonation. As stated in Section 6.10, there is no s uch thing as completely theory neutral model as all models make some assumptions.  Nevertheless, IN TSINT certainly fulfills its main goals of allowing a phonetic transcription of an utterance t o be made without necessarily deciding which theory or model of intonation will be subsequently use d. INTSINT describes an utterance’s intonation by a sequence o f labels each of which repre- sents a target point. These target points are defined either b y reference to the speaker’s pitch range, 242 Chapter 9. Synthesis of Prosody in which case they are marked Top (T), Mid (M) or Bottom (B), or by reference to the previous tar- get point, in which case they are marked Higher (H), Same (S) o r Lower (L). In addition, accents can be marked as Upstepped (S) or Downstepped (D). Hirst [212] describes this system in detail and shows how it c an be applied to all the major languages.  Several algorithms have also been developed for extracting the labels automatically from the acoustics and for synthesizing $ f_0 $ contours from the labels 2 .  Applications of this model to synthesis include Veronis et al [475]
 % The AM model is phonological, the INTSINT model phonetic and the Fujisaki and Tilt models acoustic''
 \subsection{DaTo (\emph{Dynamic Tones})}
 Apesar de o modelo ToBI ter sido utilizado para analisar o português brasileiro
@@ -223,8 +222,8 @@ tem-se o conceito de ``tarefa linguística por meio dos contornos entoacionais''
 isto é, as transições entre diferentes pontos de ênfase tornam-se o meio de
 análise, em vez de simples preenchimento entre eventos estáticos, justificando o
 nome \emph{\emph{Dynamic} Tones}. As anotações possíveis para análise
-entoacionais são mostradas na tabela \ref{tab:dato} e um exemplo de oração
-analisada utilizando o modelo pode ser visto na figura \ref{fig:dato}.
+entoacionais são mostradas na Tabela \ref{tab:dato} e um exemplo de oração
+analisada utilizando o modelo pode ser visto na Figura \ref{fig:dato}.
 
 \begin{figure}
   \centering
@@ -236,24 +235,24 @@ analisada utilizando o modelo pode ser visto na figura \ref{fig:dato}.
 % trabalha com o conceito de contorno dinâmico, que é de nido em Lucente (2012, p. 99) como “uma unidade tonal que contém elementos comuni- cativos expressos em uma trajetória ideal da curva entoacional, especi cada por um alvo a ser atingido e associada a uma unidade segmental linguística”
 
 \begin{table}[htb]
-	\textsf{\caption{Regras para DaTo}}
+	\textsf{\caption{Regras para DaTo \label{tab:dato}}}
+	
 	\center
 	{
 		\begin{tabular}{l|l}
 			\hline
 			Contorno          & Notação \\
 			\hline
-            Rising            & LH  \\
-            Late rising       & >LH  \\
-            Compressed rising & vLH  \\
-            Rising falling    & LHL  \\
-            Late falling      & >HL  \\
-            Late rising       & vHL  \\
-            Falling rising    & HLH  \\
+            Rising              & LH  \\
+            Late rising         & >LH  \\
+            Compressed rising   & vLH  \\
+            Rising falling      & LHL  \\
+            Late falling        & >HL  \\
+            Compressed falling  & vHL  \\
+            Falling rising      & HLH  \\
 			\hline
 		\end{tabular}
 	}
-	\label{tab:dato}
 \end{table}
 
 \section{Prosódia afetiva em sistemas TTS}
@@ -294,24 +293,20 @@ determinarem prosódia.
 Como menciona \citeonline{taylor2009}, não há um acordo quanto ao sistema mais
 apropriado para representar emoções. A linguagem de marcação tem suporte a
 múltiplos sistemas descritivos, como categorias, dimensões, \emph{appraisals} e \emph{action tendencies}. As categorias podem receber valores discretos (como pode ser
-visto no código \ref{lst:discreto}), determinando se uma emoção está presente, ou
+visto no Código \ref{lst:discreto}), determinando se uma emoção está presente, ou
 valores contínuos, determinando a intensidade de uma emoção específica (como
-pode ser visto no código \ref{lst:ssmlemotion}), permitindo múltiplas categorias
+pode ser visto no Código \ref{lst:ssmlemotion}), permitindo múltiplas categorias
 simultaneamente.
 
 Na literatura, \citeonline{emotionmary} descrevem um algoritmo para implementação de
 cálculo de parâmetros prosódicos a partir de anotações em EmotionML utilizando o
 \emph{framework} MaryTTS.
 
-% 
-% \subsubsection{IPO}
-% % página 32
-% Sistema proposto pela Escola Holandesa. Utilizada por \citeonline{ipo} para analisar a
-% prosódia no português brasileiro.
-
 % Emotions can be represented in terms of four types of de-
 % scriptions  taken  from  the  scientific  literature:  categories,
-% dimensions, appraisals, and action tendencie
+% dimensions, appraisals, and action tendencies
+
+% TODO: explicar melhor cada sistema de emoção
 
 \begin{lstlisting}[caption=Exemplo de texto anotado com EmotionML com parâmetros
   discretos, label=lst:discreto]
@@ -341,14 +336,14 @@ cálculo de parâmetros prosódicos a partir de anotações em EmotionML utiliza
 % Expressive speech synthesis, generating synthetic speech with different emotions, such as happy or sad, friendly or apologetic; expressive synthetic speech would for example make more information available to blind and partially sighted people, and enrich their experience of the content;
 
 \subsection{Anotação manual}
-Uma solução mais simples para geração de contornos f0 para prosódia efetiva é
+Uma solução mais simples para geração de contornos $ f_0 $ para prosódia efetiva é
 permitir que o usuário especifique na entrada do programa TTS marcações
 prosódicas utilizando um dos modelos de análise entoacional vistos
 anteriormente na seção \ref{entoa}. Apesar de requerer conhecimento de
 fonologia, é uma opção viável enquanto não são desenvolvidos algoritmos para
 determinação de prosódia a partir de marcação emocional. O sistema Festival
 \cite{festival} disponibiliza uma maneira de especificar entoação seguindo o
-modelo ToBI, como pode ser visto no código \ref{tobifest}.
+modelo ToBI, como pode ser visto no Código \ref{tobifest}.
 
 \begin{lstlisting}[caption=Anotações no modelo ToBI para o sistema TTS Festival,
   label=tobifest]
