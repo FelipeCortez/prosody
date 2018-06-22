@@ -79,16 +79,22 @@ brasileiro. A seguir, descrevemos como a ferramenta é utilizada. % \cite{mbrola
 % biggest challenges taken up by Text-to-Speech synthesizers for the years to
 % come.
 
-\begin{lstlisting}[caption=Exemplo de arquivo de entrada para MBROLA, label=mbr]
-      _ 150 50 150
-      t  70 50 125
-      e 125 50 75
-      c  70 50 125
-      e 125 50 75
-      c  70 50 125
-      e 116 20 232 80 300
-      _ 150 50 150
-\end{lstlisting}
+\begin{figure}[thp] % the figure provides the caption
+    \centering          % which should be centered
+    \caption{Exemplo de arquivo de entrada para MBROLA}
+    \begin{tabular}{c}  % the tabular makes the listing as small as possible and centers it
+        \begin{lstlisting}[label=mbr]
+            _ 150 50 150
+            t  70 50 125
+            e 125 50 75
+            c  70 50 125
+            e 125 50 75
+            c  70 50 125
+            e 116 20 232 80 300
+            _ 150 50 150
+        \end{lstlisting}
+    \end{tabular}
+\end{figure}
 
 \subsubsection{Formato}
 Como pode ser observado no Código \ref{mbr}, em cada linha tem-se um fone ou um
@@ -187,26 +193,26 @@ para uma frequência em Hertz para determinação de uma sequência de valores $
 O modelo INTSINT foi utilizado por \citeonline{intsintpt} e \citeonline{moraes1998} para analisar entoação para o português brasileiro.
 
 \begin{table}[htb]
-	\textsf{\caption{Regras para INTSINT \label{tab:intsint}}}
-	\center
-	{
-		\begin{tabular}{l|l}
-			\hline
-			Regra       & Cálculo \\
-			\hline
+        \textsf{\caption{Regras para INTSINT \label{tab:intsint}}}
+        \center
+        {
+                \begin{tabular}{l|l}
+                        \hline
+                        Regra       & Cálculo \\
+                        \hline
             Top         & $ \text{key} \times \sqrt{2^{range}} $ \\
             Middle      & $ \text{key} $ \\
             Bottom      & $ \text{key} / \sqrt{2^{range}} $ \\
-			\hline
+                        \hline
             Higher      & $ \sqrt{P_{i - 1} \times T} $ \\
             Same        & $ P_{i - 1} $ \\
             Lower       & $ \sqrt{P_{i - 1} \times B} $ \\
-			\hline
+                        \hline
             Upstepped   & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  T}} $ \\
             Downstepped & $ \sqrt{P_{i - 1} \times  \sqrt{P_{i - 1} \times  B}} $ \\
-			\hline
-		\end{tabular}
-	}
+                        \hline
+                \end{tabular}
+        }
 \end{table}
 
 % The INTSINT model of Hirst et al [212], [213], [211], was deve loped in an attempt to provide a comprehensive  and multi-lingual  transcription  system fo r intonation.   The model can be seen as “theory-neutral” in that it was designed to transcribe th e intonation of utterances as a way of annotating databases and thereby providing the raw data upo n which intonational theories could be developed. Hirst has described the development of INTSINT a s an attempt to design an equivalent of IPA for intonation. As stated in Section 6.10, there is no s uch thing as completely theory neutral model as all models make some assumptions.  Nevertheless, IN TSINT certainly fulfills its main goals of allowing a phonetic transcription of an utterance t o be made without necessarily deciding which theory or model of intonation will be subsequently use d. INTSINT describes an utterance’s intonation by a sequence o f labels each of which repre- sents a target point. These target points are defined either b y reference to the speaker’s pitch range, 242 Chapter 9. Synthesis of Prosody in which case they are marked Top (T), Mid (M) or Bottom (B), or by reference to the previous tar- get point, in which case they are marked Higher (H), Same (S) o r Lower (L). In addition, accents can be marked as Upstepped (S) or Downstepped (D). Hirst [212] describes this system in detail and shows how it c an be applied to all the major languages.  Several algorithms have also been developed for extracting the labels automatically from the acoustics and for synthesizing $ f_0 $ contours from the labels 2 .  Applications of this model to synthesis include Veronis et al [475]
@@ -235,14 +241,14 @@ analisada utilizando o modelo pode ser visto na Figura \ref{fig:dato}.
 % trabalha com o conceito de contorno dinâmico, que é de nido em Lucente (2012, p. 99) como “uma unidade tonal que contém elementos comuni- cativos expressos em uma trajetória ideal da curva entoacional, especi cada por um alvo a ser atingido e associada a uma unidade segmental linguística”
 
 \begin{table}[htb]
-	\textsf{\caption{Regras para DaTo \label{tab:dato}}}
-	
-	\center
-	{
-		\begin{tabular}{l|l}
-			\hline
-			Contorno          & Notação \\
-			\hline
+        \textsf{\caption{Regras para DaTo \label{tab:dato}}}
+
+        \center
+        {
+                \begin{tabular}{l|l}
+                        \hline
+                        Contorno          & Notação \\
+                        \hline
             Rising              & LH  \\
             Late rising         & >LH  \\
             Compressed rising   & vLH  \\
@@ -250,9 +256,9 @@ analisada utilizando o modelo pode ser visto na Figura \ref{fig:dato}.
             Late falling        & >HL  \\
             Compressed falling  & vHL  \\
             Falling rising      & HLH  \\
-			\hline
-		\end{tabular}
-	}
+                        \hline
+                \end{tabular}
+        }
 \end{table}
 
 \section{Prosódia afetiva em sistemas TTS}
@@ -276,11 +282,17 @@ proprietários encontrados em Alexa, Google Assistant e Cortana. A especificaç�
 e \emph{prosody} como marcadores que podem auxiliar o processador de linguagem
 natural a gerar parâmetros prosódicos apropriados.
 
-\begin{lstlisting}[caption=Exemplo de texto anotado com SSML]
-<speak>
-    Siga <emphasis level="strong">aquele</emphasis> carro.
-</speak> 
-\end{lstlisting}
+\begin{figure}[thp]
+    \centering
+    \begin{tabular}{c}
+        \begin{lstlisting}
+        <speak>
+            Siga <emphasis level="strong">aquele</emphasis> carro.
+        </speak>
+        \end{lstlisting}
+    \end{tabular}
+    \caption{Exemplo de texto anotado com SSML}
+\end{figure}
 
 % http://mary.dfki.de/documentation/overview.html
 % https://www.w3.org/TR/emotionml/
@@ -308,30 +320,24 @@ cálculo de parâmetros prosódicos a partir de anotações em EmotionML utiliza
 
 % TODO: explicar melhor cada sistema de emoção
 
-\begin{lstlisting}[caption=Exemplo de texto anotado com EmotionML com parâmetros
-  discretos, label=lst:discreto]
-<emotionml version="1.0" xmlns="http://www.w3.org/2009/10/emotionml">
-  <emotion category-set="http://www.w3.org/TR/emotion-voc/xml#everyday-categories">
-  <emotion>
-    <category name="happy" />
-    Que bom te ver!
-  </emotion>
-</emotionml>
-\end{lstlisting}
-
-\begin{lstlisting}[caption=Exemplo de texto anotado com SSML e EmotionML
-  (adaptado de \cite{emotionml}), label=lst:ssmlemotion]
-<speak version="1.1" xmlns="http://www.w3.org/2001/10/synthesis"
-         xmlns:emo="http://www.w3.org/2009/10/emotionml"
-         xml:lang="en-US">
-    <s>
-        <emo:emotion category-set="http://www.w3.org/TR/emotion-voc/xml#everyday-categories">
-            <emo:category name="worried" value="0.4"/>
-        </emo:emotion>
-        Precisa de ajuda?
-    </s>
-</speak>
-\end{lstlisting}
+\begin{figure}[thp]
+    \centering
+    \begin{tabular}{c}
+        \begin{lstlisting}[label=lst:ssmlemotion]
+        <speak version="1.1" xmlns="http://www.w3.org/2001/10/synthesis"
+                xmlns:emo="http://www.w3.org/2009/10/emotionml"
+                xml:lang="en-US">
+            <s>
+                <emo:emotion category-set="http://www.w3.org/TR/emotion-voc/xml#everyday-categories">
+                    <emo:category name="worried" value="0.4"/>
+                </emo:emotion>
+                Precisa de ajuda?
+            </s>
+        </speak>
+        \end{lstlisting}
+    \end{tabular}
+    \caption{Exemplo de texto anotado com SSML e EmotionML (adaptado de \citeonline{emotionml})}
+\end{figure}
 
 % Expressive speech synthesis, generating synthetic speech with different emotions, such as happy or sad, friendly or apologetic; expressive synthetic speech would for example make more information available to blind and partially sighted people, and enrich their experience of the content;
 
@@ -345,15 +351,20 @@ determinação de prosódia a partir de marcação emocional. O sistema Festival
 \cite{festival} disponibiliza uma maneira de especificar entoação seguindo o
 modelo ToBI, como pode ser visto no Código \ref{tobifest}.
 
-\begin{lstlisting}[caption=Anotações no modelo ToBI para o sistema TTS Festival,
-  label=tobifest]
-(Utterance Words 
- (The
-  (boy ((accent L*)))
-  saw
-  the
-  (girl ((accent H*) (tone L-)))
-  with 
-  the
-  (telescope ((accent H*) (tone H-H%))))))
-\end{lstlisting}
+\begin{figure}[thp] % the figure provides the caption
+    \centering          % which should be centered
+    \begin{tabular}{c}  % the tabular makes the listing as small as possible and centers it
+        \begin{lstlisting}[, label=tobifest]
+        (Utterance Words
+        (The
+        (boy ((accent L*)))
+        saw
+        the
+        (girl ((accent H*) (tone L-)))
+        with
+        the
+        (telescope ((accent H*) (tone H-H%))))))
+        \end{lstlisting}
+    \end{tabular}
+    \caption{Anotações no modelo ToBI para o sistema TTS Festival}
+\end{figure}

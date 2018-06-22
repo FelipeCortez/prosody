@@ -33,12 +33,16 @@ fones pode ser visto no Código \ref{lst:espeak}.
 da palavra.
 \end{itemize}
 
-\begin{lstlisting}[caption=Utilização do programa espeak e saída correspondente,
-  label=lst:espeak]
-  $ espeak-ng -v pt-br 'Bom dia' -x -q --sep=/
-  $ b/'o/N dZ/'i/&
-\end{lstlisting}
-
+\begin{figure}[thp]
+    \centering
+    \begin{tabular}{c}
+        \begin{lstlisting}[label=lst:espeak]
+        $ espeak-ng -v pt-br 'Bom dia' -x -q --sep=/
+        $ b/'o/N dZ/'i/&
+        \end{lstlisting}
+    \end{tabular}
+    \caption{Utilização do programa espeak e saída correspondente}
+\end{figure}
 
 Apesar da existência de outras ferramentas para \emph{front end} para o
 português brasileiro, optamos pelo eSpeakNG pela disponibilidade e facilidade de
@@ -60,14 +64,21 @@ exemplo numa palavra do português. No Código \ref{sampambrola} é possível ve
 algumas linhas do arquivo. Utilizamos neste trabalho a voz \code{br3}
 desenvolvida por Denis R. Costa disponível no site oficial do projeto MBROLA.
 
-\begin{lstlisting}[caption=Extrato de linhas da tabela de conversão, label=sampambrola]
-  b  |  b  | _b_arco
-  k  |  k  | _c_om
-  d  |  d  | _d_ose
-  &  |  a  |  v_a_le
-  6  |  @  |  tam_a_nho
-  n  |  n  |  _n_unca
-\end{lstlisting}
+\begin{figure}[thp]
+    \centering
+    \begin{tabular}{c}
+        \begin{lstlisting}[label=sampambrola]
+        b  |  b  | _b_arco
+        k  |  k  | _c_om
+        d  |  d  | _d_ose
+        &  |  a  | v_a_le
+        6  |  @  | tam_a_nho
+        n  |  n  | _n_unca
+        \end{lstlisting}
+
+    \end{tabular}
+    \caption{Extrato de linhas da tabela de conversão}
+\end{figure}
 
 Além da conversão XSAMPA-MBROLA, são determinadas as durações padrão para cada
 fone a partir da Tabela \code{durations.tbl}, adaptada do código utilizado pelo
@@ -193,11 +204,17 @@ contendo a fala sintetizada.
 O programa pode ser executado através de uma interface de linha de comandos,
 como ilustrado no Código \ref{cmdline}.
 
-\begin{lstlisting}[caption=Utilização por linha de comandos, label=cmdline, language=Python]
-$ echo "Testando" | python3 sampa_mbrola.py > out.pho
-$ mbrola ../br3/br3 out.pho out.wav; afplay out.wav
-\end{lstlisting}
+\begin{figure}[thp]
+    \centering
+    \begin{tabular}{c}
+        \begin{lstlisting}[label=cmdline, language=Python]
+        $ echo "Testando" | python3 sampa_mbrola.py > out.pho
+        $ mbrola ../br3/br3 out.pho out.wav; afplay out.wav
+        \end{lstlisting}
 
+    \end{tabular}
+    \caption{Utilização por linha de comandos}
+\end{figure}
 Alternativamente, pode-se utilizar um navegador e ter acesso à interface
 gráfica descrita anteriormente e vista na Figura \ref{fig:ed}, permitindo edição de parâmetros para fones individuais.
 

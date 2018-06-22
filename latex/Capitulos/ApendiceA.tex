@@ -2,17 +2,12 @@
 \apendice
 \chapter{Primeiro apêndice}
 
-\begin{figure}
-  \centering
-    \includegraphics[width=1\textwidth]{Imagens/editor.png}
-  \caption{Editor gráfico}
-  \label{fig:ed}
-\end{figure}
-
 \begin{lstlisting}[caption=Servidor, label=servidor, language=Python]
 import sqlite3
+import subprocess
 import sampa_mbrola
-from flask import Flask, g, jsonify, render_template, abort, request
+import secrets
+from flask import Flask, g, jsonify, render_template, abort, request, send_file
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -25,9 +20,30 @@ def frontend():
     sentence = converter.convert_sentence(text)
     return jsonify(sentence.dictify())
 
-@app.route('/api/mbrola', methods=['GET'])
-def mbrola(page):
-    pass
+@app.route('/api/gen_audio', methods=['POST'])
+def gen_audio():
+    text = request.form["text"]
+    converter = sampa_mbrola.Converter()
+    sentence = converter.convert_sentence(text)
+
+    token = secrets.token_hex(nbytes=4)
+    with open(f"out/{token}.pho", 'w') as f:
+        f.write(str(sentence))
+
+    mbrola_str = f"mbrola br3/br3 out/{token}.pho out/{token}.wav"
+    p = subprocess.Popen(mbrola_str, stdout=subprocess.PIPE, shell=True)
+    (output, err) = p.communicate()
+    p_status = p.wait()
+
+    return jsonify({"token": token, "sentence": sentence.dictify()})
+
+@app.route('/api/get_audio/<token>', methods=['GET'])
+def get_audio(token):
+    return send_file(
+        f"out/{token}.wav",
+        mimetype="audio/wav",
+        as_attachment=True,
+        attachment_filename=f"out/{token}.wav")
 
 if __name__ == '__main__':
     app.run(debug=True)
@@ -39,6 +55,8 @@ import re
 import subprocess
 import random
 import json
+import uuid
+from math import sqrt
 from collections import OrderedDict
 from typing import List
 
@@ -51,12 +69,14 @@ class Phone():
             phone_sampa: str,
             phone_mbrola: str,
             duration: int,
-            pitch_changes: list
+            pitch_changes: list,
+            stress: bool = False
     ):
         self.phone_sampa = phone_sampa
         self.phone_mbrola = phone_mbrola
         self.duration = duration
         self.pitch_changes = pitch_changes
+        self.stress = stress
 
     def as_line(self):
         return "{} {} {}".format(
@@ -114,53 +134,93 @@ class Converter():
         elif self.equivs:
             # s is a special case, needs to peek next
             if sentence[0] == "s":
-                if sentence[1] in "aeiou&":
-                    return ("s", 1)
+                try:
+                    if sentence[1] in "aeiouyAEIOUY&,":
+                        return ("s", 1)
+                except IndexError:
+                    pass
 
             for equiv in self.equivs.items():
-
                 if re.match(re.escape(equiv[0]), sentence):
                     # print("match:", equiv[0], phoneme, "=", equiv[1])
                     return (equiv[1], len(equiv[0]))
 
-        # print("didn't match", phoneme)
-        return (phoneme[0], 1)
+        return (equiv[0], 1)
 
-    def get_duration(self, phoneme: str) -> int:
+
+    def get_duration(self, phoneme: str, factor: float) -> float:
         if self.durations and phoneme in self.durations:
-            return self.durations[phoneme]
+            return int(float(self.durations[phoneme]) * factor)
         else:
-            return 100
+            return 100 * factor
 
     def convert_sentence(self, input_str: str) -> Sentence:
+        key = 125
+        octaves = 1.2
+        decl = 0
+
+        factor = 1 / 1.0
+        freq = key
+
+        freq_t = key * sqrt(2 ** octaves)
+        freq_m = key
+        freq_b = key / sqrt(2 ** octaves)
+
         sentence = Sentence()
-        sentence.phones.append(Phone(" ", "_", 150, [[50, 150]]))
+        sentence.phones.append(Phone(" ", "_", 150 * factor, [[50, key]]))
 
         ignored = ["@", "\n", ",", "'", "^", ";"]
 
-        sampa = self.text_to_sampa(input_str)
-        sampa = sampa.replace("'", "")
-        print(";; ", sampa)
+        for word in input_str.split():
+            print(word)
+            labeled = re.match(r"\[([TMBHSLUD])\]", word)
+            if labeled:
+                word = re.sub(r"\[[TMBHSLUD]\]", "", word)
+                label = labeled.group(1)
+                if label == "T":
+                    freq = freq_t
+                elif label == "M":
+                    freq = freq_m
+                elif label == "B":
+                    freq = freq_b
+                elif label == "H":
+                    print(freq)
+                    freq = sqrt(freq * freq_t)
+                    print(freq)
+                elif label == "S":
+                    freq = freq
+                elif label == "L":
+                    freq = sqrt(freq * freq_b)
+                elif label == "U":
+                    freq = sqrt(freq * sqrt(freq * freq_t))
+                elif label == "D":
+                    freq = sqrt(freq * sqrt(freq * freq_b))
 
-        while sampa:
-            if sampa[0] not in ignored:
-                converted = self.convert_phoneme(sampa)
-                phone_sampa = sampa[:converted[1]]
-                sampa = sampa[converted[1]:]
+            sampa = self.text_to_sampa(word)
+            sampa = sampa.replace("'", "")
+            print(";; ", sampa)
 
-                duration = self.get_duration(converted[0])
-                phone = Phone(
-                    phone_sampa = phone_sampa,
-                    phone_mbrola = converted[0],
-                    duration = int(duration),
-                    pitch_changes = [[50, 150]] # percentage, Hz
-                )
+            while sampa:
+                if sampa[0] not in ignored:
+                    converted = self.convert_phoneme(sampa)
+                    phone_sampa = sampa[:converted[1]]
+                    sampa = sampa[converted[1]:]
 
-                sentence.phones.append(phone)
-            else:
-                sampa = sampa[1:]
+                    duration = self.get_duration(converted[0], factor)
+                    phone = Phone(
+                        phone_sampa = phone_sampa,
+                        phone_mbrola = converted[0],
+                        duration = duration,
+                        pitch_changes = [[50, freq + decl]],
+                        stress = False# percentage, Hz
+                    )
 
-        sentence.phones.append(Phone(" ", "_", 150, [[50, 150]]))
+                    sentence.phones.append(phone)
+                else:
+                    sampa = sampa[1:]
+                decl -= 1
+
+        sentence.phones.append(Phone(" ", "_", 150 * factor, [[50, freq]]))
         return sentence
 
     def text_to_sampa(self, sentence: str) -> str:
@@ -171,8 +231,8 @@ class Converter():
         p_status = p.wait()
         output = output.decode("utf-8")
         output = output.replace("\n", "").strip()
-        return output
 
+        return output
 
 if __name__ == "__main__":
     converter = Converter()
@@ -182,41 +242,98 @@ if __name__ == "__main__":
         print(converter.convert_sentence(line))
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Editor gráfico, label=editorjs, language=Python]
-var app = new Vue({
-  el: '#app',
-  data: {
-    phones: [],
-    height: 300
-  },
-  mounted: function() {
-    var self = this;
-    const requestURL = "http://127.0.0.1:5000/api/espeak";
-    let XHR = new XMLHttpRequest();
-    let FD  = new FormData();
+\begin{lstlisting}[caption=Script para editor gráfico, label=editorjs, language=Python]
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
 
-    FD.append("text", "Bom dia, comunidade");
+var self = this;
+const requestURL = "http://127.0.0.1:5000/api/espeak";
+let XHR = new XMLHttpRequest();
+let FD  = new FormData();
 
-    XHR.open("POST", requestURL);
-    XHR.send(FD);
+let textBox = document.querySelector("#textBox");
 
-    XHR.onreadystatechange = function() {
-      if (XHR.readyState === XMLHttpRequest.DONE) {
-        if (XHR.status === 200) {
-          const results = JSON.parse(XHR.responseText);
-          self.phones = results;
-        }
-      }
-    };
-  },
-  computed: {
-    totalDuration: function() {
-      let durations = this.phones.map((phone) => phone.duration);
-      console.log(durations.reduce((acc, val) => acc + val, 0));
-      return durations.reduce((acc, val) => acc + val, 0);
-    }
+let audio = document.querySelector("#audio");
+let audioSource = document.querySelector("#audioSource");
+
+let postDiv = document.querySelector("#post");
+postDiv.style.display = "none";
+
+let genBtn = document.querySelector("#generateBtn");
+
+let drawArea = document.querySelector("#drawArea");
+
+genBtn.addEventListener("click", function( event ) {
+  while (drawArea.firstChild) {
+    drawArea.removeChild(drawArea.firstChild);
   }
-});
+
+  console.log(textBox.value);
+  const requestURL = "http://127.0.0.1:5000/api/gen_audio";
+
+  let XHR = new XMLHttpRequest();
+  let FD  = new FormData();
+  FD.append("text", textBox.value);
+
+  XHR.open("POST", requestURL);
+  XHR.send(FD);
+
+  XHR.onreadystatechange = function() {
+    if (XHR.readyState === XMLHttpRequest.DONE) {
+      if (XHR.status === 200) {
+        const results = JSON.parse(XHR.responseText);
+        console.log(results);
+        console.log(results.token);
+
+        let curLen = 0;
+        let height = 250;
+
+        for (let phone of results.sentence) {
+          console.log(phone);
+          let txtX = curLen + (phone.duration / 2);
+
+          var svgns = "http://www.w3.org/2000/svg";
+          var rect = document.createElementNS(svgns, 'rect');
+          rect.setAttributeNS(null, 'x', curLen + phone.duration);
+          rect.setAttributeNS(null, 'y', 0);
+          rect.setAttributeNS(null, 'height', height);
+          rect.setAttributeNS(null, 'width', '2');
+          rect.setAttributeNS(null, 'fill', '#CCCCCC');
+          drawArea.appendChild(rect);
+
+          var circ = document.createElementNS(svgns, 'circle');
+          var cx = curLen + ((phone.pitch_changes[0][0] / 100.0) * phone.duration);
+          circ.setAttributeNS(null, 'cx', cx);
+          circ.setAttributeNS(null, 'cy', height - phone.pitch_changes[0][1]);
+          circ.setAttributeNS(null, 'r', 5);
+          circ.setAttributeNS(null, 'fill', '#777777');
+          circ.setAttributeNS(null, 'class', "dot");
+          drawArea.appendChild(circ);
+
+          var text = document.createElementNS(svgns, 'text');
+          var tx = curLen + (phone.duration / 2);
+          text.setAttributeNS(null, 'x', cx);
+          text.setAttributeNS(null, 'y', 20);
+          text.setAttributeNS(null, 'text-anchor', "middle");
+          text.setAttributeNS(null, 'style', "font: 14px sans-serif");
+          text.setAttributeNS(null, 'fill', '#777777');
+          text.textContent = phone.phone_mbrola;
+          drawArea.appendChild(text);
+
+          curLen += phone.duration;
+        }
+        console.log(curLen);
+        drawArea.setAttribute("width", `${curLen}px`);
+
+        audioSource.src = `http://127.0.0.1:5000/api/get_audio/${results.token}`;
+        audio.load();
+        postDiv.style.display = "block";
+      }
+    }
+  };
+
+}, false);
 \end{lstlisting}
 
 \begin{lstlisting}[caption=Exemplo de resposta para \emph{endpoint} do eSpeakNG, label=espeakpost, language=Python]
