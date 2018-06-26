@@ -147,7 +147,11 @@ sintetizada a partir dos novos parâmetros.
 \subsubsection{Arquitetura}
  O editor se comunica com o espeak-ng e MBROLA através de um
 servidor programado em Python utilizando o \emph{framework} Flask para prover
-\emph{endpoints} de uma API \emph{RESTful}. Foi utilizada uma arquitetura cliente-servidor \cite{rest} comumente observada em aplicações \emph{web} atuais. A maneira como os módulos se comunicam pode ser vista na Figura \ref{fig:arch}.
+\emph{endpoints} de uma API \emph{RESTful}. Foi utilizada uma arquitetura
+cliente-servidor \cite{rest} comumente observada em aplicações \emph{web}
+atuais. A maneira como os módulos se comunicam pode ser vista na Figura
+\ref{fig:arch}. Os módulos implementados neste trabalho estão com bordas
+espessas.
 
 \begin{figure}[!htbp]
 \centering
@@ -216,7 +220,16 @@ como ilustrado no Código \ref{cmdline}.
     \caption{Utilização por linha de comandos}
 \end{figure}
 Alternativamente, pode-se utilizar um navegador e ter acesso à interface
-gráfica descrita anteriormente e vista na Figura \ref{fig:ed}, permitindo edição de parâmetros para fones individuais.
+gráfica descrita anteriormente e vista na Figura \ref{fig:ed}, permitindo
+edição de parâmetros para fones individuais.
+
+\begin{figure}[!htbp]
+  \centering
+    \includegraphics[width=1.0\textwidth]{Imagens/editor.png}
+  \caption{Editor gráfico desenvolvido}
+  \label{fig:ed}
+\end{figure}
+
 
 % A interface gráfica é uma aplicação \emph{web}
 % Também foi desenvolvido um editor gráfico para permitir refinamento do contorno melódico
