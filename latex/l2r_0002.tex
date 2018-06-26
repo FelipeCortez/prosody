@@ -1,0 +1,140 @@
+\documentclass[a4paper, 12pt]{abnt}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{dsfont}
+\usepackage{amssymb,amsmath}
+\usepackage{multirow}
+\usepackage[alf]{abntcite}
+\usepackage[pdftex]{color, graphicx}
+\usepackage{colortbl}
+\usepackage{url}
+\usepackage{abnt-alf}
+\usepackage{abntcite}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usetikzlibrary{positioning, fit, arrows.meta, backgrounds}
+\usepackage{listings}     
+\usepackage{lstautogobble}  \usepackage{color}          \usepackage{zi4}            
+\definecolor{bluekeywords}{rgb}{0.13, 0.13, 1}
+\definecolor{greencomments}{rgb}{0, 0.5, 0}
+\definecolor{redstrings}{rgb}{0.9, 0, 0}
+\definecolor{graynumbers}{rgb}{0.5, 0.5, 0.5}
+
+\usepackage{listings}
+\lstset{
+    autogobble,
+    columns=fullflexible,
+    showspaces=false,
+    showtabs=false,
+    breaklines=true,
+    showstringspaces=false,
+    breakatwhitespace=true,
+    escapeinside={(*@}{@*)},
+    commentstyle=\color{greencomments},
+    keywordstyle=\color{bluekeywords},
+    stringstyle=\color{redstrings},
+    numberstyle=\color{graynumbers},
+    basicstyle=\ttfamily\footnotesize,
+    frame=l,
+    framesep=12pt,
+    xleftmargin=12pt,
+    tabsize=4,
+    captionpos=b
+}
+
+\renewcommand{\arraystretch}{1.5}
+
+\newcommand{\tccTitle}{Geração de prosódia para o português brasileiro em sistemas \emph{text-to-speech}}
+\newcommand{\tccTitleEn}{Prosody generation for Brazilian Portuguese in text-to-speech systems}
+\floatname{algorithm}{Algoritmo}
+\renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
+\renewcommand{\algorithmicensure}{\textbf{Saída:}}
+\renewcommand{\algorithmicend}{\textbf{fim}}
+\renewcommand{\algorithmicif}{\textbf{se}}
+\renewcommand{\algorithmicthen}{\textbf{então}}
+\renewcommand{\algorithmicelse}{\textbf{senão}}
+\renewcommand{\algorithmicfor}{\textbf{para}}
+\renewcommand{\algorithmicforall}{\textbf{para todo}}
+\renewcommand{\algorithmicdo}{\textbf{faça}}
+\renewcommand{\algorithmicwhile}{\textbf{enquanto}}
+\renewcommand{\algorithmicloop}{\textbf{loop}}
+\renewcommand{\algorithmicrepeat}{\textbf{repetir}}
+\renewcommand{\algorithmicuntil}{\textbf{até que}}
+\renewcommand{\algorithmiccomment}[1]{\
+\newcommand{\code}[1]{{\lstinline{#1}}}
+\renewcommand{\lstlistingname}{Código}\renewcommand{\lstlistlistingname}{Lista de códigos}
+
+\newcommand{\simb}[2][]
+{ \ifthenelse{\equal{#1}{}}
+ {\addcontentsline{los}{simbolo}{#2}}
+ {\addcontentsline{los}{simbolo}{#1}}#2
+}
+\makeatletter 
+\newcommand{\listadesimbolos}
+{
+ \pretextualchapter{Lista de símbolos}
+ {\setlength{\parindent}{0cm}
+ \@starttoc{los}}
+}
+\newcommand\l@simbolo[2]{\par #1}
+\makeatother
+
+
+\newcommand{\abrv}[2][]
+{ \ifthenelse{\equal{#1}{}}
+ {\addcontentsline{loab}{abreviatura}{#2}}
+ {\addcontentsline{loab}{abreviatura}{#1}}#2
+}
+\makeatletter 
+\newcommand{\listadeabreviaturas}
+{
+ \pretextualchapter{Lista de abreviaturas e siglas}
+ {\setlength{\parindent}{0cm}
+ \@starttoc{loab}}
+}
+\newcommand\l@abreviatura[2]{\par #1}
+\makeatother
+
+
+\renewcommand{\listalgorithmname}{Lista de algoritmos}
+
+
+\hyphenation{PYTHON ou-tros}
+
+
+\thispagestyle{empty}
+\begin{document}
+\setcounter{equation}{0}
+\begin{tikzpicture}
+[auto, >={Latex[inset=0pt, length=3mm, angle'=28,round]}, box/.style={draw,rounded corners,text width=3.0cm,align=center}]
+    \node[] (txt) {Texto};
+    \node[box, right=of txt] (esp)
+        {eSpeakNG};
+    \node[box, right=of esp] (con)
+        {eSpeakNG para MBROLA};
+    \node[box, right=of con] (sin)
+        {INTSINT};
+
+    \node[box, below=of sin] (ser)
+        {Servidor};
+
+    \node[box, left=of ser] (mbr)
+        {MBROLA};
+        
+    \node[box, below=of ser] (int)
+        {Interface gráfica};
+
+    \draw[->] (txt) -- (esp);
+    \draw[->] (esp) -- (con);
+    \draw[->] (con) -- (sin);
+
+    \draw[->] (sin) -- (ser);
+    \draw[->] (mbr) -- (ser);
+
+    \draw[<->] (ser) -- (int);
+\end{tikzpicture}
+\end{document}

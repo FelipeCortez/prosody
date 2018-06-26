@@ -81,9 +81,8 @@ brasileiro. A seguir, descrevemos como a ferramenta é utilizada. % \cite{mbrola
 
 \begin{figure}[thp] % the figure provides the caption
     \centering          % which should be centered
-    \caption{Exemplo de arquivo de entrada para MBROLA}
     \begin{tabular}{c}  % the tabular makes the listing as small as possible and centers it
-        \begin{lstlisting}[label=mbr]
+        \begin{lstlisting}
             _ 150 50 150
             t  70 50 125
             e 125 50 75
@@ -94,10 +93,11 @@ brasileiro. A seguir, descrevemos como a ferramenta é utilizada. % \cite{mbrola
             _ 150 50 150
         \end{lstlisting}
     \end{tabular}
+    \caption{Exemplo de arquivo de entrada para MBROLA \label{mbr}}
 \end{figure}
 
 \subsubsection{Formato}
-Como pode ser observado no Código \ref{mbr}, em cada linha tem-se um fone ou um
+Como pode ser observado na Figura \ref{mbr}, em cada linha tem-se um fone ou um
 silêncio (representado pelo \emph{underscore}) seguido por uma duração em
 milissegundos e, por último, um ou mais pares de porcentagem e frequência em
 Hertz determinando alvos para a curva $ f_0 $. Como exemplo, na penúltima linha temos
@@ -136,7 +136,7 @@ prosódia, com rótulos de 0 a 6, onde 0 indica que duas palavras são
 pronunciadas juntas, e 6 representa uma separação máxima.
 
 Alguns sistemas TTS, como MaryTTS e Festival, têm suporte a notação ToBI, como se
-pode ver no Código \ref{tobifest}.
+pode ver na Figura \ref{tobifest}.
 
 O modelo ToBI é utilizado por \citeonline{moraes2008} para analisar uma mesma
 frase com múltiplas intenções, mudando apenas o contorno melódico. Um exemplo de
@@ -305,9 +305,9 @@ determinarem prosódia.
 Como menciona \citeonline{taylor2009}, não há um acordo quanto ao sistema mais
 apropriado para representar emoções. A linguagem de marcação tem suporte a
 múltiplos sistemas descritivos, como categorias, dimensões, \emph{appraisals} e \emph{action tendencies}. As categorias podem receber valores discretos (como pode ser
-visto no Código \ref{lst:discreto}), determinando se uma emoção está presente, ou
+visto na Figura \ref{lst:discreto}), determinando se uma emoção está presente, ou
 valores contínuos, determinando a intensidade de uma emoção específica (como
-pode ser visto no Código \ref{lst:ssmlemotion}), permitindo múltiplas categorias
+pode ser visto na Figura \ref{lst:ssmlemotion}), permitindo múltiplas categorias
 simultaneamente.
 
 Na literatura, \citeonline{emotionmary} descrevem um algoritmo para implementação de
@@ -323,7 +323,7 @@ cálculo de parâmetros prosódicos a partir de anotações em EmotionML utiliza
 \begin{figure}[thp]
     \centering
     \begin{tabular}{c}
-        \begin{lstlisting}[label=lst:ssmlemotion]
+        \begin{lstlisting}[]
         <speak version="1.1" xmlns="http://www.w3.org/2001/10/synthesis"
                 xmlns:emo="http://www.w3.org/2009/10/emotionml"
                 xml:lang="en-US">
@@ -336,7 +336,7 @@ cálculo de parâmetros prosódicos a partir de anotações em EmotionML utiliza
         </speak>
         \end{lstlisting}
     \end{tabular}
-    \caption{Exemplo de texto anotado com SSML e EmotionML (adaptado de \citeonline{emotionml})}
+    \caption{Exemplo de texto anotado com SSML e EmotionML (adaptado de \citeonline{emotionml}) \label{lst:ssmlemotion}}
 \end{figure}
 
 % Expressive speech synthesis, generating synthetic speech with different emotions, such as happy or sad, friendly or apologetic; expressive synthetic speech would for example make more information available to blind and partially sighted people, and enrich their experience of the content;
@@ -349,12 +349,12 @@ anteriormente na seção \ref{entoa}. Apesar de requerer conhecimento de
 fonologia, é uma opção viável enquanto não são desenvolvidos algoritmos para
 determinação de prosódia a partir de marcação emocional. O sistema Festival
 \cite{festival} disponibiliza uma maneira de especificar entoação seguindo o
-modelo ToBI, como pode ser visto no Código \ref{tobifest}.
+modelo ToBI, como pode ser visto na Figura \ref{tobifest}.
 
-\begin{figure}[thp] % the figure provides the caption
-    \centering          % which should be centered
-    \begin{tabular}{c}  % the tabular makes the listing as small as possible and centers it
-        \begin{lstlisting}[, label=tobifest]
+\begin{figure}[thp]
+    \centering
+    \begin{tabular}{c}
+        \begin{lstlisting}
         (Utterance Words
         (The
         (boy ((accent L*)))
@@ -366,5 +366,5 @@ modelo ToBI, como pode ser visto no Código \ref{tobifest}.
         (telescope ((accent H*) (tone H-H%))))))
         \end{lstlisting}
     \end{tabular}
-    \caption{Anotações no modelo ToBI para o sistema TTS Festival}
+    \caption{Anotações no modelo ToBI para o sistema TTS Festival \label{tobifest}}
 \end{figure}

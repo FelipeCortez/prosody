@@ -23,7 +23,7 @@ conversão grafema-fone, ou seja, obter a partir do texto de entrada uma
 representação em fones. A saída gerada pelo programa é subsequentemente passada
 para o programa desenvolvido neste trabalho através da biblioteca
 \code{subprocess} da linguagem Python. O comando utilizado para obter os
-fones pode ser visto no Código \ref{lst:espeak}.
+fones pode ser visto na Figura \ref{lst:espeak}.
 
 \begin{itemize}
 \item A \emph{flag} \code{-v} seleciona uma voz. Neste caso, \code{pt-br}.
@@ -36,12 +36,12 @@ da palavra.
 \begin{figure}[thp]
     \centering
     \begin{tabular}{c}
-        \begin{lstlisting}[label=lst:espeak]
+        \begin{lstlisting}
         $ espeak-ng -v pt-br 'Bom dia' -x -q --sep=/
         $ b/'o/N dZ/'i/&
         \end{lstlisting}
     \end{tabular}
-    \caption{Utilização do programa espeak e saída correspondente}
+    \caption{Utilização do programa espeak e saída correspondente \label{lst:espeak}}
 \end{figure}
 
 Apesar da existência de outras ferramentas para \emph{front end} para o
@@ -60,14 +60,14 @@ pelo espeak é \code{/a/} na voz do MBROLA, por exemplo.
 A ferramenta de conversão lê a tabela do arquivo \code{sampa_mbrola.tbl} e
 substitui cada fone em notação XSAMPA pelo equivalente. A tabela possui três
 colunas: o fone que o espeak produz, o fone equivalente para o MBROLA e um
-exemplo numa palavra do português. No Código \ref{sampambrola} é possível ver
+exemplo numa palavra do português. Na Figura \ref{sampambrola} é possível ver
 algumas linhas do arquivo. Utilizamos neste trabalho a voz \code{br3}
 desenvolvida por Denis R. Costa disponível no site oficial do projeto MBROLA.
 
 \begin{figure}[thp]
     \centering
     \begin{tabular}{c}
-        \begin{lstlisting}[label=sampambrola]
+        \begin{lstlisting}
         b  |  b  | _b_arco
         k  |  k  | _c_om
         d  |  d  | _d_ose
@@ -77,7 +77,7 @@ desenvolvida por Denis R. Costa disponível no site oficial do projeto MBROLA.
         \end{lstlisting}
 
     \end{tabular}
-    \caption{Extrato de linhas da tabela de conversão}
+    \caption{Extrato de linhas da tabela de conversão \label{sampambrola}}
 \end{figure}
 
 Além da conversão XSAMPA-MBROLA, são determinadas as durações padrão para cada
@@ -90,7 +90,7 @@ Como visto na seção \ref{intsintsec}, o INTSINT serve não apenas para anális
 mas também para síntese de contornos $ f_0 $. Escolhemos utilizá-lo na implementação
 pela simplicidade da notação e flexibilidade.
 
-Em \code{intsint.py} (Código \ref{intsintpy}) é feita a determinação de valores $ f_0 $ a partir do texto de
+Em \code{intsint.py} (Figura \ref{intsintpy}) é feita a determinação de valores $ f_0 $ a partir do texto de
 entrada anotado e das regras descritas na Tabela \ref{tab:intsint}. O
 algoritmo \ref{alg:intsint} ilustra o funcionamento do processo de conversão.
 
@@ -124,8 +124,7 @@ algoritmo \ref{alg:intsint} ilustra o funcionamento do processo de conversão.
   \ENDIF
 \ENDFOR
 \end{algorithmic}
-\caption{Pseudocódigo para geração de frequências utilizando modelo INTSINT}
-\label{alg:intsint}
+\caption{Pseudocódigo para geração de frequências utilizando modelo INTSINT \label{alg:intsint}}
 \end{algorithm}
 
 % \subsection{Módulo de prosódia}
@@ -189,8 +188,7 @@ espessas.
 
     \end{tikzpicture}
 }
-\caption{Arquitetura para o programa da interface gráfica}
-\label{fig:arch}
+\caption{Arquitetura para o programa da interface gráfica \label{fig:arch}}
 \end{figure}
 
 \subsubsection{\emph{Endpoints}}
@@ -199,25 +197,25 @@ interface gráfica e servidor.
 
 \paragraph{[POST] /api/espeak} Recebe um texto como entrada e gera uma resposta
 no formato JSON com lista de fones. Cada fone, por sua vez, possui campos \code{duration},
-\code{phone_mbrola}, \code{phone_sampa} e \code{pitch_changes}. Um exemplo de resposta pode ser visto no Código \ref{espeakpost}.
+\code{phone_mbrola}, \code{phone_sampa} e \code{pitch_changes}. Um exemplo de resposta pode ser visto na Figura \ref{espeakpost}.
 \paragraph{[POST] /api/mbrola} Recebe uma lista de fones no formato MBROLA
 descrito na seção \ref{sec:mbrola}, passa a lista para o programa para criar o
 arquivo de áudio final e gera uma resposta com o nome do arquivo de áudio
 contendo a fala sintetizada.
 \subsection{Utilização}
 O programa pode ser executado através de uma interface de linha de comandos,
-como ilustrado no Código \ref{cmdline}.
+como ilustrado na Figura \ref{cmdline}.
 
 \begin{figure}[thp]
     \centering
     \begin{tabular}{c}
-        \begin{lstlisting}[label=cmdline, language=Python]
+        \begin{lstlisting}[language=Python]
         $ echo "Testando" | python3 sampa_mbrola.py > out.pho
         $ mbrola ../br3/br3 out.pho out.wav; afplay out.wav
         \end{lstlisting}
 
     \end{tabular}
-    \caption{Utilização por linha de comandos}
+    \caption{Utilização por linha de comandos \label{cmdline}}
 \end{figure}
 Alternativamente, pode-se utilizar um navegador e ter acesso à interface
 gráfica descrita anteriormente e vista na Figura \ref{fig:ed}, permitindo
@@ -226,8 +224,7 @@ edição de parâmetros para fones individuais.
 \begin{figure}[!htbp]
   \centering
     \includegraphics[width=1.0\textwidth]{Imagens/editor.png}
-  \caption{Editor gráfico desenvolvido}
-  \label{fig:ed}
+  \caption{Editor gráfico desenvolvido \label{fig:ed}}
 \end{figure}
 
 
